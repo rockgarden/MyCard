@@ -8,5 +8,11 @@
     <color name="black_overlay">#66000000</color>
     <color name="white_overlay">#10000000</color>
 
-    <color name="windows_background">#0099cc</color>
+    <color name="blue_light">#0099cc</color>
+
+    <color name="green_normal">#4CAF50</color>
+    <color name="green_dark">#2E7D32</color>
+    <color name="green_light">#81C784</color>
+
+
 </resources>

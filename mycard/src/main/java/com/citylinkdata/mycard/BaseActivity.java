@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
-import com.citylinkdata.mycard.activity.AddFundsToCardActivity;
+import com.citylinkdata.mycard.activity.testDrawerLayout;
 import com.litesuits.android.log.Log;
 
 /**
@@ -33,7 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         intent.putExtras(bundle);
-        intent.setClass(this, AddFundsToCardActivity.class);
+        intent.setClass(this, testDrawerLayout.class);
         startActivity(intent);
         Log.i(TAG, "jump");
         finish();

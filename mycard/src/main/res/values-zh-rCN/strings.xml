@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">通行卡</string>
     <string name="skip_button">跳 过</string>
+    <string name="action_settings">设置</string>
 </resources>

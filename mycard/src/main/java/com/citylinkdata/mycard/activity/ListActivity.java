@@ -1,6 +1,7 @@
 package com.citylinkdata.mycard.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,10 +19,19 @@ import butterknife.OnItemClick;
  * 注解式实现ListView展示数据
  */
 public class ListActivity extends Activity {
+
+    public static final String ARG_REVEAL_START_LOCATION = "reveal_start_location";
+
     @Bind(R.id.lv)
     ListView lv;
     private MyAdapter adapter;
     private ArrayList<String> list;
+
+    public static void startListFromLocation(int[] startingLocation, Activity startingActivity) {
+        Intent intent = new Intent(startingActivity, ListActivity.class);
+        intent.putExtra(ARG_REVEAL_START_LOCATION, startingLocation);
+        startingActivity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

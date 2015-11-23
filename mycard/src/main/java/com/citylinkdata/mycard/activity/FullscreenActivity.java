@@ -26,7 +26,7 @@ import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
  * Use for loading Advert or Guide.
  */
 public class FullscreenActivity extends BaseActivity {
-    private static final String TAG = AddFundsToCardActivity.class.getSimpleName();
+    private static final String TAG = testDrawerLayout.class.getSimpleName();
 
     private FragmentManager fragmentManager;
     @Bind(R.id.fullscreen_content)
