@@ -11,7 +11,10 @@
     <FrameLayout
         android:id="@+id/rootContentViewGroup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <!--<include layout="@layout/base_drawer_layout_content"/>-->
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -20,8 +23,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/base_drawer_layout_nav_header"
-        app:menu="@menu/menu_base_drawer_layout"
         app:itemIconTint="@color/green_normal"
-        app:itemTextColor="@color/green_normal" />
+        app:itemTextColor="@color/green_normal"
+        app:menu="@menu/menu_base_drawer_layout" />
 
 </android.support.v4.widget.DrawerLayout>

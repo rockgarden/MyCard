@@ -1,4 +1,4 @@
-package com.citylinkdata.mycard;
+package com.citylinkdata.mycard.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
-import com.citylinkdata.mycard.activity.testDrawerLayout;
 import com.litesuits.android.log.Log;
 
 /**
+ * 加载全局通用方法的基类
  * Created by rockgarden on 15/11/20.
  */
 public class BaseActivity extends AppCompatActivity {
@@ -33,7 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         intent.putExtras(bundle);
-        intent.setClass(this, testDrawerLayout.class);
+        intent.setClass(this, FundsToCardActivityLayout.class);
         startActivity(intent);
         Log.i(TAG, "jump");
         finish();

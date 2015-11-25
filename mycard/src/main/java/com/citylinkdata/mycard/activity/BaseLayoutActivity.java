@@ -4,13 +4,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.citylinkdata.mycard.BaseActivity;
 import com.citylinkdata.mycard.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * 加载通用布局的视图控制基类
  * Created by rockgarden on 15/11/23.
  */
 public class BaseLayoutActivity extends BaseActivity {
@@ -20,6 +20,10 @@ public class BaseLayoutActivity extends BaseActivity {
 
     private MenuItem settingMenuItem;
 
+    /**
+     * 调用ButterKnife注入View
+     * @param layoutResID
+     */
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
@@ -31,16 +35,21 @@ public class BaseLayoutActivity extends BaseActivity {
         setupToolbar();
     }
 
-    public void setContentViewWithoutInject(int layoutResId) {
-        super.setContentView(layoutResId);
-    }
-
     protected void setupToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.mipmap.ic_launcher);
         }
     }
+
+    /**
+     * 不调用ButterKnife不注入View
+     * @param layoutResId
+     */
+    public void setContentViewNoBind(int layoutResId) {
+        super.setContentView(layoutResId);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

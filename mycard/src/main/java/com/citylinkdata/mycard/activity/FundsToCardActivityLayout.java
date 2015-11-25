@@ -1,9 +1,10 @@
 package com.citylinkdata.mycard.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.view.Menu;
@@ -13,33 +14,36 @@ import android.view.View;
 import com.citylinkdata.mycard.R;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
-public class testDrawerLayout extends BaseDrawerActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String TAG = testDrawerLayout.class.getSimpleName();
-
-    @Bind(R.id.nav_view)
-    NavigationView navigationView;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
+public class FundsToCardActivityLayout extends BaseLayoutDrawerActivity {
+    @Bind(R.id.toolbar_layout)
+    CollapsingToolbarLayout toolbar_layout;
+    @Bind(R.id.recordTabs)
+    TabLayout recordTabs;
+    @Bind(R.id.recordFab)
+    FloatingActionButton recordFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.base_drawer_layout_app_bar);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        setToggle();
-        //navHeaderClick(getWindow().getDecorView());
-        navigationView.setNavigationItemSelectedListener(this);
+        setContentView(R.layout.activity_funds_to_card);
+        toolbar_layout.setTitle(getString(R.string.title_activity_funds_to_card));
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 可改变toolbar的homeIcon
+        initTabs();
     }
 
+    private void initTabs() {
+        recordTabs.addTab(recordTabs.newTab().setText("One"));
+        recordTabs.addTab(recordTabs.newTab().setText("Two"));
+        recordTabs.addTab(recordTabs.newTab().setText("Three"));
+    }
+
+    @OnClick(R.id.recordFab)
+    public void clickRecordFab(View view) {
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 
     @Override
     public void onBackPressed() {
@@ -72,27 +76,4 @@ public class testDrawerLayout extends BaseDrawerActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
 }

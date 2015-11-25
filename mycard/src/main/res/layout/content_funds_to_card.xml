@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.FundsToCardActivityLayout"
+    tools:showIn="@layout/activity_funds_to_card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/recordTabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/colorAccent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#5be5ad"
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="fixed"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/app_name" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,10 +1,13 @@
 package com.citylinkdata.mycard.activity;
 
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,24 +18,32 @@ import butterknife.Bind;
 /**
  * Created by rockgarden on 15/11/24.
  */
-public class BaseDrawerActivity extends BaseLayoutActivity {
+public class BaseLayoutDrawerActivity extends BaseLayoutActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
 
     @Override
     public void setContentView(int layoutResID) {
-        super.setContentViewWithoutInject(R.layout.activity_base_drawer_layout);
+        super.setContentViewNoBind(R.layout.activity_base_drawer_layout);
         ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootContentViewGroup);
         LayoutInflater.from(this).inflate(layoutResID, viewGroup, true);
         BindViews();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void setToggle() {
+    /**
+     * 实现ActionBar.home按钮与DrawerLayout联动
+     * !!建议仅当drawer_layout不遮盖toolbar时使用
+     */
+    private void setToggle() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState(); //NavigationIcon默认图标增加动画效果
     }
 
     @Override
@@ -42,7 +53,7 @@ public class BaseDrawerActivity extends BaseLayoutActivity {
             getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    drawer.openDrawer(Gravity.LEFT);
+                    //drawer.openDrawer(Gravity.LEFT); //打开DrawerLayout
                 }
             });
         }
@@ -50,7 +61,7 @@ public class BaseDrawerActivity extends BaseLayoutActivity {
 
     //@OnClick(R.id.drawerLayoutNavHeader) //NavigationView can't use butterknife,this is bug for Design 23
     public void navHeaderClick(final View v) {
-        ViewGroup navHeader =(ViewGroup) findViewById(R.id.drawerLayoutNavHeader);
+        ViewGroup navHeader = (ViewGroup) findViewById(R.id.drawerLayoutNavHeader);
         navHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,12 +72,33 @@ public class BaseDrawerActivity extends BaseLayoutActivity {
                         int[] startingLocation = new int[2];
                         v.getLocationOnScreen(startingLocation);
                         startingLocation[0] += v.getWidth() / 2;
-                        ListActivity.startListFromLocation(startingLocation, BaseDrawerActivity.this);
+                        ListActivity.startListFromLocation(startingLocation, BaseLayoutDrawerActivity.this);
                         overridePendingTransition(0, 0);
                     }
                 }, 200);
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }

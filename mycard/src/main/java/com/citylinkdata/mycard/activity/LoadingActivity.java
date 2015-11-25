@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.citylinkdata.mycard.BaseActivity;
 import com.citylinkdata.mycard.MyCardApplication;
 import com.citylinkdata.mycard.R;
 import com.citylinkdata.mycard.fragment.AdvertFragment;
@@ -25,8 +24,8 @@ import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
  * An full-screen activity
  * Use for loading Advert or Guide.
  */
-public class FullscreenActivity extends BaseActivity {
-    private static final String TAG = testDrawerLayout.class.getSimpleName();
+public class LoadingActivity extends BaseActivity {
+    private static final String TAG = LoadingActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
     @Bind(R.id.fullscreen_content)
