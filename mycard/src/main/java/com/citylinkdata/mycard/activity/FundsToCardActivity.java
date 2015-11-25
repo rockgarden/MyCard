@@ -7,22 +7,26 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.citylinkdata.mycard.R;
+import com.citylinkdata.mycard.adapter.PagerAdapter_Fragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class FundsToCardActivityLayout extends BaseLayoutDrawerActivity {
+public class FundsToCardActivity extends BaseLayoutDrawerActivity {
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbar_layout;
     @Bind(R.id.recordTabs)
     TabLayout recordTabs;
     @Bind(R.id.recordFab)
     FloatingActionButton recordFab;
+    @Bind(R.id.recordViewPager)
+    ViewPager recordViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,10 @@ public class FundsToCardActivityLayout extends BaseLayoutDrawerActivity {
         setContentView(R.layout.activity_funds_to_card);
         toolbar_layout.setTitle(getString(R.string.title_activity_funds_to_card));
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 可改变toolbar的homeIcon
-        initTabs();
+        recordViewPager.setAdapter(new PagerAdapter_Fragment(getSupportFragmentManager(),
+                FundsToCardActivity.this));
+//        initTabs();
+        recordTabs.setupWithViewPager(recordViewPager);
     }
 
     private void initTabs() {

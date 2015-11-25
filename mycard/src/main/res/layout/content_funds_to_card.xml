@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.FundsToCardActivityLayout"
+    tools:context=".activity.FundsToCardActivity"
     tools:showIn="@layout/activity_funds_to_card">
 
     <LinearLayout
@@ -24,11 +24,12 @@
             app:tabMode="fixed"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <TextView
+        <android.support.v4.view.ViewPager
+            android:id="@+id/recordViewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/app_name" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white" />
 
     </LinearLayout>
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.FundsToCardActivityLayout">
+    tools:context=".activity.FundsToCardActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/tvCardName"
-                    android:layout_width="120dp"
+                    android:layout_width="90dp"
                     android:layout_height="24dp"
                     android:background="@color/Transparent"
                     android:gravity="right"
@@ -56,14 +56,20 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="24dp"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/Transparent"
                     android:gravity="right"
                     android:text="5000.0"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+                <View
+                    android:layout_width="90dp"
+                    android:layout_height="1dp"
+                    android:background="@color/Transparent"
+                    android:gravity="right"
+                    android:elevation="3dp" />
 
             </LinearLayout>
 
@@ -74,7 +80,7 @@
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
 
             </android.support.v7.widget.Toolbar>
 

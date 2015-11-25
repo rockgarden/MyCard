@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.citylinkdata.mycard.R;
-import com.citylinkdata.mycard.adapter.ViewPagerAdapter;
+import com.citylinkdata.mycard.adapter.PagerAdapter_View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class GuideFragment extends Fragment implements ViewPager.OnPageChangeLis
 
     private View rootView;
     private ViewPager vp;
-    private ViewPagerAdapter vpAdapter;
+    private PagerAdapter_View vpAdapter;
 
     private List<View> viewList;
     
@@ -59,7 +59,7 @@ public class GuideFragment extends Fragment implements ViewPager.OnPageChangeLis
         viewList.add(guideIV2);
         viewList.add(guideIV3);
 
-        vpAdapter = new ViewPagerAdapter(viewList, getActivity());
+        vpAdapter = new PagerAdapter_View(viewList, getActivity());
         vp = (ViewPager) rootView.findViewById(R.id.vpGuide);
         vp.setAdapter(vpAdapter);
         vp.addOnPageChangeListener(this);

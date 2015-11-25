@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FundsToCardActivityLayout"
+            android:name=".activity.FundsToCardActivity"
             android:parentActivityName=".activity.LoadingActivity"
             android:theme="@style/AppTheme">
             <meta-data
