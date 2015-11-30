@@ -3,6 +3,8 @@ package com.citylinkdata.mycard.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.view.ViewParentCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Toast;
 
 import com.citylinkdata.mycard.R;
@@ -25,13 +28,14 @@ import butterknife.ButterKnife;
 /**
  * A fragment representing a list of Records.
  */
-public class RecordsFragment extends Fragment {
+public class RecordsFragment extends Fragment implements NestedScrollingChild {
     private static final String TAG = RecordsFragment.class.getSimpleName();
     @Bind(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
     @Bind(R.id.rv_records)
     RecyclerView recyclerView;
 
+    NestedScrollingChild mChildHelper;
     RecordAdapter adapter;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -124,6 +128,77 @@ public class RecordsFragment extends Fragment {
         final List<Record> mRecords = Record.createRecordList(10);
         adapter.addAll(mRecords);
         swipeContainer.setRefreshing(false);
+    }
+
+    @Override
+    public void setNestedScrollingEnabled(boolean enabled) {
+        mChildHelper.setNestedScrollingEnabled(enabled);
+    }
+
+    @Override
+    public boolean isNestedScrollingEnabled() {
+        return mChildHelper.isNestedScrollingEnabled();
+    }
+
+    @Override
+    public boolean startNestedScroll(int axes) {
+        if (hasNestedScrollingParent()) {
+            // Already in progress
+            return true;
+        }
+        if (isNestedScrollingEnabled()) {
+            ViewParent p = recyclerView.getParent();
+            View child = recyclerView;
+            while (p != null) {
+                if (ViewParentCompat.onStartNestedScroll(p, child, recyclerView, axes)) {
+//                    ViewParent mNestedScrollingParent = p;
+                    ViewParentCompat.onNestedScrollAccepted(p, child, recyclerView, axes);
+                    return true;
+                }
+                if (p instanceof View) {
+                    child = (View) p;
+                }
+                p = p.getParent();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Stop a nested scroll in progress.
+     * <p/>
+     * <p>Calling this method when a nested scroll is not currently in progress is harmless.</p>
+     *
+     * @see #startNestedScroll(int)
+     */
+    @Override
+    public void stopNestedScroll() {
+        mChildHelper.stopNestedScroll();
+    }
+
+    @Override
+    public boolean hasNestedScrollingParent() {
+        return mChildHelper.hasNestedScrollingParent();
+    }
+
+    @Override
+    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int[] offsetInWindow) {
+        return mChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow);
+    }
+
+    @Override
+    public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow) {
+        return mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow);
+    }
+
+    @Override
+    public boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed) {
+        return mChildHelper.dispatchNestedFling(velocityX, velocityY, consumed);
+    }
+
+    @Override
+    public boolean dispatchNestedPreFling(float velocityX, float velocityY) {
+        return mChildHelper.dispatchNestedPreFling(velocityX, velocityY);
     }
 
 
