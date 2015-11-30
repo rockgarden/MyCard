@@ -48,7 +48,7 @@ public class MyAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = View.inflate(mContext, R.layout.item, null);
+			convertView = View.inflate(mContext, R.layout.item_record, null);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
 		} else {
@@ -68,13 +68,13 @@ public class MyAdapter extends BaseAdapter {
 	}
 
 	static class ViewHolder {
-		@Bind(R.id.tv_text)
+		@Bind(R.id.tv_record_time)
 		TextView tv_text;
-		@Bind(R.id.btn)
+		@Bind(R.id.btn_record_result)
 		Button btn;
 		private Context mContext;
 
-		@OnClick(R.id.btn)
+		@OnClick(R.id.btn_record_result)
 		public void onClick(View arg0) {
 			Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
 		}

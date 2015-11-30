@@ -33,7 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         intent.putExtras(bundle);
-        intent.setClass(this, FundsToCardActivity.class);
+        intent.setClass(this, PayToCardActivity.class);
         startActivity(intent);
         Log.i(TAG, "jump");
         finish();

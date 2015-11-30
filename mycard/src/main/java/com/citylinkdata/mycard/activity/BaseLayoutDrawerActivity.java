@@ -82,7 +82,7 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Handle navigation view item_record clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_camera) {
             // Handle the camera action

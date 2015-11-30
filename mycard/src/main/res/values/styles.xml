@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!-- requires API 21. -->
-        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <!--<item_record name="android:statusBarColor">@android:color/transparent</item_record>-->
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
@@ -27,8 +27,8 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <!--<item name="android:colorBackground">@drawable/side_nav_bar</item>-->
-        <!--<item name="android:colorForeground">@drawable/side_nav_bar</item>-->
+        <!--<item_record name="android:colorBackground">@drawable/side_nav_bar</item_record>-->
+        <!--<item_record name="android:colorForeground">@drawable/side_nav_bar</item_record>-->
     </style>
 
     <style name="TransparentText">

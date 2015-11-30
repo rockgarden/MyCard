@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.citylinkdata.mycard.fragment.PayFragment;
 import com.citylinkdata.mycard.fragment.RecordsFragment;
 
 /**
@@ -13,8 +14,8 @@ import com.citylinkdata.mycard.fragment.RecordsFragment;
 public class PagerAdapter_Fragment extends FragmentStatePagerAdapter {
 
     CharSequence Titles[];
-    private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" };
-    int PAGE_COUNT = 3;
+    private String tabTitles[] = new String[] { "Tab1", "Tab2" };
+    int PAGE_COUNT = 2;
     private Context context;
 
     public PagerAdapter_Fragment(FragmentManager fm, CharSequence mTitles[],
@@ -31,23 +32,20 @@ public class PagerAdapter_Fragment extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-//        switch (position) {
-//            case 0:
-//                return new AdvertFragment();
-//            case 1:
-//                return new GuideFragment();
-//        }
-//        return null;
-        return RecordsFragment.newInstance(position + 1);
+        switch (position) {
+            case 0:
+                return PayFragment.newInstance(position + 1);
+            case 1:
+                return RecordsFragment.newInstance(position+1);
+        }
+        return null;
     }
 
-    // This method return the titles for the Tabs in the Tab Strip
     @Override
     public CharSequence getPageTitle(int position) {
         return tabTitles[position];
     }
 
-    // This method return the Number of tabs for the tabs Strip
     @Override
     public int getCount() {
         return PAGE_COUNT;

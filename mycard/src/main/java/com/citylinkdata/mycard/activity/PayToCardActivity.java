@@ -18,24 +18,24 @@ import com.citylinkdata.mycard.adapter.PagerAdapter_Fragment;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class FundsToCardActivity extends BaseLayoutDrawerActivity {
+public class PayToCardActivity extends BaseLayoutDrawerActivity {
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbar_layout;
-    @Bind(R.id.recordTabs)
+    @Bind(R.id.record_tablayout)
     TabLayout recordTabs;
     @Bind(R.id.recordFab)
     FloatingActionButton recordFab;
-    @Bind(R.id.recordViewPager)
+    @Bind(R.id.record_viewpager)
     ViewPager recordViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_funds_to_card);
+        setContentView(R.layout.activity_pay_to_card);
         toolbar_layout.setTitle(getString(R.string.title_activity_funds_to_card));
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 可改变toolbar的homeIcon
         recordViewPager.setAdapter(new PagerAdapter_Fragment(getSupportFragmentManager(),
-                FundsToCardActivity.this));
+                PayToCardActivity.this));
 //        initTabs();
         recordTabs.setupWithViewPager(recordViewPager);
     }
