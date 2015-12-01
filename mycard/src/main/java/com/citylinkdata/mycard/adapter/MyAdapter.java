@@ -48,7 +48,7 @@ public class MyAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = View.inflate(mContext, R.layout.item_record, null);
+			convertView = View.inflate(mContext, R.layout.cardview_record, null);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
 		} else {

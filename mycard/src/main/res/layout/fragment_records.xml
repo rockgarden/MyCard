@@ -4,27 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/card_margin"
     android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeContainer"
-        android:name="com.citylinkdata.mycard.fragment.RecordsFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:longClickable="false"
-        tools:context="com.citylinkdata.mycard.fragment.RecordsFragment">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/rv_records"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="300dp"
-            app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/item_record" />
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/sample_cardview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/card_margin">-->
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <!--<LinearLayout-->
+                <!--style="@style/Widget.CardContent.Header"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Sample CardView"-->
+                    <!--android:textAppearance="@style/TextAppearance.AppCompat.Title" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/long_text" />-->
+
+            <!--</LinearLayout>-->
+
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<android.support.v4.widget.SwipeRefreshLayout-->
+            <!--android:id="@+id/swipeContainer"-->
+            <!--android:name="com.citylinkdata.mycard.fragment.RecordsFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@+id/sample_cardview"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:longClickable="false"-->
+            <!--tools:context="com.citylinkdata.mycard.fragment.RecordsFragment">-->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_records"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/cardview_record"
+                android:clipToPadding="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+    </RelativeLayout>
+
 </android.support.v4.widget.NestedScrollView>

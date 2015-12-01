@@ -21,10 +21,18 @@ import java.util.List;
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
     private static List<Record> mRecords;
     private Context context;
+    private boolean withHeader;
 
     public RecordAdapter(List<Record> records, Context context) {
         this.context = context;
         mRecords = records;
+        withHeader = false;
+    }
+
+    public RecordAdapter(List<Record> records, Context context, boolean withHeader) {
+        this.context = context;
+        mRecords = records;
+        withHeader = withHeader;
     }
 
     private static OnItemClickListener onItemClickListener;
@@ -54,6 +62,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
         public ViewHolder(final View itemView) {
             super(itemView);
+
             recordTextView = (TextView) itemView.findViewById(R.id.tv_record_time);
             messageButton = (Button) itemView.findViewById(R.id.btn_record_result);
             if (onItemClickListener != null) {
@@ -97,7 +106,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public RecordAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.item_record, parent, false);
+        View contactView = inflater.inflate(R.layout.cardview_record, parent, false);
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
@@ -121,6 +130,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return mRecords.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     public void addData(int position) {

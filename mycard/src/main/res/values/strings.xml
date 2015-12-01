@@ -14,4 +14,6 @@
     <string name="FABScrollBehavior">com.citylinkdata.mycard.behavior.ScrollAwareFABBehavior</string>
 
     <string name="FixedScrolling">com.citylinkdata.mycard.behavior.ScrollingViewPagerBehavior</string>
+
+    <string name="long_text">test NestedScrollView test NestedScrollView test NestedScrollView test NestedScrollView test NestedScrollView test NestedScrollView.</string>
 </resources>
