@@ -105,13 +105,17 @@ public class AndroidUtil {
         return sb.toString();
     }
 
+    /**
+     * 单位转换dp to px
+     * @param dp
+     * @return
+     */
     public static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     /**
      * 获取屏幕高度
-     *
      * @param c
      * @return
      */
