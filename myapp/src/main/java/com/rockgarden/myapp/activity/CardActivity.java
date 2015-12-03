@@ -13,11 +13,13 @@ import android.view.View;
 
 import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.adpater.RecyclerViewAdapter;
+import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Card;
 
 import butterknife.Bind;
 
 public class CardActivity extends BaseLayoutDrawerActivity {
+    public static final String TAG = CardActivity.class.getName();
+    public static final String ACTION=".activity.CardActivity";
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbar_layout;
 
@@ -25,7 +27,7 @@ public class CardActivity extends BaseLayoutDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
-        toolbar_layout.setTitle(getString(R.string.title_activity_funds_to_card));
+        toolbar_layout.setTitle(getString(R.string.title_activity_pay_to_card));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,11 +41,11 @@ public class CardActivity extends BaseLayoutDrawerActivity {
 
     private void initCardRecyclerView() {
         // RVAdapter adapter = new RVAdapter();
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(true); // true: with header
+        RecyclerViewAdapter_Card recyclerViewAdapterCard = new RecyclerViewAdapter_Card(true); // true: with header
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setAdapter(recyclerViewAdapterCard);
         recyclerView.setNestedScrollingEnabled(false); // Disables scrolling for RecyclerView, CustomLinearLayoutManager used instead of MyLinearLayoutManager
         // recyclerView.setHasFixedSize(false);
 
@@ -58,7 +60,7 @@ public class CardActivity extends BaseLayoutDrawerActivity {
                 Log.i("getItemCount", String.valueOf(totalItemCount));
                 Log.i("lastVisibleItemPos", String.valueOf(lastVisibleItemPos));
                 if ((visibleItemCount + lastVisibleItemPos) >= totalItemCount) {
-                    Log.i("LOG", "Last Item Reached!");
+                    Log.i(TAG, "Last Item Reached!");
                 }
             }
         });

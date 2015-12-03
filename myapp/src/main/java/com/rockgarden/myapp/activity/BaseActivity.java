@@ -35,20 +35,24 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         intent.putExtras(bundle);
-        intent.setClass(this, PayToCardActivity.class);
+        intent.setClass(this, MainActivity.class);
         startActivity(intent);
         Log.i(TAG, "jump to main");
         finish();
     }
 
-    public void jumpToCard() {
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        intent.putExtras(bundle);
-        intent.setClass(this, CardActivity.class);
+    public void bringMainActivityToTop() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        Log.i(TAG, "jump to card");
         finish();
+    }
+
+    public void bringPhotoActivityToTop() {
+        Intent intent = new Intent(this, PhotoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setAction(PhotoActivity.ACTION_SHOW_LOADING_ITEM);
+        startActivity(intent);
     }
 
     private int getScreenHeight(Context context) {

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.observer.SmsObserver;
 
-public class LoginActivity extends BaseLayoutActivity {
+public class LoginActivity extends BaseActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     public static final int MSG_RECEIVED_CODE = 1; //message的标签

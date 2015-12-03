@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.adpater.RecordAdapter;
+import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
 import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
 import com.litesuits.android.log.Log;
@@ -36,7 +36,7 @@ public  class RecordsFragment extends Fragment {
 
     NestedScrollingChild mChildHelper;
 
-    RecordAdapter adapter;
+    RecyclerViewAdapter_Record adapter;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
 
@@ -68,7 +68,7 @@ public  class RecordsFragment extends Fragment {
 
     private void initRecyclerView() {
         List<Record> mRecords = Record.createRecordList(20);
-        adapter = new RecordAdapter(mRecords, this.getActivity());
+        adapter = new RecyclerViewAdapter_Record(mRecords, this.getActivity());
         if (recyclerView instanceof RecyclerView) {
             Context context = recyclerView.getContext();
             final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this.getActivity(),LinearLayoutManager.VERTICAL,false);
@@ -82,9 +82,9 @@ public  class RecordsFragment extends Fragment {
             recyclerView.setNestedScrollingEnabled(false);
             //recyclerView.setHasFixedSize(false);
             /*
-            recyclerView.setAdapter(new ItemRecyclerViewAdapter(BaseItem.ITEMS, mListener));
+            recyclerView.setAdapter(new Adapter(BaseItem.ITEMS, mListener));
             */
-            adapter.setOnItemClickListener(new RecordAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new RecyclerViewAdapter_Record.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     Toast.makeText(getActivity(), position + " was clicked!", Toast.LENGTH_SHORT).show();

@@ -3,6 +3,7 @@ package com.rockgarden.myapp.activity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.rockgarden.myapp.R;
 
@@ -18,7 +19,9 @@ public class BaseLayoutActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    private MenuItem settingMenuItem;
+    ImageView toolbarLogo;
+
+    private MenuItem baseMenuItem;
 
     /**
      * 调用ButterKnife注入View
@@ -38,7 +41,7 @@ public class BaseLayoutActivity extends BaseActivity {
     protected void setupToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            toolbar.setNavigationIcon(R.mipmap.ic_launcher);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 可改变toolbar的homeIcon
         }
     }
 
@@ -53,9 +56,9 @@ public class BaseLayoutActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.base_options_menu, menu);
-        settingMenuItem = menu.findItem(R.id.action_settings);
-        settingMenuItem.setActionView(R.layout.menu_item_view);
+        getMenuInflater().inflate(R.menu.menu_base_options, menu);
+        baseMenuItem = menu.findItem(R.id.action_settings);
+        baseMenuItem.setActionView(R.layout.menu_item_view);
         return true;
     }
 
@@ -63,8 +66,13 @@ public class BaseLayoutActivity extends BaseActivity {
         return toolbar;
     }
 
-    public MenuItem getSettingMenuItem() {
-        return settingMenuItem;
+    public ImageView getToolbarLogo() {
+        toolbarLogo = (ImageView)findViewById(R.id.app_logo_ImageView);
+        return toolbarLogo;
+    }
+
+    public MenuItem getBaseMenuItem() {
+        return baseMenuItem;
     }
 
 }

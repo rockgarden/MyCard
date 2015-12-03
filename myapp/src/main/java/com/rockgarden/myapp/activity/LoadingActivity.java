@@ -76,7 +76,7 @@ public class LoadingActivity extends BaseActivity {
         if (MyApplication.getInstance().isShowGuide()) {
             showGuide();
         } else {
-            jumpToMain();
+            bringMainActivityToTop();
         }
     }
 

@@ -10,10 +10,10 @@
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <ImageView
-        android:id="@+id/ivLogo"
+        android:id="@+id/app_logo_ImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:scaleType="center"
-        android:src="@drawable/img_toolbar_logo" />
+        android:src="@mipmap/ic_launcher" />
 </android.support.v7.widget.Toolbar>

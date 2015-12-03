@@ -20,25 +20,29 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PayToCardActivity"
+            android:name=".activity.ViewPagerActivity"
             android:parentActivityName=".activity.LoadingActivity"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.PayToCardActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.LoadingActivity" />
         </activity>
         <activity
             android:name=".activity.CardActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".activity.MainActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.PhotoActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

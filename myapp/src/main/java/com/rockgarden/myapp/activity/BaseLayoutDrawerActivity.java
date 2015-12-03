@@ -1,5 +1,6 @@
 package com.rockgarden.myapp.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -85,14 +86,14 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
         int id = item.getItemId();
         if (id == R.id.nav_camera) {
 
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.show_photo) {
+            startActivity(new Intent(this, PhotoActivity.class));
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.card_manage) {
-            jumpToCard();
+        } else if (id == R.id.show_card) {
+            startActivity(new Intent(this,CardActivity.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

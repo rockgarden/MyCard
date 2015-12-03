@@ -7,7 +7,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.adpater.MyAdapter;
+import com.rockgarden.myapp.adpater.BaseAdapter_List;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class ListActivity extends Activity {
 
     @Bind(R.id.lv)
     ListView lv;
-    private MyAdapter adapter;
+    private BaseAdapter_List adapter;
     private ArrayList<String> list;
 
     public static void startListFromLocation(int[] startingLocation, Activity startingActivity) {
@@ -49,7 +49,7 @@ public class ListActivity extends Activity {
         list.add("测试12");
         list.add("测试13");
         list.add("测试14");
-        adapter = new MyAdapter(this, list);
+        adapter = new BaseAdapter_List(this, list);
         lv.setAdapter(adapter);
     }
 

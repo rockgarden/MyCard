@@ -97,7 +97,7 @@ public class MyApplication extends Application {
         //Thread.setDefaultUncaughtExceptionHandler((Thread.UncaughtExceptionHandler) this);
         //startService(new Intent(this, AppService.class));
         configUniversalImageLoader();
-        spDataKeeper = new SharedPreferencesDataKeeper(this, "com.citylinkdata.mycard");
+        spDataKeeper = new SharedPreferencesDataKeeper(this, "com.rockgarden.myapp");
     }
 
     public static MyApplication getInstance() {
