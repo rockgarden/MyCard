@@ -1,4 +1,4 @@
-package com.citylinkdata.mycard.activity;
+package com.rockgarden.myapp.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 import com.citylinkdata.mycard.adapter.MyAdapter;
 
 import java.util.ArrayList;

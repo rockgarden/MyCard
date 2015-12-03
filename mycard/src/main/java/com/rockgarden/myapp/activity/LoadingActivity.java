@@ -1,4 +1,4 @@
-package com.citylinkdata.mycard.activity;
+package com.rockgarden.myapp.activity;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -9,8 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.citylinkdata.mycard.MyCardApplication;
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.MyCardApplication;
+import com.rockgarden.myapp.R;
 import com.citylinkdata.mycard.fragment.AdvertFragment;
 import com.citylinkdata.mycard.fragment.GuideFragment;
 

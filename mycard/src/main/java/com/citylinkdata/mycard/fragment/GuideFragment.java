@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 import com.citylinkdata.mycard.adapter.PagerAdapter_View;
 
 import java.util.ArrayList;

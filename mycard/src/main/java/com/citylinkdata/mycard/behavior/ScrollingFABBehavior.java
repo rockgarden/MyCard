@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 import com.litesuits.android.log.Log;
 
 

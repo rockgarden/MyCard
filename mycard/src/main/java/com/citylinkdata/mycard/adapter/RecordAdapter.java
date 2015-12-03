@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 import com.citylinkdata.mycard.model.Record;
 
 import java.util.List;
@@ -106,7 +106,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public RecordAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.cardview_record, parent, false);
+        View contactView = inflater.inflate(R.layout.cardview_content_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }

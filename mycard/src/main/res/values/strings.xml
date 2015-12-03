@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">MyCard</string>
+    <string name="app_name">MySample</string>
     <string name="skip_button">Skip</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_add_funds_to_card">AddFundsToCardActivity</string>
+    <string name="title_activity_card">Cards Demo</string>
     <string name="title_activity_funds_to_card">Add funds to card</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

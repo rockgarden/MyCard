@@ -1,10 +1,12 @@
-package com.citylinkdata.mycard.activity;
+package com.rockgarden.myapp.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.WindowManager;
 
 import com.litesuits.android.log.Log;
@@ -35,8 +37,32 @@ public class BaseActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         intent.setClass(this, PayToCardActivity.class);
         startActivity(intent);
-        Log.i(TAG, "jump");
+        Log.i(TAG, "jump to main");
         finish();
+    }
+
+    public void jumpToCard() {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        intent.putExtras(bundle);
+        intent.setClass(this, CardActivity.class);
+        startActivity(intent);
+        Log.i(TAG, "jump to card");
+        finish();
+    }
+
+    private int getScreenHeight(Context context) {
+        int measuredHeight;
+        Point size = new Point();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            wm.getDefaultDisplay().getSize(size);
+            measuredHeight = size.y;
+        } else {
+            Display d = wm.getDefaultDisplay();
+            measuredHeight = d.getHeight();
+        }
+        return measuredHeight;
     }
 
 //    private void AlertNotAvailable() {

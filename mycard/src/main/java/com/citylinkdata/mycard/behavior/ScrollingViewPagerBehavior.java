@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 import com.litesuits.android.log.Log;
 
 

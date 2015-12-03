@@ -53,7 +53,7 @@
                 android:id="@+id/rv_records"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/cardview_record"
+                tools:listitem="@layout/cardview_content_item"
                 android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

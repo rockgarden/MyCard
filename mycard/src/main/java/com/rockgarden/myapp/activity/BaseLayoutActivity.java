@@ -1,10 +1,10 @@
-package com.citylinkdata.mycard.activity;
+package com.rockgarden.myapp.activity;
 
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class MyAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = View.inflate(mContext, R.layout.cardview_record, null);
+			convertView = View.inflate(mContext, R.layout.cardview_content_item, null);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
 		} else {

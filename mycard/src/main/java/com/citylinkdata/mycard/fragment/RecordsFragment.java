@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 import com.citylinkdata.mycard.adapter.RecordAdapter;
 import com.citylinkdata.mycard.model.Record;
 import com.citylinkdata.mycard.uitl.ReMeasureLinearLayoutManager;

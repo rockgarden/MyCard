@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.citylinkdata.mycard.R;
+import com.rockgarden.myapp.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
