@@ -1,5 +1,6 @@
 package com.rockgarden.myapp.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ public class BaseLayoutActivity extends BaseActivity {
 
     /**
      * 调用ButterKnife注入View
+     *
      * @param layoutResID
      */
     @Override
@@ -47,6 +49,7 @@ public class BaseLayoutActivity extends BaseActivity {
 
     /**
      * 不调用ButterKnife不注入View
+     *
      * @param layoutResId
      */
     public void setContentViewNoBind(int layoutResId) {
@@ -62,12 +65,23 @@ public class BaseLayoutActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, LoginActivity.class));
+            ;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public Toolbar getToolbar() {
         return toolbar;
     }
 
     public ImageView getToolbarLogo() {
-        toolbarLogo = (ImageView)findViewById(R.id.app_logo_ImageView);
+        toolbarLogo = (ImageView) findViewById(R.id.app_logo_ImageView);
         return toolbarLogo;
     }
 

@@ -14,5 +14,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editText_Alias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/et_validateCode"
+        android:layout_alignLeft="@+id/et_validateCode"
+        android:layout_alignStart="@+id/et_validateCode"
+        android:inputType="text" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Alias"
+        android:id="@+id/button_sendAlias"
+        android:layout_below="@+id/editText_Alias"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

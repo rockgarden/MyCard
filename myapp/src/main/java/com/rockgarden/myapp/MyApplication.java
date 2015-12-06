@@ -35,6 +35,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by rockgarden on 15/11/2.
  */
@@ -42,7 +44,6 @@ public class MyApplication extends Application {
     private static final String TAG = MyApplication.class.getSimpleName();
 
     private static MyApplication instance;
-
     SharedPreferencesDataKeeper spDataKeeper;
     public String now_verName;
     public String old_verName;
@@ -52,10 +53,7 @@ public class MyApplication extends Application {
     //public static LinkedList<ActivityBase> activityList = new LinkedList<ActivityBase>();
 
     public static String AID = "A00000059807560001"; // 给个默认的AID用作非接圈存时候用
-    // public static String AID = "A0000005980000051200000000000001";
-    public static String READAID = "";
-    // public static String READAID = "4144442E41505032";
-    // public static String READAID = "315041592E5359532E4444463031";
+    public static String READAID = "4144442E41505032";
 
     private IsoDep isoDep;
     private String testValue;
@@ -94,6 +92,11 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        /*JPush init*/
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+        String JPushRegistrationID = JPushInterface.getRegistrationID(instance); //only getApplicationContext()
+        Log.i(TAG, JPushRegistrationID);
         //Thread.setDefaultUncaughtExceptionHandler((Thread.UncaughtExceptionHandler) this);
         //startService(new Intent(this, AppService.class));
         configUniversalImageLoader();
@@ -153,10 +156,10 @@ public class MyApplication extends Application {
                 .considerExifParams(true) // 是否考虑JPEG图像EXIF参数旋转/翻转
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)// 设置图片以如何的编码方式显示
                 .bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型
-                        // .delayBeforeLoading(int delayInMillis)//int
-                        // delayInMillis为你设置的下载前的延迟时间
-                        // 设置图片加入缓存前，对bitmap进行设置
-                        // .preProcessor(BitmapProcessor preProcessor)
+                // .delayBeforeLoading(int delayInMillis)//int
+                // delayInMillis为你设置的下载前的延迟时间
+                // 设置图片加入缓存前，对bitmap进行设置
+                // .preProcessor(BitmapProcessor preProcessor)
                 .resetViewBeforeLoading(true)// 设置图片在下载前是否重置，复位
                 .displayer(new RoundedBitmapDisplayer(20))// 是否设置为圆角，弧度为多少
                 .displayer(new FadeInBitmapDisplayer(100))// 是否图片加载好后渐入的动画时间
