@@ -19,5 +19,11 @@
 
     <declare-styleable name="GifView">
         <attr name="src" format="reference" />
+        <!--<attr name="gif" format="reference" />-->
+        <attr name="auto_play" format="boolean"></attr>
+        <attr name="paused" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CustomTheme">
+        <attr name="gifViewStyle" format="reference" />
     </declare-styleable>
 </resources>

@@ -57,8 +57,12 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.button_sendAlias)
     public void sendAlias() {
-        JPushInterface.setAlias(this, inputAlias.getText().toString(), null);
-        Toast.makeText(this, "success", Toast.LENGTH_LONG).show();
+        try {
+            JPushInterface.setAlias(this, inputAlias.getText().toString(), null);
+            Toast.makeText(this, "success", Toast.LENGTH_LONG).show();
+        }catch (Exception e){
+            Toast.makeText(this, "failure", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

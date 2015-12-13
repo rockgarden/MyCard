@@ -16,14 +16,29 @@
  */
 package com.litesuits.common.io;
 
-import java.io.*;
+import android.content.Context;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -902,6 +917,41 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 从assets目录中复制整个文件夹内容
+     *
+     * @param context Context 使用CopyFiles类的Activity
+     * @param oldPath String  原文件路径  如：/aa
+     * @param newPath String  复制后路径  如：xx:/bb/cc
+     */
+    public void copyFilesFassets(Context context, String oldPath, String newPath) {
+        try {
+            String fileNames[] = context.getAssets().list(oldPath);//获取assets目录下的所有文件及目录名
+            if (fileNames.length > 0) {//如果是目录
+                File file = new File(newPath);
+                file.mkdirs();//如果文件夹不存在，则递归
+                for (String fileName : fileNames) {
+                    copyFilesFassets(context, oldPath + "/" + fileName, newPath + "/" + fileName);
+                }
+            } else {//如果是文件
+                InputStream is = context.getAssets().open(oldPath);
+                FileOutputStream fos = new FileOutputStream(new File(newPath));
+                byte[] buffer = new byte[1024];
+                int byteCount = 0;
+                while ((byteCount = is.read(buffer)) != -1) {//循环从输入流读取 buffer字节
+                    fos.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
+                }
+                fos.flush();//刷新缓冲区
+                is.close();
+                fos.close();
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            // 如果捕捉到错误则通知UI线程
+        }
+    }
+
     //-----------------------------------------------------------------------
 
     /**
@@ -1019,7 +1069,7 @@ public class FileUtils {
      *  // only copy the directory structure
      *  FileUtils.copyDirectory(srcDir, destDir, DirectoryFileFilter.DIRECTORY);
      *  </pre>
-     *
+     * <p/>
      * <h4>Example: Copy directories and txt files</h4>
      * <pre>
      *  // Create a filter for ".txt" files
@@ -1068,7 +1118,7 @@ public class FileUtils {
      *  // only copy the directory structure
      *  FileUtils.copyDirectory(srcDir, destDir, DirectoryFileFilter.DIRECTORY, false);
      *  </pre>
-     *
+     * <p/>
      * <h4>Example: Copy directories and txt files</h4>
      * <pre>
      *  // Create a filter for ".txt" files

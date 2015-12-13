@@ -1,5 +1,6 @@
 package com.litesuits.android.view;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -19,32 +20,43 @@ import java.io.InputStream;
  */
 public class GifView extends View {
 
+    private static final int DEFAULT_MOVIEW_DURATION = 1000;
+    private int resourceId;
     private Resources resources;
     private Movie movie;
     private long movieStart;
+    private int currentAnimationTime = 0;
     private float ratioWidth;
     private float ratioHeight;
+    /**
+     * Position for drawing animation frames in the center of the view.
+     */
+    private float left;
+    private float top;
+    //Scaling factor to fit the animation within view bounds.
+    private float scale;
+    /**
+     * Scaled movie frames width and height.
+     */
+    private int measuredMovieWidth;
+    private int measuredMovieHeight;
+
+    private volatile boolean paused = false;
+    private boolean visible = true;
 
     /**
-     * Simple constructor to use when creating a view from code.
+     * "super(context)"to"this(context, null)",Call the next level of construction method.
      *
      * @param context The Context the view is running in, through which it can
      *                access the current theme, resources, etc.
+     * @see #GifView(Context, AttributeSet)
      */
     public GifView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     /**
-     * Constructor that is called when inflating a view from XML. This is called
-     * when a view is being constructed from an XML file, supplying attributes
-     * that were specified in the XML file. This version uses a default style of
-     * 0, so the only attribute values applied are those in the Context's Theme
-     * and the given AttributeSet.
-     * <p/>
-     * <p/>
-     * The method onFinishInflate() will be called after all children have been
-     * added.
+     * add parameter defStyleAttr=0 to Call the next level of construction method.
      *
      * @param context The Context the view is running in, through which it can
      *                access the current theme, resources, etc.
@@ -52,7 +64,7 @@ public class GifView extends View {
      * @see #GifView(Context, AttributeSet, int)
      */
     public GifView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, R.styleable.CustomTheme_gifViewStyle);
     }
 
     /**
@@ -74,9 +86,18 @@ public class GifView extends View {
      */
     public GifView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        /**
+         * Starting from HONEYCOMB have to turn off HW acceleration to draw Movie on Canvas.
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
         resources = context.getResources();
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.GifView);
-        int resourceId = typedArray.getResourceId(R.styleable.GifView_src, -1);
+        //TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.GifView);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.GifView, defStyleAttr,
+                R.style.View_GifView);
+        resourceId = typedArray.getResourceId(R.styleable.GifView_src, -1);
+        paused = typedArray.getBoolean(R.styleable.GifView_src, false);
         setGifResource(resourceId);
         typedArray.recycle();
     }
@@ -95,64 +116,190 @@ public class GifView extends View {
         requestLayout();
     }
 
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+        requestLayout();
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovieTime(int time) {
+        currentAnimationTime = time;
+        invalidate();
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+        //Calculate new movie start time, so that it resumes from the same frame.
+        if (!paused) {
+            movieStart = android.os.SystemClock.uptimeMillis() - currentAnimationTime;
+        }
+        invalidate();
+    }
+
+    public boolean isPaused() {
+        return this.paused;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (movie != null) {
             int movieWidth = movie.width();
             int movieHeight = movie.height();
-            int pLeft = getPaddingLeft();
-            int pRight = getPaddingRight();
-            int pTop = getTop();
-            int pBottom = getBottom();
-            int widthSize;
-            int heightSize;
 
-            movieWidth += pLeft + pRight;
-            movieHeight += pTop + pBottom;
-            movieWidth=Math.max(movieWidth,getSuggestedMinimumWidth());
-            movieHeight=Math.max(movieHeight,getSuggestedMinimumHeight());
+            //Calculate horizontal scaling
+            float scaleH = 1f;
+            int measureModeWidth = MeasureSpec.getMode(widthMeasureSpec);
+            if (measureModeWidth != MeasureSpec.UNSPECIFIED) {
+                int maximumWidth = MeasureSpec.getSize(widthMeasureSpec);
+                if (movieWidth > maximumWidth) {
+                    scaleH = (float) movieWidth / (float) maximumWidth;
+                }
+            }
+            //calculate vertical scaling
+            float scaleW = 1f;
+            int measureModeHeight = MeasureSpec.getMode(heightMeasureSpec);
+            if (measureModeHeight != MeasureSpec.UNSPECIFIED) {
+                int maximumHeight = MeasureSpec.getSize(heightMeasureSpec);
+                if (movieHeight > maximumHeight) {
+                    scaleW = (float) movieHeight / (float) maximumHeight;
+                }
+            }
+            //calculate overall scale
+            scale = 1f / Math.max(scaleH, scaleW);
+            measuredMovieWidth = (int) (movieWidth * scale);
+            measuredMovieHeight = (int) (movieHeight * scale);
+            setMeasuredDimension(measuredMovieWidth, measuredMovieHeight);
 
-            widthSize=resolveSizeAndState(movieWidth,widthMeasureSpec,0);
-            heightSize=resolveSizeAndState(movieHeight,heightMeasureSpec,0);
-
-            ratioWidth = (float) widthSize / movieWidth;
-            ratioHeight=(float)heightSize/movieHeight;
-            setMeasuredDimension(widthSize,heightSize);
+//            if (movieWidth <= 0)
+//                movieWidth = 1;
+//            if (movieHeight <= 0)
+//                movieHeight = 1;
+//            int pLeft = getPaddingLeft();
+//            int pRight = getPaddingRight();
+//            int pTop = getTop();
+//            int pBottom = getBottom();
+//            int widthSize;
+//            int heightSize;
+//
+//            movieWidth += pLeft + pRight;
+//            movieHeight += pTop + pBottom;
+//            movieWidth = Math.max(movieWidth, getSuggestedMinimumWidth());
+//            movieHeight = Math.max(movieHeight, getSuggestedMinimumHeight());
+//
+//            widthSize = resolveSizeAndState(movieWidth, widthMeasureSpec, 0);
+//            heightSize = resolveSizeAndState(movieHeight, heightMeasureSpec, 0);
+//
+//            ratioWidth = (float) widthSize / movieWidth;
+//            ratioHeight = (float) heightSize / movieHeight;
+//            setMeasuredDimension(widthSize, heightSize);
 
 //            int maximumWidth = MeasureSpec.getSize(widthMeasureSpec);
 //            float scaleW = (float) movieWidth / (float) maximumWidth;
-//            mScale = 1f / scaleW;
-//            mMeasuredMovieWidth = maximumWidth;
-//            mMeasuredMovieHeight = (int) (movieHeight * mScale);
-//            setMeasuredDimension(mMeasuredMovieWidth, mMeasuredMovieHeight);
+//            scale = 1f / scaleW;
+//            measuredMovieWidth = maximumWidth;
+//            measuredMovieHeight = (int) (movieHeight * scale);
+//            setMeasuredDimension(measuredMovieWidth, measuredMovieHeight);
         } else {
 //            setMeasuredDimension(getSuggestedMinimumWidth(),
 //                    getSuggestedMinimumHeight());
-            super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        /*
+		 * Calculate left / top for drawing in center
+		 */
+        left = (getWidth() - measuredMovieWidth) / 2f;
+        top = (getHeight() - measuredMovieHeight) / 2f;
+        visible = getVisibility() == View.VISIBLE;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (movie != null) {
+            if (!paused) {
+                updateAnimationTime();
+                drawMovieFrame(canvas);
+                invalidateView();
+            } else {
+                drawMovieFrame(canvas);
+            }
+        }
+
+    }
+
+    /**
+     * Invalidates view only if it is visible.
+     * <br>
+     * {@link #postInvalidateOnAnimation()} is used for Jelly Bean and higher.
+     */
+    @SuppressLint("NewApi")
+    private void invalidateView() {
+        if (visible) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                postInvalidateOnAnimation();
+            } else {
+                invalidate();
+            }
+        }
+    }
+
+    /**
+     * Calculate current animation time
+     */
+    private void updateAnimationTime() {
         long now = android.os.SystemClock.uptimeMillis();
         if (movieStart == 0) {
             movieStart = now;
         }
-        if (movie != null) {
-            int duration = movie.duration();
-            if (duration == 0) {
-                duration = 1000;
-            }
-            int realTime = (int) ((now - movieStart) % duration); //循环
-            movie.setTime(realTime);
-//            movie.draw(canvas, getWidth() - movie.width(),
-//                    getHeight() - movie.height());
-            float scale=Math.min(ratioWidth,ratioHeight);
-            canvas.scale(scale,scale);
-            movie.draw(canvas,0,0);
-            invalidate();
+        int duration = movie.duration();
+        if (duration == 0) {
+            duration = DEFAULT_MOVIEW_DURATION;
         }
+        currentAnimationTime = (int) ((now - movieStart) % duration);
+    }
+
+    /**
+     * Draw current GIF frame
+     */
+    private void drawMovieFrame(Canvas canvas) {
+        movie.setTime(currentAnimationTime);
+        canvas.save(Canvas.MATRIX_SAVE_FLAG);
+        canvas.scale(scale, scale);//float scale = Math.min(ratioWidth, ratioHeight);
+        movie.draw(canvas, left / scale, top / scale);
+        //movie.draw(canvas, getWidth() - movie.width(), getHeight() - movie.height());
+        canvas.restore();
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onScreenStateChanged(int screenState) {
+        super.onScreenStateChanged(screenState);
+        visible = screenState == SCREEN_STATE_ON;
+        invalidateView();
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    protected void onVisibilityChanged(View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        visible = visibility == View.VISIBLE;
+        invalidateView();
+    }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        visible = visibility == View.VISIBLE;
+        invalidateView();
     }
 
     /**
