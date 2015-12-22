@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 
 import com.litesuits.common.utils.AndroidUtil;
 import com.rockgarden.myapp.R;
@@ -23,14 +24,13 @@ import com.rockgarden.myapp.uitl.FeedContextMenuManager;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAdapter_Photo.OnFeedItemClickListener, FeedContextMenu.OnFeedContextMenuItemClickListener {
+public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerViewAdapter_Photo.OnFeedItemClickListener, FeedContextMenu.OnFeedContextMenuItemClickListener {
     public static final String TAG = PhotoActivity.class.getName();
     public static final String ACTION_SHOW_LOADING_ITEM = "action_show_loading_item";
 
     private static final int ANIM_DURATION_TOOLBAR = 300;
     private static final int ANIM_DURATION_FAB = 400;
 
-    private boolean pendingIntroAnimation;
     private RecyclerViewAdapter_Photo recyclerViewAdapterPhoto;
 
     @Bind(R.id.rvFeed)
@@ -39,12 +39,17 @@ public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAda
     FloatingActionButton fabCreate;
     @Bind(R.id.content)
     CoordinatorLayout clContent;
+    private ImageView imageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
+        imageTitle = new ImageView(this);
+        imageTitle.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+        setToolbarTitleView(imageTitle);
         setupPhotos();
+        //instance为空才启动切换动画
         if (savedInstanceState == null) {
             pendingIntroAnimation = true;
         } else {
@@ -53,6 +58,7 @@ public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAda
     }
 
     private void setupPhotos() {
+        toolbar.setTitle(getString(R.string.title_activity_photo));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
             @Override
             protected int getExtraLayoutSpace(RecyclerView.State state) {
@@ -60,7 +66,6 @@ public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAda
             }
         };
         rvFeed.setLayoutManager(linearLayoutManager);
-
         recyclerViewAdapterPhoto = new RecyclerViewAdapter_Photo(this);
         recyclerViewAdapterPhoto.setOnFeedItemClickListener(this);
         rvFeed.setAdapter(recyclerViewAdapterPhoto);
@@ -104,13 +109,13 @@ public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAda
         fabCreate.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
         int actionbarSize = AndroidUtil.dpToPx(56);
         getToolbar().setTranslationY(-actionbarSize);
-        getToolbarLogo().setTranslationY(-actionbarSize);
+        getToolbarTitleView().setTranslationY(-actionbarSize);
         getBaseMenuItem().getActionView().setTranslationY(-actionbarSize);
         getToolbar().animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
                 .setStartDelay(300);
-        getToolbarLogo().animate()
+        getToolbarTitleView().animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
                 .setStartDelay(400);
@@ -139,12 +144,12 @@ public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAda
 
     @Override
     public void onCommentsClick(View v, int position) {
-//        final Intent intent = new Intent(this, CommentsActivity.class);
-//        int[] startingLocation = new int[2];
-//        v.getLocationOnScreen(startingLocation);
-//        intent.putExtra(CommentsActivity.ARG_DRAWING_START_LOCATION, startingLocation[1]);
-//        startActivity(intent);
-//        overridePendingTransition(0, 0);
+        final Intent intent = new Intent(this, CommentsActivity.class);
+        int[] startingLocation = new int[2];
+        v.getLocationOnScreen(startingLocation);
+        intent.putExtra(CommentsActivity.ARG_DRAWING_START_LOCATION, startingLocation[1]);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
     @Override
@@ -189,7 +194,8 @@ public class PhotoActivity extends BaseLayoutActivity implements RecyclerViewAda
 //        TakePhotoActivity.startCameraFromLocation(startingLocation, this);
 //        overridePendingTransition(0, 0);
     }
-    public void showLikedSnackbar() {
+
+    public void showLikedSnackBar() {
         Snackbar.make(clContent, "Liked!", Snackbar.LENGTH_SHORT).show();
     }
 }

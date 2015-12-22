@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.rockgarden.myapp.R;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 
 public class ScrollingFABBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {

@@ -7,7 +7,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package com.litesuits.android.log;
+package com.litesuits.android;
 
 /**
  * the logger

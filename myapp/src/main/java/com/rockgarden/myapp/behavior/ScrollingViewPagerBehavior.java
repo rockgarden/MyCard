@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.rockgarden.myapp.R;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 
 public class ScrollingViewPagerBehavior extends CoordinatorLayout.Behavior<ViewPager> {

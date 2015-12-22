@@ -19,7 +19,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class ViewPagerActivity extends BaseLayoutDrawerActivity {
-    @Bind(R.id.toolbar_layout)
+    @Bind(R.id.collapse_toolbar_layout)
     CollapsingToolbarLayout toolbar_layout;
     @Bind(R.id.record_tablayout)
     TabLayout recordTabs;
@@ -32,18 +32,24 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpager);
-        toolbar_layout.setTitle(getString(R.string.title_activity_pay_to_card));
+        setupViewPager();
+        if (savedInstanceState == null) {
+            pendingIntroAnimation = true;
+        }
+    }
+
+    private void setupViewPager() {
+        toolbar_layout.setTitle(getString(R.string.title_activity_viewpager));
         toolbar.setNavigationIcon(R.mipmap.ic_launcher);
         recordViewPager.setAdapter(new PagerAdapter_Fragment(getSupportFragmentManager(),
                 ViewPagerActivity.this));
-//        initTabs();
+        //initTabs(); //在PagerAdapter完成title设定
         recordTabs.setupWithViewPager(recordViewPager);
     }
 
     private void initTabs() {
         recordTabs.addTab(recordTabs.newTab().setText("One"));
         recordTabs.addTab(recordTabs.newTab().setText("Two"));
-        recordTabs.addTab(recordTabs.newTab().setText("Three"));
     }
 
     @OnClick(R.id.recordFab)

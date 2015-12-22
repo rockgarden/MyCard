@@ -3,7 +3,7 @@ package com.litesuits.common.assist;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 /**
  * <!-- 解锁 -->

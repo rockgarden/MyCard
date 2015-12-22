@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 /**
  * 加载全局通用方法的基类
@@ -23,6 +23,8 @@ public class BaseActivity extends AppCompatActivity {
     private Context currentContext = null;
     public boolean NeedsLoop = true;
     public static boolean isLogin = false;
+
+    public boolean pendingIntroAnimation;
 
     public void FullScreen_SDK16() {
         if (Build.VERSION.SDK_INT < 16) {

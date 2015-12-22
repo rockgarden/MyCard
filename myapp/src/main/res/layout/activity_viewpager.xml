@@ -11,11 +11,10 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:orientation="vertical">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+            android:id="@+id/collapse_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/side_nav_bar"
@@ -79,40 +78,40 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
+        <!--TabLayout可定义的属性-->
+        <!--android:background="@color/colorAccent"-->
+        <!--app:tabIndicatorColor="@color/green_bright"-->
         <android.support.design.widget.TabLayout
             android:id="@+id/record_tablayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="?attr/colorAccent"
             app:tabGravity="fill"
-            app:tabIndicatorColor="#5be5ad"
             app:tabIndicatorHeight="4dp"
-            app:tabMode="fixed"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            app:tabMode="fixed" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/record_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <!--app:rippleColor="#900"-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/recordFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email"
+        android:src="@android:drawable/ic_menu_search"
         app:fabSize="mini"
         app:layout_behavior="@string/FABScrollBehavior"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:rippleColor="#900" />
+        app:layout_scrollFlags="scroll|enterAlways" />
 
 </android.support.design.widget.CoordinatorLayout>

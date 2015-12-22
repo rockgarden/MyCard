@@ -2,7 +2,7 @@ package com.litesuits.android.async;
 
 import android.os.Handler;
 import android.os.Looper;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 import java.util.concurrent.*;
 

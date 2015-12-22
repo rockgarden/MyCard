@@ -60,6 +60,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.PhotoActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.CommentsActivity" />
 
         <!-- Required SDK核心功能-->
         <activity

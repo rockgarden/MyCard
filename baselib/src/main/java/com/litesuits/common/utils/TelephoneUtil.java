@@ -2,7 +2,7 @@ package com.litesuits.common.utils;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

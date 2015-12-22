@@ -4,16 +4,15 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="@color/green_light"
     app:elevation="@dimen/default_elevation"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    app:title="@string/app_name">
 
-    <ImageView
-        android:id="@+id/app_logo_ImageView"
+    <RelativeLayout
+        android:id="@+id/app_title_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:scaleType="center"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_gravity="center" />
+
 </android.support.v7.widget.Toolbar>

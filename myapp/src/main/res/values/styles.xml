@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorPrimary">@color/primary_material_light</item>-->
+        <!--<item name="colorPrimaryDark">@color/primary_dark_material_light</item>-->
+        <!--<item name="colorAccent">@color/accent_material_light</item>-->
         <!-- requires API 21. -->
         <!--<item_record name="android:statusBarColor">@android:color/transparent</item_record>-->
     </style>
@@ -17,18 +17,15 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <!--<item_record name="android:colorBackground">@drawable/side_nav_bar</item_record>-->
-        <!--<item_record name="android:colorForeground">@drawable/side_nav_bar</item_record>-->
+        <item name="android:colorBackground">@drawable/side_nav_bar</item>
+        <item name="android:colorForeground">@drawable/side_nav_bar</item>
     </style>
 
     <style name="TransparentText">

@@ -6,7 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 import java.util.List;
 

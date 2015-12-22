@@ -12,7 +12,7 @@ import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 /**
  * note: VERSION_CODE >= API_18

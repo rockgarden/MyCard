@@ -17,7 +17,7 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
 import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 import java.util.List;
 

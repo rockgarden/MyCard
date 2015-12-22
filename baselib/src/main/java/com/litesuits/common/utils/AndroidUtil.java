@@ -10,7 +10,7 @@ import android.os.SystemClock;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

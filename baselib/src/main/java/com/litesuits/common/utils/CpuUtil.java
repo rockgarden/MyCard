@@ -1,6 +1,6 @@
 package com.litesuits.common.utils;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 import com.litesuits.common.assist.Check;
 
 import java.io.*;

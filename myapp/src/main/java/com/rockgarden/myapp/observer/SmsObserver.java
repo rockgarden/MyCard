@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 import com.rockgarden.myapp.activity.LoginActivity;
 
 import java.util.regex.Matcher;

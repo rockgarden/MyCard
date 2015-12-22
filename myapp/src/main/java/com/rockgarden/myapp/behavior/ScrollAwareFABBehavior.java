@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 

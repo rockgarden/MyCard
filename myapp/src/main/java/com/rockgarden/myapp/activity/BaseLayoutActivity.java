@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.rockgarden.myapp.R;
 
@@ -20,7 +21,7 @@ public class BaseLayoutActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    ImageView toolbarLogo;
+    View toolbarTitleView;
 
     private MenuItem baseMenuItem;
 
@@ -71,7 +72,6 @@ public class BaseLayoutActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, LoginActivity.class));
-            ;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -80,9 +80,19 @@ public class BaseLayoutActivity extends BaseActivity {
         return toolbar;
     }
 
-    public ImageView getToolbarLogo() {
-        toolbarLogo = (ImageView) findViewById(R.id.app_logo_ImageView);
-        return toolbarLogo;
+    public View getToolbarTitleView() {
+        return toolbarTitleView;
+    }
+
+    public void setToolbarTitleView(View view) {
+        RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        titleLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        titleLayoutParams.setMargins(10, 10, 10, 10); //(int left, int top, int right, int bottom).
+        RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.app_title_Layout);
+        titleLayout.addView(view, titleLayoutParams);
+        // TODO: 15/12/22 无法去除默认加载的title,所以暂时无法直接用toolbar
+        //toolbar.addView(view,titleLayoutParams);
+        toolbarTitleView = view;
     }
 
     public MenuItem getBaseMenuItem() {

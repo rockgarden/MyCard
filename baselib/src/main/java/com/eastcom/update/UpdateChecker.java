@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 import com.litesuits.common.R;
 
 import org.json.JSONException;

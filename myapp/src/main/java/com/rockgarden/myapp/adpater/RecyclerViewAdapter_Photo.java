@@ -265,7 +265,7 @@ public class RecyclerViewAdapter_Photo extends RecyclerView.Adapter<RecyclerView
                 updateLikesCounter(holder, true);
                 updateHeartButton(holder, true);
                 if (context instanceof PhotoActivity) {
-                    ((PhotoActivity) context).showLikedSnackbar();
+                    ((PhotoActivity) context).showLikedSnackBar();
                 }
             }
         } else if (viewId == R.id.ivFeedCenter) {
@@ -276,7 +276,7 @@ public class RecyclerViewAdapter_Photo extends RecyclerView.Adapter<RecyclerView
                 animatePhotoLike(holder);
                 updateHeartButton(holder, false);
                 if (context instanceof PhotoActivity) {
-                    ((PhotoActivity) context).showLikedSnackbar();
+                    ((PhotoActivity) context).showLikedSnackBar();
                 }
             }
         } else if (viewId == R.id.ivUserProfile) {
@@ -338,7 +338,7 @@ public class RecyclerViewAdapter_Photo extends RecyclerView.Adapter<RecyclerView
     }
 
     public void updateItems(boolean animated) {
-        itemsCount = 10;
+        itemsCount = 1000;
         animateItems = animated;
         fillLikesWithRandomValues();
         notifyDataSetChanged();

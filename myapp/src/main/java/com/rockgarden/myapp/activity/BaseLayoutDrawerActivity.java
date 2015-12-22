@@ -89,7 +89,7 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
         } else if (id == R.id.show_photo) {
             startActivity(new Intent(this, PhotoActivity.class));
         } else if (id == R.id.nav_slideshow) {
-
+            startActivity(new Intent(this,ViewPagerActivity.class));
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.show_card) {

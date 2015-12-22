@@ -11,7 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 import com.litesuits.common.data.SharedPreferencesDataKeeper;
 import com.litesuits.common.utils.PackageUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;

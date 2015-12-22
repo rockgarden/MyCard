@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import com.litesuits.android.log.Log;
+import com.litesuits.android.Log;
 
 public class ScreenReceiver extends BroadcastReceiver {
     private String TAG = "ScreenActionReceiver";

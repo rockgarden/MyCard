@@ -20,14 +20,14 @@ import butterknife.Bind;
 public class CardActivity extends BaseLayoutDrawerActivity {
     public static final String TAG = CardActivity.class.getName();
     public static final String ACTION=".activity.CardActivity";
-    @Bind(R.id.toolbar_layout)
-    CollapsingToolbarLayout toolbar_layout;
+    @Bind(R.id.collapse_toolbar_layout)
+    CollapsingToolbarLayout collapseToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
-        toolbar_layout.setTitle(getString(R.string.title_activity_pay_to_card));
+        collapseToolbarLayout.setTitle(getString(R.string.title_activity_card));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

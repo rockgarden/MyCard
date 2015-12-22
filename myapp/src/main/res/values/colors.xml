@@ -14,6 +14,7 @@
     <color name="green_normal">#4CAF50</color>
     <color name="green_dark">#2E7D32</color>
     <color name="green_light">#81C784</color>
+    <color name="green_bright">#5be5ad</color>
 
     <color name="style_color_primary">#2d5d82</color>
     <color name="style_color_primary_dark">#21425d</color>
@@ -21,6 +22,7 @@
 
     <color name="fab_color_pressed">#007787</color>
     <color name="fab_color_shadow">#44000000</color>
+    <color name="fab_color_ripple">#900</color>
 
     <color name="btn_default_light_normal">#00000000</color>
     <color name="btn_default_light_pressed">#40ffffff</color>
@@ -34,4 +36,5 @@
     <color name="text_like_counter">#2b5a83</color>
 
     <color name="bg_comments">#ffffff</color>
+    <color name="input_text">#555555</color>
 </resources>
