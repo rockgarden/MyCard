@@ -1,4 +1,4 @@
-package com.eastcom.update;
+package com.rockgarden.update;
 
 import android.app.Activity;
 import android.app.NotificationManager;

@@ -1,4 +1,4 @@
-package com.eastcom.update;
+package com.rockgarden.update;
 
 public class Constants {
 
