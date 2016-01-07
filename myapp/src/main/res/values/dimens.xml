@@ -20,4 +20,6 @@
     <dimen name="global_menu_avatar_size">64dp</dimen>
     <dimen name="publish_photo_thumbnail_size">96dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="elevation_toolbar">3dp</dimen>
 </resources>

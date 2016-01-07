@@ -1,6 +1,7 @@
 package com.rockgarden.myapp.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -83,6 +84,7 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Float elevation = getResources().getDimension(R.dimen.elevation_toolbar);
         int id = item.getItemId();
         if (id == R.id.nav_camera) {
 
@@ -99,6 +101,8 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
         } else if (id == R.id.nav_send) {
 
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            toolbar.setElevation(elevation);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -25,7 +25,7 @@ public class GuideFragment extends Fragment implements ViewPager.OnPageChangeLis
 
     private List<View> viewList;
     
-    private int numberPagers = 3;
+    public int numberPagers = 3;
 
     private ImageView indicator;
     private ImageView guideIV1,guideIV2,guideIV3;

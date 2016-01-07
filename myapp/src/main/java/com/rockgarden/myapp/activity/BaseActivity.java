@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.litesuits.android.Log;
@@ -28,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void FullScreen_SDK16() {
         if (Build.VERSION.SDK_INT < 16) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -55,20 +57,6 @@ public class BaseActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setAction(PhotoActivity.ACTION_SHOW_LOADING_ITEM);
         startActivity(intent);
-    }
-
-    private int getScreenHeight(Context context) {
-        int measuredHeight;
-        Point size = new Point();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            wm.getDefaultDisplay().getSize(size);
-            measuredHeight = size.y;
-        } else {
-            Display d = wm.getDefaultDisplay();
-            measuredHeight = d.getHeight();
-        }
-        return measuredHeight;
     }
 
 //    private void AlertNotAvailable() {

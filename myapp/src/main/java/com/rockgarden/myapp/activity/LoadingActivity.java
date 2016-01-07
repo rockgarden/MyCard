@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.rockgarden.myapp.MyApplication;
@@ -24,10 +26,11 @@ import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
  * An full-screen activity
  * Use for loading Advert or Guide.
  */
-public class LoadingActivity extends BaseActivity {
+public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFragmentInteractionListener {
     private static final String TAG = LoadingActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
+    private AdvertFragment advertFragment;
     @Bind(R.id.fullscreen_content)
     View mContentView;
     @Bind(R.id.fullscreen_content_controls)
@@ -43,6 +46,7 @@ public class LoadingActivity extends BaseActivity {
         public void run() {
             // Delayed removal of status bar and navigation bar
             // View decorView = getWindow().getDecorView(); //Activity的顶级Layout
+
             mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -68,7 +72,13 @@ public class LoadingActivity extends BaseActivity {
         ButterKnife.bind(this);
         fragmentManager = getSupportFragmentManager();
         hide();
-        setupInit();
+        if (savedInstanceState == null) { //避免发生Activity重创时生成新的fragment
+            advertFragment = new AdvertFragment();
+            fragmentManager.beginTransaction()
+                    .setTransition(TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.fullscreen_content, advertFragment)
+                    .commit();
+        }
     }
 
     @OnClick(R.id.skip_button)
@@ -78,13 +88,6 @@ public class LoadingActivity extends BaseActivity {
         } else {
             bringMainActivityToTop();
         }
-    }
-
-    private void setupInit() {
-        fragmentManager.beginTransaction()
-                .setTransition(TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.fullscreen_content, new AdvertFragment())
-                .commit();
     }
 
     private void showGuide() {
@@ -120,8 +123,24 @@ public class LoadingActivity extends BaseActivity {
         mShowHandler.postDelayed(mShowRunnable, delayMillis);
     }
 
+    /**
+     * 实现AdvertFragment类中定义的接口
+     * @param uri
+     */
     public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
+        GuideFragment guideFragment = (GuideFragment) fragmentManager.findFragmentById(R.id.fragment_guide);
+        if (guideFragment != null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fullscreen_content,guideFragment);
+            transaction.addToBackStack(null); //add the transaction to the back stack so the user can navigate back
+            transaction.commit();
+        } else {
+            guideFragment = new GuideFragment();
+            Bundle args = new Bundle();
+            args.putInt(null, 4);
+            guideFragment.setArguments(args);
+        }
     }
 
 //    private void selectDrawerItem(MenuItem menuItem) {
