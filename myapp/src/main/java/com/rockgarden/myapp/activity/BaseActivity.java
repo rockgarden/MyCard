@@ -29,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void FullScreen_SDK16() {
         if (Build.VERSION.SDK_INT < 16) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            requestWindowFeature(Window.FEATURE_NO_TITLE); //与ButterKnife对冲突
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
