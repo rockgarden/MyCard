@@ -13,7 +13,7 @@
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
+        <item name="android:windowBackground">@drawable/heart</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
@@ -74,6 +74,12 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 通过添加与主界面相似(第一个Activity)的图片来优化冷启动的效果.
+    并且在相应的Activity中的super.onCreate()前加入setTheme()方法.-->
+    <style name="AppTheme.OptimizationColdStart">
+        <item name="android:windowBackground">@drawable/heart</item>
     </style>
 
 </resources>

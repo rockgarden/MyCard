@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.rockgarden.myapp.MyApplication;
@@ -24,19 +26,22 @@ import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
  * An full-screen activity
  * Use for loading Advert or Guide.
  */
-public class LoadingActivity extends BaseActivity {
+public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFragmentInteractionListener {
     private static final String TAG = LoadingActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
+    private AdvertFragment advertFragment;
     @Bind(R.id.fullscreen_content)
     View mContentView;
     @Bind(R.id.fullscreen_content_controls)
     View mControlsView;
 
-    private static final int UI_ANIMATION_DELAY = 200;
-
+    private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mShowHandler = new Handler();
 
+    /**
+     * show fullscreen content view.
+     */
     private final Runnable mHideRunnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -52,6 +57,9 @@ public class LoadingActivity extends BaseActivity {
         }
     };
 
+    /**
+     * show controls view
+     */
     private final Runnable mShowRunnable = new Runnable() {
         @Override
         public void run() {
@@ -61,16 +69,46 @@ public class LoadingActivity extends BaseActivity {
         }
     };
 
+    /**
+     * onCreate
+     * don't use requestWindowFeature
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN); //提高全屏的兼容性
         setContentView(R.layout.activity_fullscreen);
         ButterKnife.bind(this);
-        fragmentManager = getSupportFragmentManager();
         hide();
-        setupInit();
+        fragmentManager = getSupportFragmentManager();
+        if (savedInstanceState == null) { //避免发生Activity重创时生成新的fragment
+            showAdvert();
+        }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        delayedShow(2000);
+    }
+
+    /**
+     * show AdvertFragment
+     */
+    private void showAdvert() {
+        advertFragment = new AdvertFragment();
+        fragmentManager.beginTransaction()
+                .setTransition(TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.fullscreen_content, advertFragment)
+                .commit();
+    }
+
+    /**
+     * skip to next activity
+     */
     @OnClick(R.id.skip_button)
     public void skip() {
         if (MyApplication.getInstance().isShowGuide()) {
@@ -80,13 +118,9 @@ public class LoadingActivity extends BaseActivity {
         }
     }
 
-    private void setupInit() {
-        fragmentManager.beginTransaction()
-                .setTransition(TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.fullscreen_content, new AdvertFragment())
-                .commit();
-    }
-
+    /**
+     * show GuideFragment
+     */
     private void showGuide() {
         fragmentManager.beginTransaction()
                 .setTransition(TRANSIT_FRAGMENT_OPEN)
@@ -95,15 +129,19 @@ public class LoadingActivity extends BaseActivity {
                 .commit();
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        delayedShow(2000);
+    /**
+     * @param delayMillis
+     */
+    @SuppressLint("InlinedApi")
+    private void delayedShow(int delayMillis) {
+        // Schedule a runnable to display UI elements after a delay
+        mShowHandler.removeCallbacks(mHideRunnable);
+        mShowHandler.postDelayed(mShowRunnable, delayMillis);
     }
 
     private void hide() {
         // Hide UI first
-        ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar(); //获取support对应的ActionBar
         if (actionBar != null) {
             actionBar.hide();
         }
@@ -113,15 +151,24 @@ public class LoadingActivity extends BaseActivity {
         mShowHandler.postDelayed(mHideRunnable, UI_ANIMATION_DELAY);
     }
 
-    @SuppressLint("InlinedApi")
-    private void delayedShow(int delayMillis) {
-        // Schedule a runnable to display UI elements after a delay
-        mShowHandler.removeCallbacks(mHideRunnable);
-        mShowHandler.postDelayed(mShowRunnable, delayMillis);
-    }
-
+    /**
+     * 实现AdvertFragment类中定义的接口
+     * @param uri
+     */
     public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
+        GuideFragment guideFragment = (GuideFragment) fragmentManager.findFragmentById(R.id.fragment_guide);
+        if (guideFragment != null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fullscreen_content, guideFragment);
+            transaction.addToBackStack(null); //add the transaction to the back stack so the user can navigate back
+            transaction.commit();
+        } else {
+            guideFragment = new GuideFragment();
+            Bundle args = new Bundle();
+            args.putInt(null, 4);
+            guideFragment.setArguments(args);
+        }
     }
 
 //    private void selectDrawerItem(MenuItem menuItem) {
