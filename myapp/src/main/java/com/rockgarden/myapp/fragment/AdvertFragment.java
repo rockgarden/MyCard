@@ -1,5 +1,6 @@
 package com.rockgarden.myapp.fragment;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class AdvertFragment extends Fragment {
     private ImageLoader loader;
     private ImageView advertImageView;
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // the fragment initialization parameters
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -153,28 +154,30 @@ public class AdvertFragment extends Fragment {
         timer.cancel();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * 使用mListener实例,向父类activity交付事件
+     * @param uri
+     */
     public void onButtonPressed(Uri uri) {
+        uri = Uri.parse("tel:8888888");
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
+    /**
+     * Fragment在它的onAttach()生命周期方法中捕捉这个接口的实现,若实现则可调用接口方法来达到和Activity交互的目的
+     * @param context
+     */
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     /**
@@ -182,10 +185,6 @@ public class AdvertFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

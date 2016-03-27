@@ -42,6 +42,7 @@
         </activity>
         <activity
             android:name=".activity.ViewPagerActivity"
+            android:launchMode="singleInstance"
             android:parentActivityName=".activity.LoadingActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -54,11 +55,14 @@
         </activity>
         <activity
             android:name=".activity.CardActivity"
+            android:launchMode="singleInstance"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.PhotoActivity" />
+        <activity
+            android:name=".activity.PhotoActivity"
+            android:launchMode="singleInstance" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CommentsActivity" />
 
@@ -70,6 +74,7 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.rockgarden.myapp" />
             </intent-filter>
@@ -124,6 +129,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>

@@ -1,6 +1,7 @@
 package com.rockgarden.myapp.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -83,24 +84,34 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Float elevation = getResources().getDimension(R.dimen.elevation_toolbar);
+        Intent intent = null;
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.show_photo) {
-            startActivity(new Intent(this, PhotoActivity.class));
+        if (id == R.id.show_photo) {
+            intent = new Intent(this, PhotoActivity.class);
         } else if (id == R.id.nav_slideshow) {
-            startActivity(new Intent(this,ViewPagerActivity.class));
-        } else if (id == R.id.nav_manage) {
-
+            intent = new Intent(this, ViewPagerActivity.class);
         } else if (id == R.id.show_card) {
-            startActivity(new Intent(this,CardActivity.class));
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            intent = new Intent(this, CardActivity.class);
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            toolbar.setElevation(elevation);
         drawer.closeDrawer(GravityCompat.START);
+        if (intent != null) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+            this.startActivity(intent);
+        }
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            //super.onBackPressed();
+            this.finish();
+        }
+    }
 }

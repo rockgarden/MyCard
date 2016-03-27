@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseLayoutDrawerActivity {
-    public static final String TAG = PhotoActivity.class.getSimpleName();
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.test_GifView)
     GifView testGifViw;

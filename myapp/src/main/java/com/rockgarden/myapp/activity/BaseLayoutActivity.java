@@ -27,6 +27,7 @@ public class BaseLayoutActivity extends BaseActivity {
 
     /**
      * 调用ButterKnife注入View
+     * 并加载全局的toolbar
      *
      * @param layoutResID
      */
@@ -45,11 +46,13 @@ public class BaseLayoutActivity extends BaseActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 可改变toolbar的homeIcon
+            getSupportActionBar().setHomeButtonEnabled(false);
         }
     }
 
     /**
      * 不调用ButterKnife不注入View
+     * 不加载全局的toolbar
      *
      * @param layoutResId
      */
@@ -57,7 +60,12 @@ public class BaseLayoutActivity extends BaseActivity {
         super.setContentView(layoutResId);
     }
 
-
+    /**
+     * 自定义OptionsMenu
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_base_options, menu);
@@ -68,13 +76,20 @@ public class BaseLayoutActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, LoginActivity.class));
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                onBackPressed();
+                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
+
+
+    /*---其它的get或set方法---*/
 
     public Toolbar getToolbar() {
         return toolbar;
