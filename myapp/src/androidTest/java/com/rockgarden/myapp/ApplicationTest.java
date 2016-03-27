@@ -1,4 +1,4 @@
-package com.citylinkdata.mycard;
+package com.rockgarden.myapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

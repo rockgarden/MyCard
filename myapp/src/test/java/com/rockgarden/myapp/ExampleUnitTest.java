@@ -1,4 +1,4 @@
-package com.citylinkdata.mycard;
+package com.rockgarden.myapp;
 
 import org.junit.Test;
 
