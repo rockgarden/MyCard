@@ -47,13 +47,13 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
         @Override
         public void run() {
             // Delayed removal of status bar and navigation bar
-            // View decorView = getWindow().getDecorView(); //Activity的顶级Layout
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            View decorView = getWindow().getDecorView(); //Activity的顶级Layout
+            mContentView.setSystemUiVisibility(decorView.SYSTEM_UI_FLAG_LOW_PROFILE
+                    | decorView.SYSTEM_UI_FLAG_FULLSCREEN
+                    | decorView.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | decorView.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | decorView.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | decorView.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
 
@@ -72,6 +72,7 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
     /**
      * onCreate
      * don't use requestWindowFeature
+     *
      * @param savedInstanceState
      */
     @Override
@@ -153,6 +154,7 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
 
     /**
      * 实现AdvertFragment类中定义的接口
+     *
      * @param uri
      */
     public void onFragmentInteraction(Uri uri) {

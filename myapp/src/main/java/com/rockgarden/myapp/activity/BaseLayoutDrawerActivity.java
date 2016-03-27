@@ -110,8 +110,7 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            //super.onBackPressed();
-            this.finish();
+            super.onBackPressed();
         }
     }
 }
