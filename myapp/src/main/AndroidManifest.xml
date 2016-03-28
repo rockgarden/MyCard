@@ -60,9 +60,16 @@
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme" />
+
+        <!-- 单任务模式:
+         通过Intent启动Activity,如果系统已经存在一个实例,系统就会将请求发送到这个实例上;
+         但此时系统就不会再调用onCreate方法，而是调用onNewIntent方法;
+         若在后台运行的Task已经被系统Kill掉,那么系统就会new一个实例并调用onCreate方法,而不再调用onNewIntent方法;
+         所以要在onCreate和onNewIntent方法中调用同一个处理数据的方法;
+         -->
         <activity
             android:name=".activity.PhotoActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CommentsActivity" />
 

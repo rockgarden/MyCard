@@ -45,6 +45,7 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
+        processExtraData();
         imageTitle = new ImageView(this);
         imageTitle.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
         setToolbarTitleView(imageTitle);
@@ -58,6 +59,17 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
+    }
+
+
+    /**
+     * 统一处理intent的方法
+     */
+    private void processExtraData() {
+        Intent intent = getIntent();
+        if (ACTION_SHOW_LOADING_ITEM.equals(intent.getAction())) {
+            showFeedLoadingItemDelayed();
+        }
     }
 
     private void setupPhotos() {
@@ -80,12 +92,19 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
         });
     }
 
+    /**
+     * Activity处于任务栈的顶端,也就是说之前打开过的Activity现在处于onPause、onStop状态的话;
+     * 其他应用或Activity再发送Intent的话,执行顺序为:onNewIntent-onRestart-onStart-onResume；
+     * @param intent
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (ACTION_SHOW_LOADING_ITEM.equals(intent.getAction())) {
-            showFeedLoadingItemDelayed();
-        }
+        // Note that getIntent() still returns the original Intent. You can use setIntent(Intent) to update it to this new Intent.
+        setIntent(intent); //must store the new intent unless getIntent() will return the old one
+//        if (ACTION_SHOW_LOADING_ITEM.equals(intent.getAction())) {
+//            showFeedLoadingItemDelayed();
+//        }
     }
 
     private void showFeedLoadingItemDelayed() {

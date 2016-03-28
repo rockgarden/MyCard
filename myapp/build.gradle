@@ -16,12 +16,56 @@ android {
         versionCode 1
         versionName "1.2"
     }
+
+    // 定义不同的打包方法
     buildTypes {
+        // 打包方式的命名，不要求大小写
         release {
+            minifyEnabled true //代码混淆开关
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguard-rules.pro
+        }
+        dev {
+            applicationIdSuffix ".dev" //通过设置此参数可生成不同的applicationId从而根据不同的需求构建不同版本的APK
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // 这里是为了不同过的版本设置一些特殊的参数，并不直接和buildType关联。
+    // 例如：使用 buildType 中的 dev 版本，也可以使用 flavors_release 里面设置的自定义参数。这需要自己按照需求制定。
+    productFlavors {
+        //自定义名字不过不能和上面buildType中相同，不然Gradle编译会不通过。在这里使用了『flavors_』前缀以便区分。
+        flavors_release {
+            // manifestPlaceholders中写到的『str』，『package_name』不支持用大写，否则Gradle编译会不通过。
+            // 这里所设置的变量可以直接使用在『AndroidManifest.xml』中，使用方式为：${package_name}
+            // android:label="${package_name}"
+            manifestPlaceholders = [str: "releaseStr", package_name: "com.rockgarden.myapp.release"]
+            // 这里的参数是为了在 java 代码中使用，具体的使用方式为：context.getResources().getString(R.string.strKey);
+            resValue("string", "strKey", "releaseStrValue")
+        }
+        flavors_dev {
+            manifestPlaceholders = [str: "devStr", package_name: "com.rockgarden.myapp.dev"]
+            resValue("string", "strKey", "devStrValue")
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
 }
 
 dependencies {
