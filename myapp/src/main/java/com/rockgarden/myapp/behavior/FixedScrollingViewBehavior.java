@@ -5,7 +5,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+
+import com.nostra13.universalimageloader.utils.L;
 
 import java.util.List;
 
@@ -30,13 +33,13 @@ public class FixedScrollingViewBehavior extends AppBarLayout.ScrollingViewBehavi
 
     public boolean onMeasureChild(CoordinatorLayout parent, View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
 
-//        L.i("onMeasureChild: parentWidthMeasureSpec =" + parentWidthMeasureSpec);
-//        L.i("onMeasureChild: widthUsed              =" + String.valueOf(widthUsed));
-//        L.i("onMeasureChild: parentHeightMeasureSpec=" + String.valueOf(parentHeightMeasureSpec));
-//        L.i("onMeasureChild: heightUsed             =" + String.valueOf(heightUsed));
-//        L.i("onMeasureChild: child                  =" + String.valueOf(child));
-//        L.i("onMeasureChild: parent                 =" + String.valueOf(parent));
-//        L.i("onMeasureChild:---                     =" );
+        L.i("onMeasureChild: parentWidthMeasureSpec =" + parentWidthMeasureSpec);
+        L.i("onMeasureChild: widthUsed              =" + String.valueOf(widthUsed));
+        L.i("onMeasureChild: parentHeightMeasureSpec=" + String.valueOf(parentHeightMeasureSpec));
+        L.i("onMeasureChild: heightUsed             =" + String.valueOf(heightUsed));
+        L.i("onMeasureChild: child                  =" + String.valueOf(child));
+        L.i("onMeasureChild: parent                 =" + String.valueOf(parent));
+        L.i("onMeasureChild:---                     =");
         if (child.getLayoutParams().height == -1) {
             List dependencies = parent.getDependencies(child);
             if (dependencies.isEmpty()) {
@@ -75,28 +78,26 @@ public class FixedScrollingViewBehavior extends AppBarLayout.ScrollingViewBehavi
     }
 
 
+    private float xDistance, yDistance, lastX, lastY;
 
-    //    private float xDistance, yDistance, lastX, lastY;
-//
-//    @Override
-//    public boolean onInterceptTouchEvent(CoordinatorLayout parent, View child, MotionEvent ev) {
-//        boolean response = super.onInterceptTouchEvent(parent, child, ev);
-//        float x = ev.getY();
-//        switch (ev.getActionMasked()) {
-//            case MotionEvent.ACTION_DOWN:
-//                mTouchX = x;
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                float dX = Math.abs(x - mTouchX);
-//                if (dX > minSwipeDistance)
-//                    return true;
-//                break;
-//        }
-//        return response;
-//    }
-//
-//    private static final int minSwipeDistance = 300;
-//    private float mTouchX;
+    @Override
+    public boolean onInterceptTouchEvent(CoordinatorLayout parent, View child, MotionEvent ev) {
+        boolean response = super.onInterceptTouchEvent(parent, child, ev);
+        float x = ev.getY();
+        switch (ev.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                mTouchX = x;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float dX = Math.abs(x - mTouchX);
+                if (dX > minSwipeDistance)
+                    return true;
+                break;
+        }
+        return response;
+    }
 
+    private static final int minSwipeDistance = 300;
+    private float mTouchX;
 
 }

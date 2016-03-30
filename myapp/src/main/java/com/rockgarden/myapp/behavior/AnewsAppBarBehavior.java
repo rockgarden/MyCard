@@ -1,11 +1,18 @@
 package com.rockgarden.myapp.behavior;
 
+import android.animation.ArgbEvaluator;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.animation.Interpolator;
+
+import com.nostra13.universalimageloader.utils.L;
 
 //http://stackoverflow.com/a/30807149/2678584
 //
@@ -68,56 +75,45 @@ public class AnewsAppBarBehavior extends AppBarLayout.Behavior {
 //        return super.onDependentViewChanged(parent, child, dependency);
 //    }
 
-//    @Override
-//    public boolean onInterceptTouchEvent(CoordinatorLayout parent, AppBarLayout child, MotionEvent ev) {
-//
-//
-//
-////        final ColorDrawable background = new ColorDrawable(color);
-////        child.setBackground(background);
-////        final CollapsingToolbarLayout firstToolbar = findFirstToolbar(child);
-////        firstToolbar.setContentScrimColor(color);
-//
-//        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
-//            final float y = child.getY();
-//            final int height = child.getHeight();
-//            L.d("onInterceptTouchEvent y: " + y + " , height: " + height);
-//            if (y < height) {
-//                setColorForActionBar((y+mStatusHeight) / height);
-//                //       animateAppAndStatusBar(child, (y+mStatusHeight) / height);
-//            } else {
+    @Override
+    public boolean onInterceptTouchEvent(CoordinatorLayout parent, AppBarLayout child, MotionEvent ev) {
+//        final ColorDrawable background = new ColorDrawable(color);
+//        child.setBackground(background);
+//        final CollapsingToolbarLayout firstToolbar = findFirstToolbar(child);
+//        firstToolbar.setContentScrimColor(color);
+        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+            final float y = child.getY();
+            final int height = child.getHeight();
+            L.d("onInterceptTouchEvent y: " + y + " , height: " + height);
+            if (y < height) {
+                setColorForActionBar((y + mStatusHeight) / height);
+                //       animateAppAndStatusBar(child, (y+mStatusHeight) / height);
+            } else {
+            }
+        }
+        L.d("onInterceptTouchEvent ev: " + ev);
+        return super.onInterceptTouchEvent(parent, child, ev);
+    }
+
+    public void setColorForActionBar(float percentage) {
+        android.support.v7.app.ActionBar ab = actionBar;
+        if (ab != null) {
+            final int color = actionBarColor;//Color.parseColor("#ffffff");
+            final int evaluate = (Integer) new ArgbEvaluator().evaluate(percentage, 0, 255);
+            final int argb = Color.argb(evaluate, Color.red(color), Color.green(color), Color.blue(color));
+            ab.setBackgroundDrawable(new ColorDrawable(argb));
+//                collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//                collapsingToolbar.setContentScrimColor(mutedColor);
+//              mToolbarView.setBackgroundColor(color);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Window window = getActivity().getWindow();
+//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//                window.setStatusBarColor(headerBgColor);
 //            }
-//        }
-//        L.d("onInterceptTouchEvent ev: " + ev);
-//        return super.onInterceptTouchEvent(parent, child, ev);
-//    }
-
-//    public void setColorForActionBar(float percentage) {
-//        android.support.v7.app.ActionBar ab = actionBar;
-//        if (ab != null) {
-//            final int color = actionBarColor;//Color.parseColor("#ffffff");
-//                final int evaluate = (Integer) new ArgbEvaluator().evaluate(percentage, 0, 255);
-//                final int argb = Color.argb(evaluate, Color.red(color), Color.green(color), Color.blue(color));
-//
-//            ab.setBackgroundDrawable(new ColorDrawable(argb));
-//
-////                collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-////                collapsingToolbar.setContentScrimColor(mutedColor);
-//
-////              mToolbarView.setBackgroundColor(color);
-//
-////            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-////                Window window = getActivity().getWindow();
-////                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-////                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-////                window.setStatusBarColor(headerBgColor);
-////            }
-////
-////            isActionBarColored = true;
-//        }
-//    }
-
-
+//            isActionBarColored = true;
+        }
+    }
 
 
 //    @Override

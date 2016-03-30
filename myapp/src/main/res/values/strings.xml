@@ -17,8 +17,11 @@
     <string name="action_home">home</string>
     <string name="action_settings">Settings</string>
 
-    <string name="FABScrollBehavior">com.rockgarden.myapp.behavior.ScrollAwareFABBehavior</string>
-    <string name="FixedScrolling">com.rockgarden.myapp.behavior.ScrollingViewPagerBehavior</string>
+    <!--定义Private behavior的字符串资源-->
+    <string name="ScrollAwareFABBehavior">com.rockgarden.myapp.behavior.ScrollAwareFABBehavior</string>
+    <string name="ScrollingViewPagerBehavior">com.rockgarden.myapp.behavior.ScrollingViewPagerBehavior</string>
+    <string name="FixedScrollingViewBehavior">com.rockgarden.myapp.behavior.FixedScrollingViewBehavior</string>
+    <string name="NoScrollingBehavior">com.rockgarden.myapp.behavior.NoScrollingBehavior</string>
 
     <string name="long_text">Error inflating class ImageView: This is one issue, It was sort of a misleading error to me and kept me stumped for around 30 minutes this morning. It isn\'t that Android cannot find the class. It is that it is having trouble importing the image source file.  Now the reason that it is having trouble finding the image is because I did not copy the source image into the directory correctly. I have chosen to drag the source file from another folder directory into the appropriate locations. In the process, it did not copy the file over properly. Or it copied it over as just a link to the other resource.  As a result Android does not know what to do with the resource and throws that odd error. In order to resolve this problem, you need to delete the old image sources and then replace them with direct full copies of their equivalents. Then you should see this error go away and the application working as expected from the xml layout code.</string>
     <string name="good_photo">I like it.</string>

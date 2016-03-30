@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.litesuits.android.Log;
+import com.nostra13.universalimageloader.utils.L;
 
 public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
@@ -65,17 +66,17 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
         return super.onLayoutChild(parent, child, layoutDirection);
     }
 
-//    @Override
-//    public boolean onInterceptTouchEvent(CoordinatorLayout parent, FloatingActionButton child, MotionEvent ev) {
-//        L.d("onInterceptTouchEvent: ev = " + ev);
-//        return super.onInterceptTouchEvent(parent, child, ev);
-//    }
+    @Override
+    public boolean onInterceptTouchEvent(CoordinatorLayout parent, FloatingActionButton child, MotionEvent ev) {
+        L.d("onInterceptTouchEvent: ev = " + ev);
+        return super.onInterceptTouchEvent(parent, child, ev);
+    }
 
-//    @Override
-//    public boolean blocksInteractionBelow(CoordinatorLayout parent, FloatingActionButton child) {
-//        L.d("blocksInteractionBelow");
-//        return super.blocksInteractionBelow(parent, child);
-//    }
+    @Override
+    public boolean blocksInteractionBelow(CoordinatorLayout parent, FloatingActionButton child) {
+        L.d("blocksInteractionBelow");
+        return super.blocksInteractionBelow(parent, child);
+    }
 
     @Override
     public boolean isDirty(CoordinatorLayout parent, FloatingActionButton child) {
