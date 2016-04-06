@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import com.rockgarden.myapp.R;
 import butterknife.Bind;
 
 /**
+ * 加载通用布局的视图控制基类
  * Created by rockgarden on 15/11/24.
  */
 public class BaseLayoutDrawerActivity extends BaseLayoutActivity
@@ -27,6 +29,7 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
     NavigationView navigationView;
+    ActionBarDrawerToggle drawerToggle;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -35,22 +38,26 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
         LayoutInflater.from(this).inflate(layoutResID, viewGroup, true);
         BindViews();
         navigationView.setNavigationItemSelectedListener(this);
+        //若启用ActionBar的DrawerToggle则会覆盖ActionBar的HomeButton
+        //setToggle();
     }
 
     /**
      * 实现ActionBar.home按钮与DrawerLayout联动
      * !!建议仅当drawer_layout不遮盖toolbar时使用
      */
-    private void setToggle() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+    public void setToggle() {
+        drawerToggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState(); //NavigationIcon默认图标增加动画效果
+        drawer.setDrawerListener(drawerToggle);
+        drawerToggle.syncState(); //NavigationIcon默认图标增加动画效果
     }
 
     @Override
     protected void setupToolbar() {
         super.setupToolbar();
+        // 重定义Toolbar
+        /*
         if (getToolbar() != null) {
             getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -59,9 +66,15 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
                 }
             });
         }
+        */
     }
 
-    //@OnClick(R.id.drawerLayoutNavHeader) //NavigationView can't use butterknife,this is bug for Design 23
+    /**
+     * 定义navHeader的Click事件
+     *
+     * @param v bug:NavigationView can't use ButterKnife,this is bug for Design 23
+     */
+    //@OnClick(R.id.drawerLayoutNavHeader)
     public void navHeaderClick(final View v) {
         ViewGroup navHeader = (ViewGroup) findViewById(R.id.drawerLayoutNavHeader);
         navHeader.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +120,8 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.END)) {
+        ViewCompat.setElevation(getToolbar(), 0);
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();

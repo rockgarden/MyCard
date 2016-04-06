@@ -12,8 +12,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/NoScrollingBehavior">
+        android:orientation="vertical">
+        <!--app:layout_behavior="@string/NoScrollingBehavior"-->
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapse_toolbar_layout"

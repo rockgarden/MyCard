@@ -8,6 +8,8 @@
     app:elevation="@dimen/default_elevation"
     app:layout_scrollFlags="scroll|enterAlways"
     app:title="@string/app_name">
+    <!--app:layout_collapseMode="pin"-->
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
 
     <RelativeLayout
         android:id="@+id/app_title_Layout"

@@ -59,9 +59,6 @@ public class CommentsActivity extends BaseLayoutActivity implements SendCommentB
                 }
             });
         }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     private void setupComments() {

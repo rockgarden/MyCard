@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="photo" />
+            android:title="null" />
         <item
             android:id="@+id/show_photo"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Photos" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="ViewPager" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="null" />
         <item
             android:id="@+id/show_card"
             android:icon="@drawable/ic_menu_card"

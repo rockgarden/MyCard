@@ -56,9 +56,6 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
         } else {
             recyclerViewAdapterPhoto.updateItems(false);
         }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
 

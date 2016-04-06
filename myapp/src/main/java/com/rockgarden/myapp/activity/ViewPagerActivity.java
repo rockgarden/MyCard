@@ -5,11 +5,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.rockgarden.myapp.R;
@@ -40,7 +36,6 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
 
     private void setupViewPager() {
         toolbar_layout.setTitle(getString(R.string.title_activity_viewpager));
-        toolbar.setNavigationIcon(R.mipmap.ic_launcher);
         recordViewPager.setAdapter(new PagerAdapter_Fragment(getSupportFragmentManager(),
                 ViewPagerActivity.this));
         //initTabs(); //在PagerAdapter完成title设定
@@ -58,28 +53,18 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
                 .setAction("Action", null).show();
     }
 
-    @Override
-    public void onBackPressed() {
-        ViewCompat.setElevation(getToolbar(), 0);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

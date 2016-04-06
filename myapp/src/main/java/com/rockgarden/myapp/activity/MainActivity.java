@@ -1,6 +1,8 @@
 package com.rockgarden.myapp.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,6 +32,25 @@ public class MainActivity extends BaseLayoutDrawerActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // 在ActionBar上注入DrawerToggle
+        setToggle();
+    }
+
+    /**
+     * 自定义Toolbar
+     */
+    private void initToolbar() {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // 禁用HomeButton
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     private void setTitle() {

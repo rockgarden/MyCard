@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 
 /**
  * 加载通用布局的视图控制基类
+ * <p>引入ButterKnife并注入全局的Toolbar</p>
  * Created by rockgarden on 15/11/23.
  */
 public class BaseLayoutActivity extends BaseActivity {
@@ -27,7 +28,7 @@ public class BaseLayoutActivity extends BaseActivity {
 
     /**
      * 调用ButterKnife注入View
-     * 并加载全局的toolbar
+     * 加载全局的toolbar
      *
      * @param layoutResID
      */
@@ -43,25 +44,17 @@ public class BaseLayoutActivity extends BaseActivity {
     }
 
     protected void setupToolbar() {
+        // 注入toolbar才可有效执行setupToolbar
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 可改变toolbar的homeIcon
-            getSupportActionBar().setHomeButtonEnabled(false);
+            setSupportActionBar(toolbar); //toolbar->ActionBar by getDelegate()
+            // 默认启用ActionBar的HomeButton
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); //可改变toolbar的homeIcon
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
 
     /**
-     * 不调用ButterKnife不注入View
-     * 不加载全局的toolbar
-     *
-     * @param layoutResId
-     */
-    public void setContentViewNoBind(int layoutResId) {
-        super.setContentView(layoutResId);
-    }
-
-    /**
-     * 自定义OptionsMenu
+     * 定义ToolBar的OptionsMenu
      *
      * @param menu
      * @return
@@ -74,9 +67,21 @@ public class BaseLayoutActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * 定义OptionsMenuItem的Selected事件
+     * <p>Activity's options menu and the navigation button will be wired through the standard
+     * {@link android.R.id#home home} menu select action.</p>
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // ActionBar原生的home
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.action_home:
                 onBackPressed();
                 return true;
@@ -86,6 +91,18 @@ public class BaseLayoutActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * 不调用ButterKnife不注入View
+     * 加载全局的toolbar
+     *
+     * @param layoutResId
+     */
+    public void setContentViewNoBind(int layoutResId) {
+        super.setContentView(layoutResId);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setupToolbar();
     }
 
 
