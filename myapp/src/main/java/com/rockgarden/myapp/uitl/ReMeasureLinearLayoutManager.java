@@ -22,39 +22,41 @@ public class ReMeasureLinearLayoutManager extends LinearLayoutManager {
     /**
      * Used when onMeasure is called before layout manager is set
      */
-//    private void defaultOnMeasure(int widthSpec, int heightSpec) {
-//        final int widthMode = View.MeasureSpec.getMode(widthSpec);
-//        final int heightMode = View.MeasureSpec.getMode(heightSpec);
-//        final int widthSize = View.MeasureSpec.getSize(widthSpec);
-//        final int heightSize = View.MeasureSpec.getSize(heightSpec);
-//
-//        int width = 0;
-//        int height = 0;
-//
-//        switch (widthMode) {
-//            case View.MeasureSpec.EXACTLY:
-//            case View.MeasureSpec.AT_MOST:
-//                width = widthSize;
-//                break;
-//            case View.MeasureSpec.UNSPECIFIED:
-//            default:
-//                width = ViewCompat.getMinimumWidth(this);
-//                break;
-//        }
-//
-//        switch (heightMode) {
-//            case View.MeasureSpec.EXACTLY:
-//            case View.MeasureSpec.AT_MOST:
-//                height = heightSize;
-//                break;
-//            case View.MeasureSpec.UNSPECIFIED:
-//            default:
-//                height = ViewCompat.getMinimumHeight(this);
-//                break;
-//        }
-//
-//        setMeasuredDimension(width, height);
-//    }
+    private void defaultOnMeasure(int widthSpec, int heightSpec) {
+        final int widthMode = View.MeasureSpec.getMode(widthSpec);
+        final int heightMode = View.MeasureSpec.getMode(heightSpec);
+        final int widthSize = View.MeasureSpec.getSize(widthSpec);
+        final int heightSize = View.MeasureSpec.getSize(heightSpec);
+
+        int width = 0;
+        int height = 0;
+
+        switch (widthMode) {
+            case View.MeasureSpec.EXACTLY:
+            case View.MeasureSpec.AT_MOST:
+                width = widthSize;
+                break;
+            case View.MeasureSpec.UNSPECIFIED:
+            default:
+                //FIXME:this is error
+                //width = ViewCompat.getMinimumWidth(this);
+                break;
+        }
+
+        switch (heightMode) {
+            case View.MeasureSpec.EXACTLY:
+            case View.MeasureSpec.AT_MOST:
+                height = heightSize;
+                break;
+            case View.MeasureSpec.UNSPECIFIED:
+            default:
+                //FIXME:this is error
+                //height = ViewCompat.getMinimumHeight(this);
+                break;
+        }
+
+        setMeasuredDimension(width, height);
+    }
 
     /**
      * override RecyclerView.defaultOnMeasure

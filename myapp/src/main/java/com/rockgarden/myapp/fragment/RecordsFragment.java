@@ -78,7 +78,9 @@ public class RecordsFragment extends Fragment {
             final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
             // 设置布局管理器
             if (mColumnCount <= 1) {
+                // FIXME:ReMeasureLinearLayoutManager在计算positon
                 recyclerView.setLayoutManager(layoutManager);
+                //recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
