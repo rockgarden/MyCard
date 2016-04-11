@@ -68,13 +68,13 @@ public class BaseAdapter_List extends BaseAdapter {
 	}
 
 	static class ViewHolder {
-		@Bind(R.id.tv_record_time)
+		@Bind(R.id.tv_card_record_time)
 		TextView tv_text;
-		@Bind(R.id.btn_record_result)
+		@Bind(R.id.btn_card_record_result)
 		Button btn;
 		private Context mContext;
 
-		@OnClick(R.id.btn_record_result)
+		@OnClick(R.id.btn_card_record_result)
 		public void onClick(View arg0) {
 			Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
 		}

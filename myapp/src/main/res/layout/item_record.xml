@@ -1,20 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--Bug:that you should be using wrap_content for the layout_height
+ because RecyclerView versions prior to 23.2.1 previously ignored layout parameters
+ 所以没有必要就用wrap_content设置高度.-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/item_spacing"
-    android:paddingBottom="@dimen/item_spacing"
-    android:paddingRight="@dimen/normal_spacing"
-    android:paddingLeft="@dimen/normal_spacing"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
-    android:background="?android:attr/selectableItemBackground">
+    android:paddingBottom="@dimen/item_spacing"
+    android:paddingLeft="@dimen/normal_spacing"
+    android:paddingRight="@dimen/normal_spacing"
+    android:paddingTop="@dimen/item_spacing">
 
     <TextView
         android:id="@+id/tv_record_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/btn_record_result"

@@ -73,7 +73,7 @@ public class NotificationUtil {
             PendingIntent contentItent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             notification.tickerText = ticker;
             // TODO: setLatestEventInfo not in API > 19
-            notification.setLatestEventInfo(context, title, msg, contentItent);
+            //notification.setLatestEventInfo(context, title, msg, contentItent);
             // 把Notification传递给NotificationManager
             notificationManager.notify(0, notification);
         }

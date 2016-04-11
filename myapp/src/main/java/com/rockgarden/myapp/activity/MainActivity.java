@@ -1,39 +1,43 @@
 package com.rockgarden.myapp.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.litesuits.android.view.GifView;
 import com.rockgarden.myapp.R;
+import com.rockgarden.myapp.fragment.MainFragment;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import static android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
 
 public class MainActivity extends BaseLayoutDrawerActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    @Bind(R.id.test_GifView)
-    GifView testGifViw;
+    private FragmentManager fragmentManager;
+    private MainFragment mainFragment;
+    int selectedMainContentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle();
-        try {
-            InputStream inputStream = getAssets().open("test.gif");
-            testGifViw.setGifStream(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
+        fragmentManager = getSupportFragmentManager();
+        if (savedInstanceState == null) { //避免发生Activity重创时生成新的fragment
+            showMain();
         }
         // 在ActionBar上注入DrawerToggle
         setToggle();
+    }
+
+    private void showMain() {
+        selectedMainContentView = 4;
+        mainFragment = MainFragment.newInstance(selectedMainContentView);
+        fragmentManager.beginTransaction()
+                .setTransition(TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.main_content, mainFragment)
+                .commit();
     }
 
     /**
@@ -60,9 +64,5 @@ public class MainActivity extends BaseLayoutDrawerActivity {
         setToolbarTitleView(title);
     }
 
-    @OnClick(R.id.test_GifView)
-    public void onGifClick(View v) {
-        GifView gif = (GifView) v;
-        gif.setPaused(!gif.isPaused());
-    }
+
 }

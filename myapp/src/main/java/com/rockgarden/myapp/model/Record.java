@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Model of Record
  * Created by rockgarden on 15/11/26.
  */
 public class Record {

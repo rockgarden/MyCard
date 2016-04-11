@@ -73,6 +73,7 @@ public class ReMeasureLinearLayoutManager extends LinearLayoutManager {
         final int heightSize = View.MeasureSpec.getSize(heightSpec);
         int width = 0;
         int height = 0;
+        // TODO:从哪个对象获取当前item的数量?state or recycler
         for (int i = 0; i < getItemCount(); i++) {
             if (getOrientation() == HORIZONTAL) {
                 measureScrapChild(recycler, i,

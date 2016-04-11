@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.litesuits.android.Log;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
 import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
-import com.litesuits.android.Log;
 
 import java.util.List;
 
@@ -27,13 +27,13 @@ import butterknife.ButterKnife;
 /**
  * A fragment representing a list of Records.
  */
-public  class RecordsFragment extends Fragment {
+public class RecordsFragment extends Fragment {
     private static final String TAG = RecordsFragment.class.getSimpleName();
-//    @Bind(R.id.swipeContainer)
+    //    @Bind(R.id.swipeContainer)
 //    SwipeRefreshLayout swipeContainer;
     @Bind(R.id.rv_records)
     RecyclerView recyclerView;
-
+    private List<Record> mRecords;
     NestedScrollingChild mChildHelper;
 
     RecyclerViewAdapter_Record adapter;
@@ -62,22 +62,27 @@ public  class RecordsFragment extends Fragment {
         mChildHelper = recyclerView;
         ButterKnife.bind(this, rootView);
 //        initSwipeContainer();
+        initData(); //准备数据
         initRecyclerView();
         return rootView;
     }
 
+    private void initData() {
+        mRecords = Record.createRecordList(20);
+    }
+
     private void initRecyclerView() {
-        List<Record> mRecords = Record.createRecordList(20);
         adapter = new RecyclerViewAdapter_Record(mRecords, this.getActivity());
         if (recyclerView instanceof RecyclerView) {
             Context context = recyclerView.getContext();
-            final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this.getActivity(),LinearLayoutManager.VERTICAL,false);
-
+            final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
+            // 设置布局管理器
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(layoutManager);
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+            // 设置adapter
             recyclerView.setAdapter(adapter);
             recyclerView.setNestedScrollingEnabled(false);
             //recyclerView.setHasFixedSize(false);
@@ -106,6 +111,7 @@ public  class RecordsFragment extends Fragment {
                     Log.i("getChildCount", String.valueOf(visibleItemCount));
                     Log.i("getItemCount", String.valueOf(totalItemCount));
                     Log.i("lastVisibleItemPos", String.valueOf(lastVisibleItemPos));
+                    // TODO:this right?!
                     if ((visibleItemCount + lastVisibleItemPos) >= totalItemCount) {
                         Log.i("LOG", "Last Item Reached!");
                     }
@@ -116,9 +122,11 @@ public  class RecordsFragment extends Fragment {
                 public void onTouchEvent(RecyclerView recycler, MotionEvent event) {
                     // Handle on touch events here
                 }
+
                 @Override
                 public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
                 }
+
                 @Override
                 public boolean onInterceptTouchEvent(RecyclerView recycler, MotionEvent event) {
                     return false;
@@ -127,7 +135,16 @@ public  class RecordsFragment extends Fragment {
         }
     }
 
-//    private void initSwipeContainer() {
+
+    public void fetchDataAsync(int page) {
+        // TODO get data then refresh view
+        adapter.clear();
+        final List<Record> mRecords = Record.createRecordList(10);
+        adapter.addAll(mRecords);
+//        swipeContainer.setRefreshing(false);
+    }
+
+    //    private void initSwipeContainer() {
 //        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
 //            public void onRefresh() {
@@ -140,12 +157,14 @@ public  class RecordsFragment extends Fragment {
 //                android.R.color.holo_red_light);
 //    }
 
-    public void fetchDataAsync(int page) {
-        // TODO get data then refresh view
-        adapter.clear();
-        final List<Record> mRecords = Record.createRecordList(10);
-        adapter.addAll(mRecords);
-//        swipeContainer.setRefreshing(false);
+    // 也可在adapter中实现
+    public void updateItems() {
+        // record this value before making any changes to the existing list
+        int curSize = adapter.getItemCount();
+        List<Record> newItems = Record.createRecordList(20);
+        // update the existing list
+        mRecords.addAll(newItems);
+        adapter.notifyItemRangeInserted(curSize, newItems.size());
     }
 
 //    private OnListFragmentInteractionListener mListener;

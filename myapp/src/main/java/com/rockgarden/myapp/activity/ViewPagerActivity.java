@@ -34,6 +34,10 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
         }
     }
 
+    /**
+     * 设定ViewPager
+     * 主要是setAdapter
+     */
     private void setupViewPager() {
         toolbar_layout.setTitle(getString(R.string.title_activity_viewpager));
         recordViewPager.setAdapter(new PagerAdapter_Fragment(getSupportFragmentManager(),
