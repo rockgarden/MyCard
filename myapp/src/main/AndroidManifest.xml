@@ -29,6 +29,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- activity launchMode:
+        在开发一个APP前,要设计好所有Activity之间的跳转关系,是否可重建,是否需要主动finish;
+        并基于此设定不同的launchMode;
+        如:
+        Loading,一般多为standard并需要主动finish;
+        Main,一般为singleInstance避免主动释放Function;
+        主要的Function(A\B\...)一般多为singleTask以避免多次onCreate;
+        Function的Child,一般多为standard,确保与Function在一个Task内,在返回Function时可一次性释放;
+        -->
         <activity
             android:name=".activity.LoadingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -41,8 +50,30 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppTheme" />
+
+        <!--singleTask:
+         通过Intent启动Activity,如果系统已经存在一个实例,系统就会将请求发送到这个实例上;
+         但此时系统就不会再调用onCreate方法，而是调用onNewIntent方法;
+         若在后台运行的Task已经被系统Kill掉,那么系统就会new一个实例并调用onCreate方法,而不再调用onNewIntent方法;
+         所以要在onCreate和onNewIntent方法中调用同一个处理数据的方法;
+         singleTask的Activity首次调用时会新开一个task;
+         当singleTask Activity再次进入task即将放入栈顶,则销毁其上的所有activity;
+         -->
+        <!--singleInstance:
+         不会新开一个task,只是保持全栈有且只有一个activity实例对象;
+         -->
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activity.PhotoActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.CommentsActivity" />
+        <activity
             android:name=".activity.ViewPagerActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:parentActivityName=".activity.LoadingActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -55,23 +86,11 @@
         </activity>
         <activity
             android:name=".activity.CardActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.PictureDetailActivity"
             android:theme="@style/AppTheme" />
-
-        <!-- 单任务模式:
-         通过Intent启动Activity,如果系统已经存在一个实例,系统就会将请求发送到这个实例上;
-         但此时系统就不会再调用onCreate方法，而是调用onNewIntent方法;
-         若在后台运行的Task已经被系统Kill掉,那么系统就会new一个实例并调用onCreate方法,而不再调用onNewIntent方法;
-         所以要在onCreate和onNewIntent方法中调用同一个处理数据的方法;
-         -->
-        <activity
-            android:name=".activity.PhotoActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.CommentsActivity" />
 
         <!-- Required SDK核心功能-->
         <activity

@@ -172,7 +172,10 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemCount() {
-        return mRecords.size();
+        if (mRecords != null)
+            return mRecords.size();
+        else
+            return 0;
     }
 
     @Override

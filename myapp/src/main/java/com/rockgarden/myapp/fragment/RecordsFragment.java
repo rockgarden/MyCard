@@ -19,7 +19,6 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
 import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
-import com.rockgarden.myapp.widget.ItemDecoration_Linear;
 
 import java.util.List;
 
@@ -92,10 +91,10 @@ public class RecordsFragment extends Fragment {
             }
             // 设置adapter
             recyclerView.setAdapter(adapter);
-            recyclerView.setNestedScrollingEnabled(false);
+            recyclerView.setNestedScrollingEnabled(true);// TODO:
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.addItemDecoration(new ItemDecoration_Linear(getActivity(),
-                    ItemDecoration_Linear.VERTICAL_LIST));
+            //recyclerView.addItemDecoration(new ItemDecoration_Linear(getActivity(),
+            //ItemDecoration_Linear.VERTICAL_LIST));
             //recyclerView.setHasFixedSize(false);
             /*
             recyclerView.setAdapter(new Adapter(BaseItem.ITEMS, mListener));
@@ -112,6 +111,7 @@ public class RecordsFragment extends Fragment {
                 public void onItemLongClick(View view, int position) {
                     Toast.makeText(getActivity(), position + " long click", Toast.LENGTH_SHORT).show();
                     adapter.removeData(position);
+                    recyclerView.scrollToPosition(0);
                 }
             });
             // 监听Scroll

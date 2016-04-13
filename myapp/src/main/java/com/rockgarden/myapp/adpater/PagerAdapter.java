@@ -9,23 +9,24 @@ import com.rockgarden.myapp.fragment.PayFragment;
 import com.rockgarden.myapp.fragment.RecordsFragment;
 
 /**
+ * TODO:抽象成可配置的通用Adapter
  * Created by wk on 15/11/25.
  */
-public class PagerAdapter_Fragment extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentStatePagerAdapter {
 
     CharSequence Titles[];
     private String tabTitles[] = new String[] { "Tab1", "Tab2" };
     int PAGE_COUNT = 2;
     private Context context;
 
-    public PagerAdapter_Fragment(FragmentManager fm, CharSequence mTitles[],
-                                 int mNumbOfTabsumb) {
+    public PagerAdapter(FragmentManager fm, CharSequence mTitles[],
+                        int mNumbOfTabsumb) {
         super(fm);
         this.Titles = mTitles;
         this.PAGE_COUNT = mNumbOfTabsumb;
     }
 
-    public PagerAdapter_Fragment(FragmentManager fm, Context context) {
+    public PagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }

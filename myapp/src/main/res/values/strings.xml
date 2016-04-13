@@ -27,4 +27,5 @@
     <string name="good_photo">I like it.</string>
     <!-- important! Can’t Can\’t -->
     <string name="bad_photo">It is ugly.</string>
+    <string name="picture_info">Only you, guy.</string>
 </resources>

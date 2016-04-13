@@ -83,7 +83,7 @@ public class BaseLayoutActivity extends BaseActivity {
                 onBackPressed();
                 return true;
             case R.id.action_home:
-                onBackPressed();
+                startActivity(new Intent(this, MainActivity.class));
                 return true;
             case R.id.action_settings:
                 startActivity(new Intent(this, LoginActivity.class));

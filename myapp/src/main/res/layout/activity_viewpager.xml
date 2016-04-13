@@ -12,7 +12,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--app:layout_behavior="@string/NoScrollingBehavior"-->
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -21,14 +22,15 @@
             android:layout_height="match_parent"
             android:background="@drawable/side_nav_bar"
             android:fitsSystemWindows="true"
-            app:collapsedTitleGravity="left"
             app:contentScrim="@drawable/side_nav_bar"
-            app:expandedTitleGravity="bottom|left"
+            app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@style/WhiteText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <!--view只要设置了app:layout_scrollFlags属性,就可以在RecyclerView滚动事件发生的时候被触发
             exitUntilCollapsed:这个flag时定义何时退出,当你定义了一个minHeight,这个view将在滚动到达这个最小高度的时候消失-->
+            <!--默认 app:collapsedTitleGravity="left"-->
+            <!--默认 app:expandedTitleGravity="bottom|left"-->
 
             <ImageView
                 android:id="@+id/cardPhoto"
@@ -81,8 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <!--默认 app:layout_scrollFlags="scroll|enterAlways"-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -102,7 +104,7 @@
     support library包含的特殊字符串资源appbar_scrolling_view_behavior
     它和AppBarLayout.ScrollingViewBehavior相匹配
     用来通知AppBarLayout何时发生了滚动事件
-    这个behavior需要设置在触发嵌套滚动事件的view之上
+    这个behavior需要设置在可触发嵌套滚动nested scrolling事件的view之上
     如NestedScrollView/RecyclerView上-->
     <android.support.v4.view.ViewPager
         android:id="@+id/record_viewpager"

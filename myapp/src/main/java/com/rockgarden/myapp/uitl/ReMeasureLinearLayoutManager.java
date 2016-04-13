@@ -17,6 +17,21 @@ public class ReMeasureLinearLayoutManager extends LinearLayoutManager {
         super(context, orientation, reverseLayout);
     }
 
+//    // Not worked
+//    @Override
+//    public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+//        return new RecyclerView.LayoutParams(
+//                RecyclerView.LayoutParams.WRAP_CONTENT,
+//                RecyclerView.LayoutParams.WRAP_CONTENT);
+//    }
+//
+//    // Not worked
+//    @Override
+//    public boolean canScrollVertically() {
+//        //We do allow scrolling
+//        return true;
+//    }
+
     private int[] mMeasuredDimension = new int[2];
 
     /**
