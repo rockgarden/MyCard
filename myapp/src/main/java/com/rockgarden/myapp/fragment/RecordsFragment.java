@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.NestedScrollingChild;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
 import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
+import com.rockgarden.myapp.widget.ItemDecoration_Linear;
 
 import java.util.List;
 
@@ -83,15 +85,24 @@ public class RecordsFragment extends Fragment {
                 //recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                // 实现多行的横向滚动
+                /*recyclerView.setLayoutManager(new StaggeredGridLayoutManager(6,
+                        StaggeredGridLayoutManager.HORIZONTAL));*/
+                // TODO:在onBindViewHolder方法中设置item高度就形成瀑布流
             }
             // 设置adapter
             recyclerView.setAdapter(adapter);
             recyclerView.setNestedScrollingEnabled(false);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new ItemDecoration_Linear(getActivity(),
+                    ItemDecoration_Linear.VERTICAL_LIST));
             //recyclerView.setHasFixedSize(false);
             /*
             recyclerView.setAdapter(new Adapter(BaseItem.ITEMS, mListener));
             */
-            adapter.setOnItemClickListener(new RecyclerViewAdapter_Record.OnItemClickListener() {
+
+            // 监听Click
+            adapter.addOnItemClickListener(new RecyclerViewAdapter_Record.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     Toast.makeText(getActivity(), position + " was clicked!", Toast.LENGTH_SHORT).show();
@@ -103,6 +114,7 @@ public class RecordsFragment extends Fragment {
                     adapter.removeData(position);
                 }
             });
+            // 监听Scroll
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -119,6 +131,7 @@ public class RecordsFragment extends Fragment {
                     }
                 }
             });
+            // 监听Touch
             recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
                 @Override
                 public void onTouchEvent(RecyclerView recycler, MotionEvent event) {

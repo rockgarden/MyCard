@@ -51,7 +51,7 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
         void setMotionEvent(RecyclerView recycler, MotionEvent event);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void addOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
@@ -73,12 +73,13 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
         // 构造函数item视图
         public RecordViewHolder(final View itemView) {
             // Stores the itemView in a public final member variable that can be used to access the context from any ViewHolder instance.
-            //将itemview存储在公用final成员变量,这样任何viewholder实例都可以来访问上下文
+            // 将ItemView存储在公用final成员变量,这样任何ViewHolder实例都可以来访问上下文
             super(itemView);
 
             recordTextView = (TextView) itemView.findViewById(R.id.tv_record_time);
             messageButton = (Button) itemView.findViewById(R.id.btn_record_result);
             if (onItemClickListener != null) {
+                // TODO:实现messageButton的Click
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -116,6 +117,7 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
     }
 
     // involves inflating a layout from XML and returning the holder
+    // 为Item创建视图
     @Override
     public RecordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext(); //获取上下文Activity.this
@@ -139,7 +141,33 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
             button.setText("Failure");
             button.setEnabled(false);
         }
-        //here can add onItemClickListener on viewHolder.itemView
+        // here can add onItemClickListener on viewHolder.itemView
+        // 如果设置了回调，则设置点击事件
+        // 实现itemView的Click
+        // FIXME:多处实现onItemClickListener有冲突吗?
+        if (onItemClickListener != null)
+        {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    int pos = viewHolder.getLayoutPosition();
+                    onItemClickListener.onItemClick(viewHolder.itemView, pos);
+                }
+            });
+
+            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View v)
+                {
+                    int pos = viewHolder.getLayoutPosition();
+                    onItemClickListener.onItemLongClick(viewHolder.itemView, pos);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -163,9 +191,14 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void removeData(int position) {
-        mRecords.remove(position);
-        notifyItemRemoved(position);
-        notifyDataSetChanged();
+        try{
+            mRecords.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeRemoved(position,1);
+        } catch (IndexOutOfBoundsException e){
+            notifyDataSetChanged();
+            e.printStackTrace();
+        }
     }
 
     public void clear() {
