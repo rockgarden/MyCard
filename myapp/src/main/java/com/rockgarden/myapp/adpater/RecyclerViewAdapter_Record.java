@@ -38,6 +38,8 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
         withHeader = withHeader;
     }
 
+    /***** Creating OnItemClickListener *****/
+    //by this method, we can attach a click handler to the adapter in RecyclerView.class*/
     private static OnItemClickListener onItemClickListener;
 //    private static OnItemTouchListener onItemTouchListener;
 
@@ -65,6 +67,8 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
      * Provide a direct reference to each of the views within a data item
      * 用于缓存item中视图便于快速访问
      * Used to cache the views within the item layout for fast access
+     * 使用侦听器实现单击处理
+     * Attaching Click Handlers using Listeners
      */
     public class RecordViewHolder extends ViewHolder {
         public TextView recordTextView;
@@ -97,14 +101,22 @@ public class RecyclerViewAdapter_Record extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
+    /**
+     * Simple Click Handler within ViewHolder
+     */
+    // Used to cache the views within the item layout for fast access
     public class ViewHolderOnClick extends ViewHolder implements View.OnClickListener {
         public TextView recordTextView;
         public Button messageButton;
+        private Context context;
 
         public ViewHolderOnClick(View itemView) {
             super(itemView);
             recordTextView = (TextView) itemView.findViewById(R.id.tv_record_time);
             messageButton = (Button) itemView.findViewById(R.id.btn_record_result);
+            // Store the context
+            this.context = context;
+            // Attach a click listener to the entire row view
             itemView.setOnClickListener(this);
         }
 

@@ -52,6 +52,32 @@ public class RecyclerViewAdapter_Picture
         return mValues.get(position);
     }
 
+    // Used to cache the views within the item layout for fast access
+//    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//        public TextView tvName;
+//        public TextView tvHometown;
+//        private Context context;
+//
+//        public ViewHolder(Context context, View itemView) {
+//            super(itemView);
+//            this.tvName = (TextView) itemView.findViewById(R.id.tvName);
+//            this.tvHometown = (TextView) itemView.findViewById(R.id.tvHometown);
+//            // Store the context
+//            this.context = context;
+//            // Attach a click listener to the entire row view
+//            itemView.setOnClickListener(this);
+//        }
+//
+//        // Handles the row being being clicked
+//        @Override
+//        public void onClick(View view) {
+//            int position = getLayoutPosition(); // gets item position
+//            User user = users.get(position);
+//            // We can access the data within the views
+//            Toast.makeText(context, tvName.getText(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
     public RecyclerViewAdapter_Picture(Context context, List<String> items) {
         context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
@@ -86,6 +112,7 @@ public class RecyclerViewAdapter_Picture
                 .fitCenter()
                 .into(holder.mImageView);
 
+        // TODO:如何实现回滚RecyclerView.scrollToPosition(mAdapter.getItemCount() - 1)
         holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

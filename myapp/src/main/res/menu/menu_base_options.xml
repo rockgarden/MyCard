@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_home"
+        android:icon="@mipmap/ic_launcher"
         android:orderInCategory="100"
         android:title="@string/action_home"
-        app:showAsAction="never" />
-
+        app:showAsAction="ifRoom" />
+    <!--android:onClick="onComposeAction"可加click事件-->
     <item
         android:id="@+id/action_settings"
+        android:icon="@mipmap/ic_launcher"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
+    <!--app:showAsAction="ifRoom" option.
+    This option is needed to show the item directly in the action bar as an icon.
+    If there's not enough room for the item in the action bar, it will appear in the action overflow.
+    If withText is specified as well (as in the second item), the text will be displayed with the icon.-->
 </menu>

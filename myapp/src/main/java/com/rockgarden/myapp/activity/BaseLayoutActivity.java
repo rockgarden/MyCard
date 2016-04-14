@@ -1,6 +1,7 @@
 package com.rockgarden.myapp.activity;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,10 +44,23 @@ public class BaseLayoutActivity extends BaseActivity {
         setupToolbar();
     }
 
+    /**
+     * AppToolBar主要功能
+     * 应用程序图标
+     * 逻辑父的“向上”导航
+     * 特定的应用程序或活动的名称
+     * 活动的基本动作图标
+     * 一致导航（包括导航抽屉）
+     */
     protected void setupToolbar() {
         // 注入toolbar才可有效执行setupToolbar
         if (toolbar != null) {
             setSupportActionBar(toolbar); //toolbar->ActionBar by getDelegate()
+            ActionBar actionBar = getSupportActionBar();
+            getSupportActionBar().setTitle(R.string.app_name); //设置title
+            //String title = actionBar.getTitle().toString();
+            //getSupportActionBar().setLogo(R.mipmap.ic_launcher); //设置logo
+            //actionBar.show(); //.hide= hide the actionbar
             // 默认启用ActionBar的HomeButton
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); //可改变toolbar的homeIcon
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -55,15 +69,16 @@ public class BaseLayoutActivity extends BaseActivity {
 
     /**
      * 定义ToolBar的OptionsMenu
-     *
+     * Adding Action Items
      * @param menu
      * @return
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_base_options, menu);
-        baseMenuItem = menu.findItem(R.id.action_settings);
-        baseMenuItem.setActionView(R.layout.menu_item_view);
+        // FIXME：自定义ItemView布局异常
+        //baseMenuItem = menu.findItem(R.id.action_settings);
+        //baseMenuItem.setActionView(R.layout.menu_item_view);
         return true;
     }
 
@@ -91,6 +106,11 @@ public class BaseLayoutActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // 单一的click事件方法
+    public void onComposeAction(MenuItem mi) {
+        // handle click here
     }
 
     /**

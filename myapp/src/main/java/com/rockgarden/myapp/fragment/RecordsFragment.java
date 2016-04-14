@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,6 @@ import com.litesuits.android.Log;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
-import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
 
 import java.util.List;
 
@@ -30,8 +30,9 @@ import butterknife.ButterKnife;
  */
 public class RecordsFragment extends Fragment {
     private static final String TAG = RecordsFragment.class.getSimpleName();
-    //    @Bind(R.id.swipeContainer)
-//    SwipeRefreshLayout swipeContainer;
+
+    @Bind(R.id.swipeContainer)
+    SwipeRefreshLayout swipeContainer;
     @Bind(R.id.rv_records)
     RecyclerView recyclerView;
     private List<Record> mRecords;
@@ -62,7 +63,7 @@ public class RecordsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_records, container, false);
         mChildHelper = recyclerView;
         ButterKnife.bind(this, rootView);
-//        initSwipeContainer();
+        initSwipeContainer();
         initData(); //准备数据
         initRecyclerView();
         return rootView;
@@ -76,14 +77,16 @@ public class RecordsFragment extends Fragment {
         adapter = new RecyclerViewAdapter_Record(mRecords, this.getActivity());
         if (recyclerView instanceof RecyclerView) {
             Context context = recyclerView.getContext();
-            final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
+            // TODO:自定义的ReMeasureLinearLayoutManager不可用
+            //final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
             // 设置布局管理器
             if (mColumnCount <= 1) {
-                // FIXME:ReMeasureLinearLayoutManager在计算positon
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                layoutManager.scrollToPosition(0);
                 recyclerView.setLayoutManager(layoutManager);
-                //recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), mColumnCount));
                 // 实现多行的横向滚动
                 /*recyclerView.setLayoutManager(new StaggeredGridLayoutManager(6,
                         StaggeredGridLayoutManager.HORIZONTAL));*/
@@ -91,7 +94,7 @@ public class RecordsFragment extends Fragment {
             }
             // 设置adapter
             recyclerView.setAdapter(adapter);
-            recyclerView.setNestedScrollingEnabled(true);// TODO:
+            recyclerView.setNestedScrollingEnabled(true); //也可在布局文件里设android:nestedScrollingEnabled="false"
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             //recyclerView.addItemDecoration(new ItemDecoration_Linear(getActivity(),
             //ItemDecoration_Linear.VERTICAL_LIST));
@@ -150,27 +153,45 @@ public class RecordsFragment extends Fragment {
         }
     }
 
+    private void initSwipeContainer() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchDataAsync(1);
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
 
     public void fetchDataAsync(int page) {
-        // TODO get data then refresh view
+        // TODO:get data then refresh view
         adapter.clear();
         final List<Record> mRecords = Record.createRecordList(10);
         adapter.addAll(mRecords);
-//        swipeContainer.setRefreshing(false);
-    }
+        swipeContainer.setRefreshing(false);
 
-    //    private void initSwipeContainer() {
-//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                fetchDataAsync(1);
+        // TODO:refresh data example
+        // Send the network request to fetch the updated data
+        // `client` here is an instance of Android Async HTTP
+//        client.getHomeTimeline(0, new JsonHttpResponseHandler() {
+//            public void onSuccess(JSONArray json) {
+//                // Remember to CLEAR OUT old items before appending in the new ones
+//                adapter.clear();
+//                // ...the data has come back, add new items to your adapter...
+//                adapter.addAll(...);
+//                // Now we call setRefreshing(false) to signal refresh has finished
+//                swipeContainer.setRefreshing(false);
+//            }
+//
+//            public void onFailure(Throwable e) {
+//                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
 //            }
 //        });
-//        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-//                android.R.color.holo_green_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_red_light);
-//    }
+
+    }
 
     // 也可在adapter中实现
     public void updateItems() {
@@ -190,7 +211,7 @@ public class RecordsFragment extends Fragment {
 //     */
 //    public RecordsFragment() {
 //    }
-//
+
 //    @Override
 //    public void onAttach(Context context) {
 //        super.onAttach(context);
@@ -201,24 +222,20 @@ public class RecordsFragment extends Fragment {
 //                    + " must implement OnListFragmentInteractionListener");
 //        }
 //    }
-//
+
 //    @Override
 //    public void onDetach() {
 //        super.onDetach();
 //        mListener = null;
 //    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p/>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that activity.
+     */
 //    public interface OnListFragmentInteractionListener {
 //        void onListFragmentInteraction(TestItem item);
 //    }
+
 }

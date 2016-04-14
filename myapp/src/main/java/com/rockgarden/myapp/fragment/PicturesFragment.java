@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Picture;
+import com.rockgarden.myapp.behavior.RecyclerViewItemClickSupport;
 import com.rockgarden.myapp.model.Pictures;
 
 import java.util.ArrayList;
@@ -58,9 +59,14 @@ public class PicturesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         adapter = new RecyclerViewAdapter_Picture(getActivity(), getRandomSublist(Pictures.sPictureStrings, 30));
         recyclerView.setAdapter(adapter);
-        // TODO:add where
-        adapter.notifyItemInserted(0);
-        recyclerView.scrollToPosition(0);
+        RecyclerViewItemClickSupport.addTo(recyclerView).setOnItemClickListener(
+                new RecyclerViewItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        // do it
+                    }
+                }
+        );
     }
 
     public static List<String> getRandomSublist(String[] array, int amount) {

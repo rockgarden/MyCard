@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 /**
  * When RecyclerView in NestedScrollView need to re measure the view's height.
  * must set "recyclerView.setNestedScrollingEnabled(false)",
+ * FIXME:ReMeasureLinearLayoutManager在计算positon时异常
  * Created by wk on 1/12/25.
  */
 public class ReMeasureLinearLayoutManager extends LinearLayoutManager {
