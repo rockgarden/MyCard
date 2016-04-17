@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 
 import com.litesuits.common.utils.AndroidUtil;
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.adpater.CommentsAdapter;
+import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Comment;
 import com.rockgarden.myapp.widget.SendCommentButton;
 
 import butterknife.Bind;
@@ -39,11 +39,11 @@ public class CommentsActivity extends BaseLayoutActivity implements SendCommentB
     @Bind(R.id.btn_send_comment)
     SendCommentButton btnSendComment;
 
-    private CommentsAdapter commentsAdapter;
+    private RecyclerViewAdapter_Comment recyclerViewAdapterComment;
     private int drawingStartLocation;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
         setupComments();
@@ -65,14 +65,14 @@ public class CommentsActivity extends BaseLayoutActivity implements SendCommentB
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         commentList.setLayoutManager(linearLayoutManager);
         commentList.setHasFixedSize(true);
-        commentsAdapter = new CommentsAdapter(this);
-        commentList.setAdapter(commentsAdapter);
+        recyclerViewAdapterComment = new RecyclerViewAdapter_Comment(this);
+        commentList.setAdapter(recyclerViewAdapterComment);
         commentList.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
         commentList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    commentsAdapter.setAnimationsLocked(true);
+                    recyclerViewAdapterComment.setAnimationsLocked(true);
                 }
             }
         });
@@ -102,7 +102,7 @@ public class CommentsActivity extends BaseLayoutActivity implements SendCommentB
     }
 
     private void animateContent() {
-        commentsAdapter.updateItems();
+        recyclerViewAdapterComment.updateItems();
         addComment.animate().translationY(0)
                 .setInterpolator(new DecelerateInterpolator())
                 .setDuration(200)
@@ -128,10 +128,10 @@ public class CommentsActivity extends BaseLayoutActivity implements SendCommentB
     @Override
     public void onSendClickListener(View v) {
         if (validateComment()) {
-            commentsAdapter.addItem();
-            commentsAdapter.setAnimationsLocked(false);
-            commentsAdapter.setDelayEnterAnimation(false);
-            commentList.smoothScrollBy(0, commentList.getChildAt(0).getHeight() * commentsAdapter.getItemCount());
+            recyclerViewAdapterComment.addItem();
+            recyclerViewAdapterComment.setAnimationsLocked(false);
+            recyclerViewAdapterComment.setDelayEnterAnimation(false);
+            commentList.smoothScrollBy(0, commentList.getChildAt(0).getHeight() * recyclerViewAdapterComment.getItemCount());
             etComment.setText(null);
             btnSendComment.setCurrentState(SendCommentButton.STATE_DONE);
         }

@@ -1,11 +1,11 @@
-package com.rockgarden.myapp.widget;
+package com.rockgarden.myapp.uitl;
 
 import android.widget.AbsListView;
 
 /**
  * Created by rockgarden on 16/4/14.
  */
-public class EndlessScrollListener implements AbsListView.OnScrollListener {
+public abstract class EndlessScrollListener_AbsListView implements AbsListView.OnScrollListener {
 
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -19,14 +19,14 @@ public class EndlessScrollListener implements AbsListView.OnScrollListener {
     // Sets the starting page index
     private int startingPageIndex = 0;
 
-    public EndlessScrollListener() {
+    public EndlessScrollListener_AbsListView() {
     }
 
-    public EndlessScrollListener(int visibleThreshold) {
+    public EndlessScrollListener_AbsListView(int visibleThreshold) {
         this.visibleThreshold = visibleThreshold;
     }
 
-    public EndlessScrollListener(int visibleThreshold, int startPage) {
+    public EndlessScrollListener_AbsListView(int visibleThreshold, int startPage) {
         this.visibleThreshold = visibleThreshold;
         this.startingPageIndex = startPage;
         this.currentPage = startPage;

@@ -6,16 +6,42 @@
         android:icon="@mipmap/ic_launcher"
         android:orderInCategory="100"
         android:title="@string/action_home"
-        app:showAsAction="ifRoom" />
-    <!--android:onClick="onComposeAction"可加click事件-->
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@mipmap/ic_launcher"
+        android:orderInCategory="10"
+        android:title="@string/action_refresh"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:icon="@mipmap/ic_launcher"
-        android:orderInCategory="100"
+        android:orderInCategory="1000"
         android:title="@string/action_settings"
-        app:showAsAction="ifRoom" />
-    <!--app:showAsAction="ifRoom" option.
-    This option is needed to show the item directly in the action bar as an icon.
-    If there's not enough room for the item in the action bar, it will appear in the action overflow.
-    If withText is specified as well (as in the second item), the text will be displayed with the icon.-->
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/action_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="never|collapseActionView" />
+    <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/action_share"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        app:showAsAction="never" />
 </menu>
+
+    <!--app:showAsAction="ifRoom".
+    always:表示永远显示在ActionBar中，如果屏幕空间不够则无法显示;
+    ifRoom:表示屏幕空间够的情况下显示在ActionBar中,不够的话就显示在overflow中;
+    never:则表示永远显示在overflow中
+    ifRoom|collapseActionView:声明了actionViewClass这个操作视窗应该被折叠到一个按钮中,
+    当用户选择这个按钮时,这个操作视窗展开;-->
+
+    <!--android:orderInCategory="10"    int大的Item时,空间不足时,优先进入overflow-->
+
+    <!--android:onClick="onComposeAction"   可加click事件-->
+
+    <!--app:actionProviderClass="com.rockgarden.myapp.widget.MyShareActionProvider"-->

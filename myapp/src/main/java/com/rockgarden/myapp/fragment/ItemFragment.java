@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.fragment.dummy.DummyContent;
 import com.rockgarden.myapp.fragment.dummy.DummyContent.DummyItem;
+import com.rockgarden.myapp.uitl.EndlessScrollListener_RecyclerView;
 
 /**
  * A fragment representing a list of Items.
@@ -27,6 +28,7 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    MyItemRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,19 +60,60 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
+        adapter = new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.addOnScrollListener(new EndlessScrollListener_RecyclerView(linearLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount) {
+                        // Triggered only when new data needs to be appended to the list
+                        // Add whatever code is needed to append new items to the bottom of the list
+                        customLoadMoreDataFromApi(page);
+                    }
+                    // This happens many times a second during a scroll, so be wary of the code you place here.
+                    // We are given a few useful parameters to help us work out if we need to load some more data,
+                    // but first we check if we are waiting for the previous load to finish.
+                    @Override
+                    public void onScrolled(RecyclerView view, int dx, int dy) {
+                        int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                    }
+                });
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, mColumnCount);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.addOnScrollListener(new EndlessScrollListener_RecyclerView(gridLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount) {
+                        // Triggered only when new data needs to be appended to the list
+                        // Add whatever code is needed to append new items to the bottom of the list
+                        customLoadMoreDataFromApi(page);
+                    }
+                });
+
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(adapter);
+
         }
         return view;
+    }
+
+    // Append more data into the adapter
+    // This method probably sends out a network request and appends new data items to your adapter.
+    public void customLoadMoreDataFromApi(int offset) {
+        // Send an API request to retrieve appropriate data using the offset value as a parameter.
+        // Deserialize API response and then construct new objects to append to the adapter
+        // Add the new objects to the data source for the adapter
+        // TODO:实现moreItems
+        //DummyContent.ITEMS.addAll(moreItems);
+        // For efficiency purposes, notify the adapter of only the elements that got changed
+        // curSize will equal to the index of the first element inserted because the list is 0-indexed
+        int curSize = adapter.getItemCount();
+        adapter.notifyItemRangeInserted(curSize, DummyContent.ITEMS.size() - 1);
     }
 
 

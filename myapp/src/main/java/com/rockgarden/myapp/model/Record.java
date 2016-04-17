@@ -32,7 +32,6 @@ public class Record {
         for (int i = 1; i <= numRecords; i++) {
             records.add(new Record("Record " + ++lastRecordsId, i <= numRecords / 2));
         }
-
         return records;
     }
 }

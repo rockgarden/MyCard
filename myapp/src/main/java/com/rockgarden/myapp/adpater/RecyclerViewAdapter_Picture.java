@@ -153,7 +153,7 @@ public class RecyclerViewAdapter_Picture
         // record this value before making any changes to the existing list
         int curSize = getItemCount();
         // replace this line with wherever you get new records
-        List<String> newItems = PicturesFragment.getRandomSublist(Pictures.sPictureStrings, number);
+        List<String> newItems = PicturesFragment.getRandomSubList(Pictures.sPictureStrings, number);
         // update the existing list
         mValues.addAll(newItems);
         // curSize should represent the first element that got added

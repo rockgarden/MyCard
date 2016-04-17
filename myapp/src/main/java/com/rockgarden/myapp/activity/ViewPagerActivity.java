@@ -25,10 +25,11 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class ViewPagerActivity extends BaseLayoutDrawerActivity {
+    public static final String TAG = ViewPagerActivity.class.getName();
 
     @Bind(R.id.collapse_toolbar_layout)
     CollapsingToolbarLayout toolbar_layout;
-    @Bind(R.id.record_tablayout)
+    @Bind(R.id.record_tabLayout)
     TabLayout recordTabs;
     @Bind(R.id.recordFab)
     FloatingActionButton recordFab;
@@ -36,7 +37,7 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
     ViewPager viewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpager);
         toolbar_layout.setTitle(getString(R.string.title_activity_viewpager));

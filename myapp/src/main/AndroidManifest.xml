@@ -20,7 +20,6 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -29,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- activity launchMode:
+        <!--
+        activity launchMode:
         在开发一个APP前,要设计好所有Activity之间的跳转关系,是否可重建,是否需要主动finish;
         并基于此设定不同的launchMode;
         如:
@@ -46,6 +46,7 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,33 +54,39 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme" />
 
-        <!--singleTask:
+        <!--
+         singleTask:
          通过Intent启动Activity,如果系统已经存在一个实例,系统就会将请求发送到这个实例上;
          但此时系统就不会再调用onCreate方法，而是调用onNewIntent方法;
          若在后台运行的Task已经被系统Kill掉,那么系统就会new一个实例并调用onCreate方法,而不再调用onNewIntent方法;
          所以要在onCreate和onNewIntent方法中调用同一个处理数据的方法;
          singleTask的Activity首次调用时会新开一个task;
          当singleTask Activity再次进入task即将放入栈顶,则销毁其上的所有activity;
-         -->
-        <!--singleInstance:
+        -->
+        <!--
+         singleInstance:
          不会新开一个task,只是保持全栈有且只有一个activity实例对象;
-         -->
+        -->
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance"
+            android:logo="@mipmap/ic_launcher" />
         <activity
             android:name=".activity.PhotoActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.CommentsActivity" />
         <activity
             android:name=".activity.ViewPagerActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.LoadingActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.PayToCardActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.LoadingActivity" />
@@ -87,12 +94,38 @@
         <activity
             android:name=".activity.CardActivity"
             android:launchMode="singleTask"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.PictureDetailActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <!-- meta-data == android:parentActivityName都可用于指定父Activity -->
+        <activity
+            android:name=".deprecated.ActionBarTabsActivity"
+            android:label="@string/title_activity_action_bar_tabs"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SpinnerActivity"
+            android:label="@string/title_activity_tab"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rockgarden.myapp.activity.MainActivity" />
+        </activity>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -106,13 +139,13 @@
             </intent-filter>
         </activity>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
-        <!-- Required SDK 核心功能-->
+        <!-- Required SDK 核心功能 -->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->
         <service
@@ -134,17 +167,18 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
+
                 <category android:name="com.rockgarden.myapp" />
             </intent-filter>
         </service>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!--Required 显示通知栏 -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required 显示通知栏 -->
                 <category android:name="com.rockgarden.myapp" />
             </intent-filter>
             <intent-filter>
@@ -160,21 +194,21 @@
             </intent-filter>
         </receiver>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
-        <!-- User defined. 用户自定义的广播接收器-->
+        <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
             android:name=".receiver.JPushReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required 用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required 用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required 用户打开自定义通知栏的intent-->
-                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
-                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.rockgarden.myapp" />
             </intent-filter>
         </receiver>
@@ -185,6 +219,8 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="b860e1b636bfc8901b9ed504" /> <!-- </>值来自开发者平台取得的AppKey-->
+            android:value="b860e1b636bfc8901b9ed504" /> <!-- </>值来自开发者平台取得的AppKey -->
+
     </application>
+
 </manifest>

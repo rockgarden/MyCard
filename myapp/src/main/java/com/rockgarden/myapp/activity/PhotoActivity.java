@@ -42,13 +42,15 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
     private ImageView imageTitle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
         processExtraData();
+
         imageTitle = new ImageView(this);
         imageTitle.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
         setToolbarTitleView(imageTitle);
+
         setupPhotos();
         //instance为空才启动切换动画
         if (savedInstanceState == null) {
@@ -92,6 +94,7 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
     /**
      * Activity处于任务栈的顶端,也就是说之前打开过的Activity现在处于onPause、onStop状态的话;
      * 其他应用或Activity再发送Intent的话,执行顺序为:onNewIntent-onRestart-onStart-onResume；
+     *
      * @param intent
      */
     @Override
@@ -129,7 +132,8 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
         int actionbarSize = AndroidUtil.dpToPx(56);
         getToolbar().setTranslationY(-actionbarSize);
         getToolbarTitleView().setTranslationY(-actionbarSize);
-        getBaseMenuItem().getActionView().setTranslationY(-actionbarSize);
+        // MenuItem加动画
+        //getAnimationMenuItem().getActionView().setTranslationY(-actionbarSize);
         getToolbar().animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
@@ -137,11 +141,11 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
         getToolbarTitleView().animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
-                .setStartDelay(400);
-        getBaseMenuItem().getActionView().animate()
+                .setStartDelay(400)
+        /*getAnimationMenuItem().getActionView().animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
-                .setStartDelay(500)
+                .setStartDelay(500)*/
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {

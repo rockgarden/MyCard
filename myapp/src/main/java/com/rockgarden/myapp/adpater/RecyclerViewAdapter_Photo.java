@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 
 /**
  * 图片列表的示例
- * Created by froger_mcs on 05.11.14.
+ * Created by wk on 05.11.16.
  */
 public class RecyclerViewAdapter_Photo extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
     private static final int VIEW_TYPE_DEFAULT = 1;

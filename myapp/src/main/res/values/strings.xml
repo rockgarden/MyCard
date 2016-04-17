@@ -10,7 +10,8 @@
     <string name="title_activity_card">Cards Demo</string>
     <string name="title_activity_viewpager">ViewPager Demo</string>
     <string name="title_activity_photo">Photo Demo</string>
-
+    <string name="title_activity_tab">Tab Demo</string>
+    <string name="title_activity_spinner">Spinner Demo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -28,4 +29,10 @@
     <!-- important! Can’t Can\’t -->
     <string name="bad_photo">It is ugly.</string>
     <string name="picture_info">Only you, guy.</string>
+    <string name="action_refresh">refresh</string>
+    <string name="action_search">search</string>
+    <string name="action_share">share</string>
+    <string name="title_activity_action_bar_tabs">ActionBarTabsActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
 </resources>

@@ -19,7 +19,7 @@ public class MainActivity extends BaseLayoutDrawerActivity {
     int selectedMainContentView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle();

@@ -92,12 +92,17 @@
         android:background="@color/colorAccent"
         app:tabIndicatorColor="@color/green_bright"-->
         <android.support.design.widget.TabLayout
-            android:id="@+id/record_tablayout"
+            android:id="@+id/record_tabLayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabGravity="fill"
             app:tabIndicatorHeight="4dp"
+            app:tabTextColor="@color/green_dark"
+            app:tabSelectedTextColor="@color/green_bright"
+            app:tabIndicatorColor="@color/green_bright"
             app:tabMode="fixed" />
+        <!--app:theme="@style/AppTabLayout"-->
+
     </android.support.design.widget.AppBarLayout>
 
     <!--app:layout_behavior=@string/appbar_scrolling_view_behavior

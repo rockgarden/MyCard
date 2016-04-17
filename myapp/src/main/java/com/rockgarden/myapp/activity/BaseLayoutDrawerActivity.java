@@ -106,7 +106,10 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
             intent = new Intent(this, ViewPagerActivity.class);
         } else if (id == R.id.show_card) {
             intent = new Intent(this, CardActivity.class);
+        } else if (id == R.id.nav_camera) {
+            intent = new Intent(this, SpinnerActivity.class);
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             toolbar.setElevation(elevation);
         drawer.closeDrawer(GravityCompat.START);

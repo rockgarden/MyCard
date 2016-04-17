@@ -33,9 +33,13 @@ import com.rockgarden.myapp.model.Pictures;
 import butterknife.Bind;
 
 public class PictureDetailActivity extends BaseLayoutActivity {
+    public static final String TAG = PictureDetailActivity.class.getName();
 
     @Bind(R.id.picture_detail_NestedScrollView)
     NestedScrollView picture_detail_NestedScrollView;
+    @Bind(R.id.collapse_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbar;
+
     public static final String EXTRA_NAME = "picture_name";
 
     @Override
@@ -46,8 +50,6 @@ public class PictureDetailActivity extends BaseLayoutActivity {
         Intent intent = getIntent();
         final String pictureName = intent.getStringExtra(EXTRA_NAME);
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar_layout);
         collapsingToolbar.setTitle(pictureName);
 
         loadBackdrop();
@@ -67,7 +69,9 @@ public class PictureDetailActivity extends BaseLayoutActivity {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        //TODO:怎么后退是最优的super.onBackPressed()or finish
                         PictureDetailActivity.super.onBackPressed();
+                        //finish();
                         overridePendingTransition(0, 0);
                     }
                 })

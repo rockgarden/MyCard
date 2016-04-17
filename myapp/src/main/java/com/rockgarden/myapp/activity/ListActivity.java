@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.BaseAdapter_List;
+import com.rockgarden.myapp.uitl.EndlessScrollListener_AbsListView;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,23 @@ public class ListActivity extends Activity {
         list.add("测试14");
         adapter = new BaseAdapter_List(this, list);
         lv.setAdapter(adapter);
+        lv.setOnScrollListener(new EndlessScrollListener_AbsListView() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                customLoadMoreDataFromApi(page);
+                // or customLoadMoreDataFromApi(totalItemsCount);
+                return true; // ONLY if more data is actually being loaded; false otherwise.
+            }
+        });
+    }
+
+    // Append more data into the adapter
+    public void customLoadMoreDataFromApi(int offset) {
+        // This method probably sends out a network request and appends new data items to your adapter.
+        // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
+        // Deserialize API response and then construct new objects to append to the adapter
     }
 
     @OnItemClick(R.id.lv)

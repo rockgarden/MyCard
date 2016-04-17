@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Picture;
-import com.rockgarden.myapp.behavior.RecyclerViewItemClickSupport;
 import com.rockgarden.myapp.model.Pictures;
 
 import java.util.ArrayList;
@@ -57,19 +56,20 @@ public class PicturesFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        adapter = new RecyclerViewAdapter_Picture(getActivity(), getRandomSublist(Pictures.sPictureStrings, 30));
+        adapter = new RecyclerViewAdapter_Picture(getActivity(), getRandomSubList(Pictures.sPictureStrings, 30));
         recyclerView.setAdapter(adapter);
-        RecyclerViewItemClickSupport.addTo(recyclerView).setOnItemClickListener(
-                new RecyclerViewItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        // do it
-                    }
-                }
-        );
+        //TODO:setOnItemClickListener将覆盖Adapter中的setOnClickListener
+//        RecyclerViewItemClickSupport.addTo(recyclerView).setOnItemClickListener(
+//                new RecyclerViewItemClickSupport.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+//                        // do it
+//                    }
+//                }
+//        );
     }
 
-    public static List<String> getRandomSublist(String[] array, int amount) {
+    public static List<String> getRandomSubList(String[] array, int amount) {
         ArrayList<String> list = new ArrayList<>(amount);
         Random random = new Random();
         while (list.size() < amount) {

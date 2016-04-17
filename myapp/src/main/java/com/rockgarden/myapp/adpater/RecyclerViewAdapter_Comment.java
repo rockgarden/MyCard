@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by rockgarden on 15/11/19.
  */
-public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter_Comment extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private int itemsCount = 0;
@@ -31,7 +31,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean animationsLocked = false;
     private boolean delayEnterAnimation = true;
 
-    public CommentsAdapter(Context context) {
+    public RecyclerViewAdapter_Comment(Context context) {
         this.context = context;
         avatarSize = context.getResources().getDimensionPixelSize(R.dimen.comment_avatar_size);
     }

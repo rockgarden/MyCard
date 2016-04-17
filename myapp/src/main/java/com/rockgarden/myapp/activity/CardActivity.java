@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Card;
-import com.rockgarden.myapp.uitl.ReMeasureLinearLayoutManager;
 
 import butterknife.Bind;
 
@@ -22,7 +21,7 @@ public class CardActivity extends BaseLayoutDrawerActivity {
     CollapsingToolbarLayout collapseToolbarLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
         collapseToolbarLayout.setTitle(getString(R.string.title_activity_card));
@@ -41,10 +40,11 @@ public class CardActivity extends BaseLayoutDrawerActivity {
         // RVAdapter adapter = new RVAdapter();
         RecyclerViewAdapter_Card recyclerViewAdapterCard = new RecyclerViewAdapter_Card(true); // true: with header
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        //final ReMeasureLinearLayoutManager layoutManager = new ReMeasureLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerViewAdapterCard);
-        recyclerView.setNestedScrollingEnabled(false); // Disables scrolling for RecyclerView, CustomLinearLayoutManager used instead of MyLinearLayoutManager
+        recyclerView.setNestedScrollingEnabled(true);
         // recyclerView.setHasFixedSize(false);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

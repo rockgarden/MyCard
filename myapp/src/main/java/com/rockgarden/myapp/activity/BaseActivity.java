@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.litesuits.android.Log;
+
+import java.lang.reflect.Field;
 
 /**
  * 加载全局通用方法的基类
@@ -25,6 +28,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public boolean pendingIntroAnimation;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setOverflowShowingAlways();
+    }
+
     public void FullScreen_SDK16() {
         if (Build.VERSION.SDK_INT < 16) {
             requestWindowFeature(Window.FEATURE_NO_TITLE); //与ButterKnife对冲突
@@ -39,7 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         intent.setClass(this, MainActivity.class);
         startActivity(intent);
-        Log.i(TAG, "jump to main");
+        Log.d(TAG, "jump to main");
         finish();
     }
 
@@ -56,6 +65,40 @@ public class BaseActivity extends AppCompatActivity {
         intent.setAction(PhotoActivity.ACTION_SHOW_LOADING_ITEM);
         startActivity(intent);
     }
+
+    // 解决物理Menu键和overflow按钮互斥
+    private void setOverflowShowingAlways() {
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            menuKeyField.setAccessible(true);
+            menuKeyField.setBoolean(config, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    /**
+//     * 显示每一个Action按钮对应的图标
+//     * 调用MenuBuilder这个类的setOptionalIconsVisible方法
+//     * @param featureId
+//     * @param menu
+//     * @return
+//     */
+//    @Override
+//    public boolean onMenuOpened(int featureId, Menu menu) {
+//        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+//            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+//                try {
+//                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+//                    m.setAccessible(true);
+//                    m.invoke(menu, true);
+//                } catch (Exception e) {
+//                }
+//            }
+//        }
+//        return super.onMenuOpened(featureId, menu);
+//    }
 
 //    private void AlertNotAvailable() {
 //        if (NeedsLoop)

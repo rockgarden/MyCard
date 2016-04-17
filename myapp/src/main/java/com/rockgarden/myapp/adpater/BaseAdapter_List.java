@@ -17,71 +17,98 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 简化的EndlessScroll实现
+ */
 public class BaseAdapter_List extends BaseAdapter {
-	private Context mContext;
-	private ArrayList<String> lists;
+    EndlessScrollListener endlessScrollListener;
+    private Context mContext;
+    private ArrayList<String> lists;
 
-	public BaseAdapter_List(Context context, ArrayList<String> list) {
-		mContext = context;
-		lists = list;
-	}
+    public void setEndlessScrollListener(EndlessScrollListener endlessScrollListener) {
+        this.endlessScrollListener = endlessScrollListener;
+    }
 
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return lists.size();
-	}
+    public BaseAdapter_List(Context context, ArrayList<String> list) {
+        mContext = context;
+        lists = list;
+    }
 
-	@Override
-	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
-		return lists.get(arg0);
-	}
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return lists.size();
+    }
 
-	@Override
-	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
-		return arg0;
-	}
+    @Override
+    public Object getItem(int arg0) {
+        // TODO Auto-generated method stub
+        return lists.get(arg0);
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
-		if (convertView == null) {
-			convertView = View.inflate(mContext, R.layout.cardview_content_item, null);
-			holder = new ViewHolder(convertView);
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
+    @Override
+    public long getItemId(int arg0) {
+        // TODO Auto-generated method stub
+        return arg0;
+    }
 
-		String s = lists.get(position);
-		holder.tv_text.setText(s);
-		holder.btn.setOnClickListener(new OnClickListener() {
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final int VISIBLE_THRESHOLD = 5;
 
-			@Override
-			public void onClick(View arg0) {
-				Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
-			}
-		});
-		return convertView;
-	}
+        ViewHolder holder = null;
+        if (convertView == null) {
+            convertView = View.inflate(mContext, R.layout.cardview_content_item, null);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-	static class ViewHolder {
-		@Bind(R.id.tv_card_record_time)
-		TextView tv_text;
-		@Bind(R.id.btn_card_record_result)
-		Button btn;
-		private Context mContext;
+        final String s = lists.get(position);
+        holder.tv_text.setText(s);
+        holder.btn.setOnClickListener(new OnClickListener() {
 
-		@OnClick(R.id.btn_card_record_result)
-		public void onClick(View arg0) {
-			Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
-		}
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
+            }
+        });
+        // you can cache getItemCount() in a member variable for more performance tuning
+        if (position == getCount() - VISIBLE_THRESHOLD) {
+            if (endlessScrollListener != null) {
+                endlessScrollListener.onLoadMore(position);
+            }
+        }
+        return convertView;
+    }
 
-		public ViewHolder(View view) {
-			ButterKnife.bind(this, view);
-		}
-	}
+    static class ViewHolder {
+        @Bind(R.id.tv_card_record_time)
+        TextView tv_text;
+        @Bind(R.id.btn_card_record_result)
+        Button btn;
+        private Context mContext;
+
+        @OnClick(R.id.btn_card_record_result)
+        public void onClick(View arg0) {
+            Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
+        }
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    // TODO:实现LoadMore
+    public interface EndlessScrollListener {
+        /**
+         * Loads more data.
+         *
+         * @param position
+         * @return true loads data actually, false otherwise.
+         */
+        boolean onLoadMore(int position);
+    }
 
 }
