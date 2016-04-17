@@ -1,4 +1,4 @@
-package com.rockgarden.myapp.fragment.dummy;
+package com.rockgarden.myapp.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,33 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p/>
- * TODO: Replace all uses of this class before publishing your app.
+ *
  */
-public class DummyContent {
+public class Item {
 
-    /**
-     * An array of sample (dummy) items.
-     */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<Object> ITEMS = new ArrayList<>();
+    public static final Map<String, Object> ITEM_MAP = new HashMap<String, Object>();
 
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
-
-    private static final int COUNT = 25;
+    private static final int COUNT = 5;
 
     static {
         // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+        addItem(new DummyItem("101", "Wang", "age 18; sex female"));
+        addItem(new DummyItem("102", "Rob Stark", "age 17; sex male"));
+        addItem(new ImageItem("103", "Sun"));
+        addItem(new DummyItem("104", "Jon Snow", "age 18; sex male"));
+        addItem(new ImageItem("105", "moon"));
+        addItem(new DummyItem("106", "Tyrion Lanister", "age 16; sex male"));
     }
 
     private static void addItem(DummyItem item) {
+        ITEMS.add(item);
+        ITEM_MAP.put(item.id, item);
+    }
+
+    private static void addItem(ImageItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
@@ -50,9 +48,6 @@ public class DummyContent {
         return builder.toString();
     }
 
-    /**
-     * A dummy item representing a piece of content.
-     */
     public static class DummyItem {
         public final String id;
         public final String content;
@@ -67,6 +62,21 @@ public class DummyContent {
         @Override
         public String toString() {
             return content;
+        }
+    }
+
+    public static class ImageItem {
+        public final String id;
+        public final String name;
+
+        public ImageItem(String id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
     }
 }

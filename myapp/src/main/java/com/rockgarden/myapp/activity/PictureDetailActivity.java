@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.litesuits.common.utils.AndroidUtil;
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.model.Pictures;
+import com.rockgarden.myapp.model.Picture;
 
 import butterknife.Bind;
 
@@ -57,7 +57,7 @@ public class PictureDetailActivity extends BaseLayoutActivity {
 
     private void loadBackdrop() {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(Pictures.getRandomCheeseDrawable()).centerCrop().into(imageView);
+        Glide.with(this).load(Picture.getRandomCheeseDrawable()).centerCrop().into(imageView);
     }
 
     @Override

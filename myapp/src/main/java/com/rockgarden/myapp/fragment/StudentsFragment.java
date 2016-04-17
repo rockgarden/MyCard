@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class StudentsFragment extends Fragment {
     @Bind(R.id.section_label)
     TextView textView;
     @Bind(R.id.Empty_label)
@@ -39,11 +39,11 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public PlaceholderFragment() {
+    public StudentsFragment() {
     }
 
-    public static PlaceholderFragment newInstance(int sectionNumber) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static StudentsFragment newInstance(int sectionNumber) {
+        StudentsFragment fragment = new StudentsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -53,7 +53,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_spinner, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_student, container, false);
         ButterKnife.bind(this, rootView);
         textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         handler = new Handler();

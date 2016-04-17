@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.activity.PictureDetailActivity;
 import com.rockgarden.myapp.fragment.PicturesFragment;
-import com.rockgarden.myapp.model.Pictures;
+import com.rockgarden.myapp.model.Picture;
 
 import java.util.List;
 
@@ -108,7 +108,7 @@ public class RecyclerViewAdapter_Picture
         });
 
         Glide.with(holder.mImageView.getContext())
-                .load(Pictures.getRandomCheeseDrawable())
+                .load(Picture.getRandomCheeseDrawable())
                 .fitCenter()
                 .into(holder.mImageView);
 
@@ -153,7 +153,7 @@ public class RecyclerViewAdapter_Picture
         // record this value before making any changes to the existing list
         int curSize = getItemCount();
         // replace this line with wherever you get new records
-        List<String> newItems = PicturesFragment.getRandomSubList(Pictures.sPictureStrings, number);
+        List<String> newItems = PicturesFragment.getRandomSubList(Picture.sPictureStrings, number);
         // update the existing list
         mValues.addAll(newItems);
         // curSize should represent the first element that got added

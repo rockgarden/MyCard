@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Picture;
-import com.rockgarden.myapp.model.Pictures;
+import com.rockgarden.myapp.model.Picture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class PicturesFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        adapter = new RecyclerViewAdapter_Picture(getActivity(), getRandomSubList(Pictures.sPictureStrings, 30));
+        adapter = new RecyclerViewAdapter_Picture(getActivity(), getRandomSubList(Picture.sPictureStrings, 30));
         recyclerView.setAdapter(adapter);
         //TODO:setOnItemClickListener将覆盖Adapter中的setOnClickListener
 //        RecyclerViewItemClickSupport.addTo(recyclerView).setOnItemClickListener(

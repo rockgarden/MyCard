@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/recycler_view_margin"
     android:paddingRight="@dimen/recycler_view_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".fragment.PlaceholderFragment">
+    tools:context=".fragment.StudentsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

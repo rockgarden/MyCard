@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.fragment.dummy.DummyContent;
-import com.rockgarden.myapp.fragment.dummy.DummyContent.DummyItem;
+import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Complex;
+import com.rockgarden.myapp.model.Item;
 import com.rockgarden.myapp.uitl.EndlessScrollListener_RecyclerView;
 
 /**
@@ -28,7 +28,7 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    MyItemRecyclerViewAdapter adapter;
+    RecyclerViewAdapter_Complex adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,9 +59,9 @@ public class ItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        adapter = new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener);
-        // Set the adapter
+        View view = inflater.inflate(R.layout.fragment_item, container, false);
+        adapter = new RecyclerViewAdapter_Complex(Item.ITEMS, mListener);
+        // FIXME:滑动不流畅?
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -97,7 +97,6 @@ public class ItemFragment extends Fragment {
 
             }
             recyclerView.setAdapter(adapter);
-
         }
         return view;
     }
@@ -109,11 +108,11 @@ public class ItemFragment extends Fragment {
         // Deserialize API response and then construct new objects to append to the adapter
         // Add the new objects to the data source for the adapter
         // TODO:实现moreItems
-        //DummyContent.ITEMS.addAll(moreItems);
+        //Item.ITEMS.addAll(moreItems);
         // For efficiency purposes, notify the adapter of only the elements that got changed
         // curSize will equal to the index of the first element inserted because the list is 0-indexed
         int curSize = adapter.getItemCount();
-        adapter.notifyItemRangeInserted(curSize, DummyContent.ITEMS.size() - 1);
+        adapter.notifyItemRangeInserted(curSize, Item.ITEMS.size() - 1);
     }
 
 
@@ -146,6 +145,6 @@ public class ItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Object item);
     }
 }

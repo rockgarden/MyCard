@@ -16,11 +16,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.fragment.PlaceholderFragment;
+import com.rockgarden.myapp.fragment.ItemFragment;
+import com.rockgarden.myapp.fragment.StudentsFragment;
 
 import butterknife.Bind;
 
-public class SpinnerActivity extends BaseLayoutDrawerActivity {
+public class SpinnerActivity extends BaseLayoutDrawerActivity implements ItemFragment.OnListFragmentInteractionListener {
     public static final String TAG = SpinnerActivity.class.getName();
 
     @Bind(R.id.spinner)
@@ -48,9 +49,15 @@ public class SpinnerActivity extends BaseLayoutDrawerActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // When the given dropdown item is selected, show its contents in the
                 // container view.
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                        .commit();
+                if (position == 1) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, ItemFragment.newInstance(position))
+                            .commit();
+                } else {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, StudentsFragment.newInstance(position + 1))
+                            .commit();
+                }
             }
 
             @Override
@@ -66,6 +73,11 @@ public class SpinnerActivity extends BaseLayoutDrawerActivity {
                         .setAction("Action", null).show();
             }
         });
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(Object item) {
 
     }
 

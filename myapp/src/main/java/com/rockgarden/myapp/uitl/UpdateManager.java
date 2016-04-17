@@ -16,7 +16,7 @@ public class UpdateManager {
 //	private Thread downLoadThread;
 //	private NotificationManager mNotifManager;
 //	private Notification mdownNotification;
-//	private RemoteViews mContentView;
+//	private RemoteViews contentView;
 //	private PendingIntent mDownPendingIntent;
 //
 //	private Handler mHandler=new Handler()
@@ -193,8 +193,8 @@ public class UpdateManager {
 //				mdownNotification=new Notification(android.R.drawable.stat_sys_download, "apk下载", System.currentTimeMillis());
 //				mdownNotification.flags=Notification.FLAG_ONGOING_EVENT;
 //				mdownNotification.flags=Notification.FLAG_AUTO_CANCEL;
-//				mContentView=new RemoteViews(App.getContext().getPackageName(), R.layout.app_download_notification);
-//				mContentView.setImageViewResource(R.id.downLoadIcon, android.R.drawable.stat_sys_download);
+//				contentView=new RemoteViews(App.getContext().getPackageName(), R.layout.app_download_notification);
+//				contentView.setImageViewResource(R.id.downLoadIcon, android.R.drawable.stat_sys_download);
 //				mDownPendingIntent=PendingIntent.getActivity(App.getContext(), 0, new Intent(), 0);
 //				boolean isdownSuccess=downFileApk();
 //				if(isdownSuccess)
@@ -279,9 +279,9 @@ public class UpdateManager {
 //					if(times>=512)    //防止频繁更新通知过快导致程序变慢或�?�崩�?
 //					{
 //						times=0;
-//						mContentView.setTextViewText(R.id.progressPercent, progress+"%");
-//						mContentView.setProgressBar(R.id.downLoadProgress, 100, progress, false);
-//						mdownNotification.contentView=mContentView;
+//						contentView.setTextViewText(R.id.progressPercent, progress+"%");
+//						contentView.setProgressBar(R.id.downLoadProgress, 100, progress, false);
+//						mdownNotification.contentView=contentView;
 //						mdownNotification.contentIntent=mDownPendingIntent;
 //						mNotifManager.notify(R.id.downLoadIcon, mdownNotification);
 //					}
