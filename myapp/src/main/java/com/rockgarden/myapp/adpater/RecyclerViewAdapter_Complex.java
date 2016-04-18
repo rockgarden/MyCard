@@ -8,23 +8,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.fragment.ItemFragment.OnListFragmentInteractionListener;
+import com.rockgarden.myapp.fragment.ItemFragment;
 import com.rockgarden.myapp.model.Item.DummyItem;
 import com.rockgarden.myapp.model.Item.ImageItem;
 
 import java.util.List;
 
 /**
+ *
  */
 public class RecyclerViewAdapter_Complex extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Object> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private ItemFragment.FragmentInteractionListener fragmentInteractionListener;
+    private ImageItemListener imageItemListener;
     private final int TEXT = 0, IMAGE = 1;
 
-    public RecyclerViewAdapter_Complex(List<Object> items, OnListFragmentInteractionListener listener) {
+    public RecyclerViewAdapter_Complex(List<Object> items, ItemFragment.FragmentInteractionListener fragmentInteractionListener, ImageItemListener imageItemListener) {
         mValues = items;
-        mListener = listener;
+        this.fragmentInteractionListener = fragmentInteractionListener;
+        this.imageItemListener = imageItemListener;
+    }
+
+    public void setListener(ImageItemListener listener) {
+        imageItemListener = listener;
     }
 
     @Override
@@ -75,11 +82,14 @@ public class RecyclerViewAdapter_Complex extends RecyclerView.Adapter<RecyclerVi
                 break;
             case IMAGE:
                 ViewHolderImage vh2 = (ViewHolderImage) viewHolder;
-                configureViewHolderImage(vh2);
+                ImageItem imageItem = (ImageItem) mValues.get(position);
+                if (imageItem != null) {
+                    vh2.setData(imageItem);
+                }
                 break;
             default:
                 ViewHolderImage vh = (ViewHolderImage) viewHolder;
-                configureViewHolderImage(vh, position);
+                configureViewHolderImage(vh);
                 break;
         }
     }
@@ -92,14 +102,11 @@ public class RecyclerViewAdapter_Complex extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    private void configureViewHolderImage(ViewHolderImage vh2) {
-        vh2.getImageView().setImageResource(R.drawable.guide1);
+    private void configureViewHolderImage(ViewHolderImage vh) {
+        //vh.getLabel().setText((CharSequence) items.get(position));
+        vh.setImageView(null);
     }
 
-    private void configureViewHolderImage(ViewHolderImage vh, int position) {
-        //vh.getLabel().setText((CharSequence) items.get(position));
-        vh.getImageView().setImageResource(R.drawable.guide2);
-    }
 
     public class ViewHolderText extends RecyclerView.ViewHolder {
         public final View view;
@@ -135,15 +142,24 @@ public class RecyclerViewAdapter_Complex extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    public class ViewHolderImage extends RecyclerView.ViewHolder {
 
-        private final View view;
+    public class ViewHolderImage extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private View view;
         private ImageView imageView;
+        public ImageItem item;
 
         public ViewHolderImage(View view) {
             super(view);
             this.view = view;
+            view.setOnClickListener(this);
             imageView = (ImageView) view.findViewById(R.id.image);
+        }
+
+        // 提供配置model的方法,可简化onBindViewHolder代码
+        public void setData(ImageItem item) {
+            this.item = item;
+            // FIXME:旋转屏幕OutOfMemoryError
+            imageView.setImageResource(item.getDrawableResource());
         }
 
         public ImageView getImageView() {
@@ -153,5 +169,16 @@ public class RecyclerViewAdapter_Complex extends RecyclerView.Adapter<RecyclerVi
         public void setImageView(ImageView imageView) {
             this.imageView = imageView;
         }
+
+        @Override
+        public void onClick(View v) {
+            if (imageItemListener != null) {
+                imageItemListener.onImageItemClick(item);
+            }
+        }
+    }
+
+    public interface ImageItemListener {
+        void onImageItemClick(ImageItem item);
     }
 }

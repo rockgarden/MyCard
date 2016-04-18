@@ -1,5 +1,9 @@
 package com.rockgarden.myapp.model;
 
+import android.support.annotation.DrawableRes;
+
+import com.rockgarden.myapp.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +23,11 @@ public class Item {
         // Add some sample items.
         addItem(new DummyItem("101", "Wang", "age 18; sex female"));
         addItem(new DummyItem("102", "Rob Stark", "age 17; sex male"));
-        addItem(new ImageItem("103", "Sun"));
+        addItem(new ImageItem("103", R.drawable.guide1, "Sun"));
         addItem(new DummyItem("104", "Jon Snow", "age 18; sex male"));
-        addItem(new ImageItem("105", "moon"));
+        addItem(new ImageItem("105", R.drawable.guide2,"moon"));
         addItem(new DummyItem("106", "Tyrion Lanister", "age 16; sex male"));
+        addItem(new ImageItem("107", R.drawable.guide3,"moon"));
     }
 
     private static void addItem(DummyItem item) {
@@ -66,17 +71,27 @@ public class Item {
     }
 
     public static class ImageItem {
+        private int mDrawableRes;
         public final String id;
-        public final String name;
+        public final String title;
 
-        public ImageItem(String id, String name) {
+        public ImageItem(String id, @DrawableRes int drawable, String title) {
+            mDrawableRes = drawable;
             this.id = id;
-            this.name = name;
+            this.title = title;
+        }
+
+        public int getDrawableResource() {
+            return mDrawableRes;
+        }
+
+        public String getTitle() {
+            return title;
         }
 
         @Override
         public String toString() {
-            return name;
+            return title;
         }
     }
 }

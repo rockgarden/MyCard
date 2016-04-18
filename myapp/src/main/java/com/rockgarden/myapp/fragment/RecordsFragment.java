@@ -203,39 +203,11 @@ public class RecordsFragment extends Fragment {
         adapter.notifyItemRangeInserted(curSize, newItems.size());
     }
 
-//    private OnListFragmentInteractionListener mListener;
-//
-//    /**
-//     * Mandatory empty constructor for the fragment manager to instantiate the
-//     * fragment (e.g. upon screen orientation changes).
-//     */
-//    public RecordsFragment() {
-//    }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
-//    }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that activity.
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
      */
-//    public interface OnListFragmentInteractionListener {
-//        void onListFragmentInteraction(TestItem item);
-//    }
+    public RecordsFragment() {
+    }
 
 }

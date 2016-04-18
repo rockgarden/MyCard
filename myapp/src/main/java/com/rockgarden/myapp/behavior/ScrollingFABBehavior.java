@@ -45,6 +45,13 @@ public class ScrollingFABBehavior extends CoordinatorLayout.Behavior<FloatingAct
         Log.i("FAB: fab.getHeight() =" + fab.getHeight());
         Log.i("FAB: dependency.getY =" + dependency.getY());
         Log.i("FAB: ---             =");
+
+        // 另一种方式check the behavior triggered,来确认dependency是AppBarLayout
+        android.support.design.widget.CoordinatorLayout.Behavior behavior = ((android.support.design.widget.CoordinatorLayout.LayoutParams)dependency.getLayoutParams()).getBehavior();
+        if(behavior instanceof AppBarLayout.Behavior) {
+
+        }
+
         if (dependency instanceof AppBarLayout) {
             CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
             int fabBottomMargin = lp.bottomMargin;

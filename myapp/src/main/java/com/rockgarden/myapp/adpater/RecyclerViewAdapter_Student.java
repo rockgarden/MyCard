@@ -15,7 +15,7 @@ import com.rockgarden.myapp.model.Student;
 
 import java.util.List;
 
-public class RecyclerViewAdapter_Data extends RecyclerView.Adapter {
+public class RecyclerViewAdapter_Student extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter_Data extends RecyclerView.Adapter {
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
 
-    public RecyclerViewAdapter_Data(List<Student> students, RecyclerView recyclerView) {
+    public RecyclerViewAdapter_Student(List<Student> students, RecyclerView recyclerView) {
         studentList = students;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {

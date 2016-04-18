@@ -21,11 +21,13 @@ import com.rockgarden.myapp.fragment.StudentsFragment;
 
 import butterknife.Bind;
 
-public class SpinnerActivity extends BaseLayoutDrawerActivity implements ItemFragment.OnListFragmentInteractionListener {
+public class SpinnerActivity extends BaseLayoutDrawerActivity implements ItemFragment.FragmentInteractionListener {
     public static final String TAG = SpinnerActivity.class.getName();
 
     @Bind(R.id.spinner)
     Spinner spinner;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,6 @@ public class SpinnerActivity extends BaseLayoutDrawerActivity implements ItemFra
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +78,7 @@ public class SpinnerActivity extends BaseLayoutDrawerActivity implements ItemFra
     }
 
     @Override
-    public void onListFragmentInteraction(Object item) {
+    public void onFragmentInteraction(Object item) {
 
     }
 

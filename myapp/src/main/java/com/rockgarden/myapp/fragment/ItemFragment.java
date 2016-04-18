@@ -18,7 +18,7 @@ import com.rockgarden.myapp.uitl.EndlessScrollListener_RecyclerView;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link FragmentInteractionListener}
  * interface.
  */
 public class ItemFragment extends Fragment {
@@ -27,7 +27,8 @@ public class ItemFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private FragmentInteractionListener fragmentInteractionListener;
+    private RecyclerViewAdapter_Complex.ImageItemListener imageItemListener;
     RecyclerViewAdapter_Complex adapter;
 
     /**
@@ -60,7 +61,7 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
-        adapter = new RecyclerViewAdapter_Complex(Item.ITEMS, mListener);
+        adapter = new RecyclerViewAdapter_Complex(Item.ITEMS, fragmentInteractionListener, imageItemListener);
         // FIXME:滑动不流畅?
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -68,16 +69,25 @@ public class ItemFragment extends Fragment {
             if (mColumnCount <= 1) {
                 final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                 recyclerView.setLayoutManager(linearLayoutManager);
+                /*TODO:用fab来触发behavior的设定
+                final BottomSheetBehavior behavior = BottomSheetBehavior.from(recyclerView);
+                getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        } else {
+                            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        }
+                    }
+                });
+                */
                 recyclerView.addOnScrollListener(new EndlessScrollListener_RecyclerView(linearLayoutManager) {
                     @Override
                     public void onLoadMore(int page, int totalItemsCount) {
-                        // Triggered only when new data needs to be appended to the list
-                        // Add whatever code is needed to append new items to the bottom of the list
                         customLoadMoreDataFromApi(page);
                     }
-                    // This happens many times a second during a scroll, so be wary of the code you place here.
-                    // We are given a few useful parameters to help us work out if we need to load some more data,
-                    // but first we check if we are waiting for the previous load to finish.
+
                     @Override
                     public void onScrolled(RecyclerView view, int dx, int dy) {
                         int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
@@ -104,9 +114,6 @@ public class ItemFragment extends Fragment {
     // Append more data into the adapter
     // This method probably sends out a network request and appends new data items to your adapter.
     public void customLoadMoreDataFromApi(int offset) {
-        // Send an API request to retrieve appropriate data using the offset value as a parameter.
-        // Deserialize API response and then construct new objects to append to the adapter
-        // Add the new objects to the data source for the adapter
         // TODO:实现moreItems
         //Item.ITEMS.addAll(moreItems);
         // For efficiency purposes, notify the adapter of only the elements that got changed
@@ -119,18 +126,18 @@ public class ItemFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof FragmentInteractionListener) {
+            fragmentInteractionListener = (FragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement FragmentInteractionListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        fragmentInteractionListener = null;
     }
 
     /**
@@ -138,13 +145,9 @@ public class ItemFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Object item);
+    public interface FragmentInteractionListener {
+        // TODO: Update argument type and title
+        void onFragmentInteraction(Object item);
     }
 }

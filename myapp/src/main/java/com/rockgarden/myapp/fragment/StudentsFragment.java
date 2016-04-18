@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Data;
+import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Student;
 import com.rockgarden.myapp.model.Student;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class StudentsFragment extends Fragment {
     @Bind(R.id.my_recycler_view)
     RecyclerView mRecyclerView;
 
-    private RecyclerViewAdapter_Data mAdapter;
+    private RecyclerViewAdapter_Student mAdapter;
     private LinearLayoutManager mLayoutManager;
     private List<Student> studentList;
     protected Handler handler;
@@ -76,7 +76,7 @@ public class StudentsFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecyclerViewAdapter_Data(studentList, mRecyclerView);
+        mAdapter = new RecyclerViewAdapter_Student(studentList, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         // mAdapter.notifyDataSetChanged();
 
@@ -90,7 +90,7 @@ public class StudentsFragment extends Fragment {
             textView.setVisibility(View.GONE);
         }
 
-        mAdapter.setOnLoadMoreListener(new RecyclerViewAdapter_Data.OnLoadMoreListener() {
+        mAdapter.setOnLoadMoreListener(new RecyclerViewAdapter_Student.OnLoadMoreListener() {
 
             @Override
             public boolean onLoadMore(int position) {
