@@ -25,7 +25,7 @@
             app:contentScrim="@drawable/side_nav_bar"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:expandedTitleTextAppearance="@style/WhiteText"
+            app:expandedTitleTextAppearance="@style/WhiteTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <!--view只要设置了app:layout_scrollFlags属性,就可以在RecyclerView滚动事件发生的时候被触发
             exitUntilCollapsed:这个flag时定义何时退出,当你定义了一个minHeight,这个view将在滚动到达这个最小高度的时候消失-->

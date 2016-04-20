@@ -9,6 +9,8 @@
     <color name="white_overlay">#10000000</color>
     <color name="white">#ffffff</color>
     <color name="Transparent">#00000000</color>
+
+    <color name="primary_blue">#53777A</color>
     <color name="blue_light">#0099cc</color>
 
     <color name="green_normal">#4CAF50</color>
@@ -23,6 +25,7 @@
     <color name="fab_color_pressed">#007787</color>
     <color name="fab_color_shadow">#44000000</color>
     <color name="fab_color_ripple">#900</color>
+    <color name="simple_yellow">#ECD078</color>
 
     <color name="btn_default_light_normal">#00000000</color>
     <color name="btn_default_light_pressed">#40ffffff</color>

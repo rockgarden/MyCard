@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.rockgarden.StatusBarUtil;
 import com.rockgarden.myapp.R;
 
 import butterknife.Bind;
@@ -54,6 +55,12 @@ public class BaseLayoutActivity extends BaseActivity {
     protected void BindViews() {
         ButterKnife.bind(this);
         setupToolbar();
+        setStatusBar();
+    }
+
+    // 设置状态栏颜色(4.4以上才有效)
+    protected void setStatusBar() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.green_normal));
     }
 
     /**
@@ -76,6 +83,8 @@ public class BaseLayoutActivity extends BaseActivity {
             // 默认启用ActionBar的HomeButton
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); //可改变toolbar的homeIcon
             getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+            //getSupportActionBar().setCustomView(R.layout.view_toolbar_title);
         }
     }
 
@@ -216,7 +225,7 @@ public class BaseLayoutActivity extends BaseActivity {
                 showRefreshAnimation(item);
                 return true;
             case R.id.action_settings:
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, SettingActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -306,6 +315,7 @@ public class BaseLayoutActivity extends BaseActivity {
         return toolbarTitleView;
     }
 
+    // 配置用加载自定义titleView的View
     public void setToolbarTitleView(View view) {
         RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
         titleLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);

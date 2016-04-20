@@ -57,10 +57,12 @@ public class MainActivity extends BaseLayoutDrawerActivity {
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    // 在titleView中加入textView
     private void setTitle() {
         TextView title = new TextView(this);
         title.setText(TAG);
-        title.setTextSize(32);
+        title.setTextSize(28);
+        title.setTextColor(getResources().getColor(R.color.white));
         setToolbarTitleView(title);
     }
 

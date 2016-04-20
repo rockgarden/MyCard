@@ -11,6 +11,7 @@
     <string name="title_activity_viewpager">ViewPager Demo</string>
     <string name="title_activity_photo">Photo Demo</string>
     <string name="title_activity_tab">Tab Demo</string>
+    <string name="title_activity_setting">Setting Demo</string>
     <string name="title_activity_spinner">Spinner Demo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

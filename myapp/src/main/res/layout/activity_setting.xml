@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/guide1"
+    android:orientation="vertical"
+    tools:context=".activity.SettingActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_main_toolbar" />
+
+    <Button
+        android:id="@+id/btn_change_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="16dp"
+        android:text="Change Background" />
+
+    <SeekBar
+        android:id="@+id/sb_change_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_change_background"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:id="@+id/tv_status_alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/sb_change_alpha"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:textSize="36sp" />
+
+    <CheckBox
+        android:id="@+id/chb_translucent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_status_alpha"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:text="Translucent" />
+
+    <Button
+        android:id="@+id/btn_change_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/chb_translucent"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:text="Change StatusBar Color" />
+
+</RelativeLayout>
+
+<!--layout_above="@id/chb_translucent"这是有顺序的,id的对象必须在前-->

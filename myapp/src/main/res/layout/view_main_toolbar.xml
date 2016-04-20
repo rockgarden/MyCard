@@ -4,13 +4,14 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/green_light"
+    android:background="@color/green_normal"
     app:elevation="@dimen/default_elevation"
     app:layout_scrollFlags="scroll|enterAlways"
     app:popupTheme="@style/AppTheme.PopupOverlay"
+    app:theme="@style/AppTheme.AppBarOverlay"
     app:title="@string/app_name">
     <!--app:layout_collapseMode="pin"-->
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+    <!--android:titleTextColor="@color/white",title是个view所以无效-->
 
     <RelativeLayout
         android:id="@+id/app_title_Layout"

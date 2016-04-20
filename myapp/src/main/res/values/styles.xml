@@ -1,6 +1,8 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme.
+    说明:必须使用NoActionBar,因为将用Toolbar代替ActionBar
+    -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!--<item name="colorPrimary">@color/primary_material_light</item>-->
@@ -8,10 +10,14 @@
         <!--<item name="colorAccent">@color/accent_material_light</item>-->
         <!-- requires API 21. -->
         <!--<item_record name="android:statusBarColor">@android:color/transparent</item_record>-->
+        <item name="colorPrimary">@color/colorPrimaryText</item>
     </style>
 
+    <!--用于loading,launch等全屏显示的Activity-->
     <style name="FullscreenTheme" parent="AppTheme">
+        <!--已经是NoActionBar所以
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        无效-->
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@drawable/heart</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -19,24 +25,35 @@
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
         <item name="android:listDivider">@drawable/item_decoration</item>
     </style>
+    <!--<style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">-->
+        <!--<item name="android:background">@color/black_overlay</item>-->
+    <!--</style>-->
 
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
+    <!--FIXME:定义toolbar样式定义无效,因为Toolbar当ActionBar用?!-->
+    <style name="App.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/WhiteTitle</item>
     </style>
 
+    <!--ThemeOverlay才有效,因为toolBar在appBar里-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:colorForeground">@color/white</item>
+    </style>
+
+    <!--定义toolbar上弹出menu的样式定义-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <!--Bug:下一句引起APP Crash:invalid drawable tag shape,且无效-->
         <!--<item name="android:colorBackground">@drawable/side_nav_bar</item>-->
-        <item name="android:colorBackground">@color/white</item>
+        <item name="android:colorBackground">@color/simple_yellow</item>
         <item name="android:colorForeground">@color/green_dark</item>
     </style>
+
 
     <style name="TransparentText">
         <item name="android:textColor">@color/Transparent</item>
         <item name="android:textSize">32sp</item>
     </style>
 
-    <style name="WhiteText">
+    <style name="WhiteTitle">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
@@ -50,6 +67,14 @@
     <style name="BlueText">
         <item name="android:textColor">@color/blue_light</item>
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Widget.Card.title" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="Widget.CardContent" parent="android:Widget">
@@ -85,6 +110,5 @@
         <item name="android:windowBackground">@drawable/heart</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 </resources>
