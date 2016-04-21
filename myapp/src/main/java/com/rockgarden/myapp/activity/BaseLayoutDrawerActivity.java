@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
+import com.rockgarden.myapp.demo.BaseMapDemo;
 
 import butterknife.Bind;
 
@@ -110,6 +111,8 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
             intent = new Intent(this, SpinnerActivity.class);
         } else if (id == R.id.nav_set) {
             intent = new Intent(this, SettingActivity.class);
+        } else if (id == R.id.nav_manage) {
+            intent = new Intent(this, BaseMapDemo.class);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             toolbar.setElevation(elevation);

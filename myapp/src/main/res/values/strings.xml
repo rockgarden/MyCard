@@ -35,5 +35,6 @@
     <string name="action_share">share</string>
     <string name="title_activity_action_bar_tabs">ActionBarTabsActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_baidu">Baidu Map Demo</string>
 
 </resources>

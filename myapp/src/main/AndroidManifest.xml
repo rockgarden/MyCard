@@ -142,7 +142,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rockgarden.myapp.activity.MainActivity" />
         </activity>
-
+        <activity
+            android:name=".demo.BaseMapDemo"
+            android:label="@string/title_activity_baidu"
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rockgarden.myapp.activity.MainActivity" />
+        </activity>
         <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"

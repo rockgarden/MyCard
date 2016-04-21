@@ -4,10 +4,23 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
-//    set path for *.so
-//    sourceSets.main {
-//        jniLibs.srcDirs = ['libs']
-//    }
+    //set path for *.so
+    sourceSets {
+        //main {
+          //  jniLibs.srcDirs = ['libs']
+        //}
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/dev')
+        release.setRoot('build-types/release')
+    }
 
     defaultConfig {
         applicationId "com.rockgarden.myapp"
@@ -15,6 +28,23 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.2"
+        signingConfig signingConfigs.debug
+    }
+
+    signingConfigs {
+        // your debug keystore
+        debug {
+            storeFile file('/Users/rockgarden/Documents/workProject/myapp.jks')
+            keyAlias 'my app key'
+            keyPassword 'freestar'
+            storePassword 'freestar'
+        }
+        /*BaiduMapSDK要签名后才能用
+        进入file/project structure,选择modules,有三个地方要修改:
+        1.signing的选项，要新加一个 config , 加完后填入你的key file的alias、 password、档案位置等信息。
+        2.flavors的选项，里面的 signing config 选择你刚新加的 config
+        3.build types的选项，里面的 debug 或 release， 都将 Signing Config 选择 true
+        */
     }
 
     // 定义不同的打包方法
@@ -29,6 +59,10 @@ android {
             applicationIdSuffix ".dev" //通过设置此参数可生成不同的applicationId从而根据不同的需求构建不同版本的APK
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -88,10 +122,17 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile "com.android.support:percent:${supportLibVersion}"
     compile "com.android.support:support-annotations:${supportLibVersion}"
-    compile files('libs/jpush-android-2.0.5.jar')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile files('libs/baidumapapi_base_v3_7_3.jar')
+    compile files('libs/baidumapapi_map_v3_7_3.jar')
+    compile files('libs/baidumapapi_util_v3_7_3.jar')
+    compile files('libs/baidumapapi_search_v3_7_3.jar')
+    compile files('libs/baidumapapi_cloud_v3_7_3.jar')
+    compile files('libs/baidumapapi_radar_v3_7_3.jar')
+    compile files('libs/locSDK_6.13.jar')
+    compile files('libs/jpush-android-2.0.5.jar')
 }

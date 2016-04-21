@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.litesuits.android.Log;
 import com.litesuits.common.data.SharedPreferencesDataKeeper;
 import com.litesuits.common.utils.PackageUtil;
@@ -101,6 +102,9 @@ public class MyApplication extends Application {
         //startService(new Intent(this, AppService.class));
         configUniversalImageLoader();
         spDataKeeper = new SharedPreferencesDataKeeper(this, "com.rockgarden.myapp");
+
+        // BaiduMAP:在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        SDKInitializer.initialize(this);
     }
 
     public static MyApplication getInstance() {
