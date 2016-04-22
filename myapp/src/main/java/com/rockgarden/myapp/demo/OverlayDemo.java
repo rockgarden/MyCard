@@ -1,3 +1,4 @@
+/*
 package com.rockgarden.myapp.demo;
 
 import android.app.Activity;
@@ -29,14 +30,18 @@ import com.baidu.mapapi.model.LatLngBounds;
 
 import java.util.ArrayList;
 
+*/
 /**
  * 演示覆盖物的用法
- */
+ *//*
+
 public class OverlayDemo extends Activity {
 
-    /**
+    */
+/**
      * MapView 是地图主控件
-     */
+     *//*
+
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private Marker mMarkerA;
@@ -191,11 +196,13 @@ public class OverlayDemo extends Activity {
         });
     }
 
-    /**
+    */
+/**
      * 清除所有Overlay
      *
      * @param view
-     */
+     *//*
+
     public void clearOverlay(View view) {
         mBaiduMap.clear();
         mMarkerA = null;
@@ -204,11 +211,13 @@ public class OverlayDemo extends Activity {
         mMarkerD = null;
     }
 
-    /**
+    */
+/**
      * 重新添加Overlay
      *
      * @param view
-     */
+     *//*
+
     public void resetOverlay(View view) {
         clearOverlay(null);
         initOverlay();
@@ -275,3 +284,4 @@ public class OverlayDemo extends Activity {
     }
 
 }
+*/
