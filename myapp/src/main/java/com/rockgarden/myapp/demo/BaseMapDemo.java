@@ -3,11 +3,11 @@ package com.rockgarden.myapp.demo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -29,7 +29,6 @@ import com.baidu.mapapi.model.LatLngBounds;
 import com.rockgarden.myapp.R;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * 演示MapView的基本用法
@@ -51,7 +50,7 @@ public class BaseMapDemo extends Activity {
     private View markerView;
 
     // 初始化全局 bitmap 信息，不用时及时 recycle
-    BitmapDescriptor bdA ,bdB ,bdC,bdD,bd,bdGround;
+    BitmapDescriptor bdA, bdB, bdC, bdD, bd, bd1, bdGround;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,10 +72,10 @@ public class BaseMapDemo extends Activity {
             LatLng p = new LatLng(30.23300678, 120.233899);
             mMapView = new MapView(this, new BaiduMapOptions().mapStatus(new MapStatus.Builder().target(p).zoom(10).build()));
         }
-        setContentView(mMapView);
+        initUI();
         mBaiduMap = mMapView.getMap();
 
-        markerView = this.getLayoutInflater().inflate(R.layout.marker_view,null);
+        markerView = this.getLayoutInflater().inflate(R.layout.marker_view, null);
         bdA = BitmapDescriptorFactory
                 .fromView(markerView);
         bdB = BitmapDescriptorFactory
@@ -86,14 +85,101 @@ public class BaseMapDemo extends Activity {
         bdD = BitmapDescriptorFactory
                 .fromView(markerView);
         bd = BitmapDescriptorFactory
-                .fromResource(R.drawable.ic_heart_red);
+                .fromResource(R.drawable.ic_heart_red_mini);
+        bd1 = BitmapDescriptorFactory
+                .fromResource(R.drawable.ic_heart_blue_mini);
         bdGround = BitmapDescriptorFactory
                 .fromResource(R.mipmap.ic_launcher);
 
-        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(15.0f);
+        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(13.0f);
         mBaiduMap.setMapStatus(msu);
         initOverlay();
 
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            public boolean onMarkerClick(final Marker marker) {
+                Button button = new Button(getApplicationContext());
+                button.setBackgroundResource(R.drawable.popup);
+                InfoWindow.OnInfoWindowClickListener listener = null;
+                if (marker == mMarkerA || marker == mMarkerD) {
+                    button.setText("更改位置");
+                    listener = new InfoWindow.OnInfoWindowClickListener() {
+                        public void onInfoWindowClick() {
+                            LatLng ll = marker.getPosition();
+                            LatLng llNew = new LatLng(ll.latitude + 0.005,
+                                    ll.longitude + 0.005);
+                            marker.setPosition(llNew);
+                            mBaiduMap.hideInfoWindow();
+                        }
+                    };
+                    LatLng ll = marker.getPosition();
+                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                } else if (marker == mMarkerB) {
+                    button.setText("更改图标");
+                    button.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            marker.setIcon(bd);
+                            mBaiduMap.hideInfoWindow();
+                        }
+                    });
+                    LatLng ll = marker.getPosition();
+                    mInfoWindow = new InfoWindow(button, ll, -47);
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                } else if (marker == mMarkerC) {
+                    button.setText("删除");
+                    button.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            marker.remove();
+                            mBaiduMap.hideInfoWindow();
+                        }
+                    });
+                    LatLng ll = marker.getPosition();
+                    mInfoWindow = new InfoWindow(button, ll, -47);
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                }
+                return true;
+            }
+        });
+
+
+    }
+
+    private void initUI() {
+        /* 纯代码生成UI:
+        可通过getDecorView()获取顶级View,也可直接setContentView(),本质都是对DecorView进行操作
+        ViewGroup decorView = (ViewGroup) this.getWindow().getDecorView()*/
+        // 生成rootView
+        RelativeLayout rootLayout = new RelativeLayout(this);
+        // 根布局参数
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT); //相当于直接加Layout不带layoutParams
+        setContentView(rootLayout, layoutParams);
+        rootLayout.addView(mMapView);
+
+        animationBox = new CheckBox(this);
+        animationBox.setText("animation");
+        animationBox.setId(R.id.animationBox);
+        RelativeLayout.LayoutParams animationBoxRLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        animationBoxRLP.addRule(RelativeLayout.ALIGN_PARENT_TOP, -1);
+        animationBoxRLP.addRule(RelativeLayout.ALIGN_PARENT_START, -1);
+        animationBoxRLP.topMargin = 15;
+        animationBoxRLP.rightMargin =8;
+        rootLayout.addView(animationBox, animationBoxRLP);
+
+        alphaSeekBar = new SeekBar(this);
+        alphaSeekBar.setOnSeekBarChangeListener(new SeekBarListener());
+        alphaSeekBar.setId(R.id.alphaSeekBar);
+        RelativeLayout.LayoutParams alphaSeekBarRLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        alphaSeekBarRLP.addRule(RelativeLayout.ALIGN_PARENT_TOP, -1);
+        alphaSeekBarRLP.addRule(RelativeLayout.ALIGN_PARENT_END, -1);
+        alphaSeekBarRLP.addRule(RelativeLayout.RIGHT_OF, R.id.animationBox);
+        alphaSeekBarRLP.topMargin = 15;
+        rootLayout.addView(alphaSeekBar, alphaSeekBarRLP);
+
+        View controlPanel = this.getLayoutInflater().inflate(R.layout.view_map_control_panel, null);;
+        RelativeLayout.LayoutParams controlPanelRLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        controlPanelRLP.addRule(RelativeLayout.BELOW, R.id.animationBox);
+        rootLayout.addView(controlPanel, controlPanelRLP);
     }
 
     public void initOverlay() {
@@ -105,35 +191,34 @@ public class BaseMapDemo extends Activity {
 
         MarkerOptions ooA = new MarkerOptions().position(llA).icon(bdA)
                 .zIndex(9).draggable(true);
-//        if (animationBox.isChecked()) {
+        if (animationBox.isChecked()) {
             // 掉下动画
             ooA.animateType(MarkerOptions.MarkerAnimateType.drop);
-//        }
+        }
         mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
         MarkerOptions ooB = new MarkerOptions().position(llB).icon(bdB)
                 .zIndex(5);
-//        if (animationBox.isChecked()) {
+        if (animationBox.isChecked()) {
             // 掉下动画
             ooB.animateType(MarkerOptions.MarkerAnimateType.drop);
-//        }
+        }
         mMarkerB = (Marker) (mBaiduMap.addOverlay(ooB));
         MarkerOptions ooC = new MarkerOptions().position(llC).icon(bdC)
                 .perspective(false).anchor(0.5f, 0.5f).rotate(30).zIndex(7);
-//        if (animationBox.isChecked()) {
+        if (animationBox.isChecked()) {
             // 生长动画
             ooC.animateType(MarkerOptions.MarkerAnimateType.grow);
-//        }
+        }
         mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
         ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
-        giflist.add(bdA);
-        giflist.add(bdB);
-        giflist.add(bdC);
+        giflist.add(bd);
+        giflist.add(bd1);
         MarkerOptions ooD = new MarkerOptions().position(llD).icons(giflist)
-                .zIndex(0).period(10);
-//        if (animationBox.isChecked()) {
+                .zIndex(0).period(100);
+        if (animationBox.isChecked()) {
             // 生长动画
             ooD.animateType(MarkerOptions.MarkerAnimateType.grow);
-//        }
+        }
         mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
 
         // add ground overlay
@@ -174,10 +259,12 @@ public class BaseMapDemo extends Activity {
      */
     public void clearOverlay(View view) {
         mBaiduMap.clear();
-        mMarkerA = null;
-        mMarkerB = null;
-        mMarkerC = null;
-        mMarkerD = null;
+        if (mMarkerA != null) {
+            mMarkerA = null;
+            mMarkerB = null;
+            mMarkerC = null;
+            mMarkerD = null;
+        }
     }
 
     /**
@@ -209,12 +296,44 @@ public class BaseMapDemo extends Activity {
         super.onDestroy();
         // activity 销毁时同时销毁地图控件
         mMapView.onDestroy();
-        bdA.recycle();
-        bdB.recycle();
-        bdC.recycle();
-        bdD.recycle();
-        bd.recycle();
-        bdGround.recycle();
+        if (bdA != null) {
+            bdA.recycle();
+            bdB.recycle();
+            bdC.recycle();
+            bdD.recycle();
+            bd.recycle();
+            bd1.recycle();
+            bdGround.recycle();
+        }
     }
 
+    private class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress,
+                                      boolean fromUser) {
+            float alpha = ((float) seekBar.getProgress()) / 10;
+            if (mMarkerA != null) {
+                mMarkerA.setAlpha(alpha);
+            }
+            if (mMarkerB != null) {
+                mMarkerB.setAlpha(alpha);
+            }
+            if (mMarkerC != null) {
+                mMarkerC.setAlpha(alpha);
+            }
+            if (mMarkerD != null) {
+                mMarkerD.setAlpha(alpha);
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
+
+    }
 }
