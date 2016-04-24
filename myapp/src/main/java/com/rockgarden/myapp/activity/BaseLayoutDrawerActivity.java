@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.demo.BaseMapDemo;
+import com.rockgarden.myapp.demo.WebViewDemo;
 
 import butterknife.Bind;
 
@@ -111,9 +112,12 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
             intent = new Intent(this, SpinnerActivity.class);
         } else if (id == R.id.nav_set) {
             intent = new Intent(this, SettingActivity.class);
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_baiduMap) {
             intent = new Intent(this, BaseMapDemo.class);
+        } else if (id == R.id.show_webView) {
+            intent = new Intent(this, WebViewDemo.class);
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             toolbar.setElevation(elevation);
         drawer.closeDrawer(GravityCompat.START);

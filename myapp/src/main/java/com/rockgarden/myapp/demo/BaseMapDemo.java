@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class BaseMapDemo extends Activity {
 
     @SuppressWarnings("unused")
-    private static final String LTAG = BaseMapDemo.class.getSimpleName();
+    private static final String TAG = BaseMapDemo.class.getSimpleName();
     private MapView mMapView;
     private BaiduMap mBaiduMap;
 
@@ -140,7 +140,6 @@ public class BaseMapDemo extends Activity {
                 return true;
             }
         });
-
 
     }
 
