@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:gravity="center"
+    android:orientation="vertical">
 
     <!-- This progress bar will always load in 4 second defined up in java code whenever new data is loaded -->
-    <ProgressBar
+    <com.rockgarden.myapp.widget.CircleProgressBar
         android:id="@+id/progressBar1"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content" />
+        app:mlpb_progress_color="#566da9"
+        app:mlpb_progress_stoke_width="5dp"
+        app:mlpb_progress_text_visibility="visible" />
+    <!--TODO:bug:layout_width不能用wrap_content-->
+
+    <com.rockgarden.myapp.widget.CircleProgressBar
+        android:id="@+id/progress1"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:visibility="invisible"
+        app:mlpb_progress_color="#566da9"
+        app:mlpb_progress_stoke_width="3dp" />
+
+    <com.rockgarden.myapp.widget.CircleProgressBar
+        android:id="@+id/progress2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:mlpb_progress_stoke_width="5dp"
+        app:mlpb_progress_text_visibility="visible" />
+
+    <com.rockgarden.myapp.widget.CircleProgressBar
+        android:id="@+id/progressWithArrow"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:mlpb_arrow_height="5dp"
+        app:mlpb_arrow_width="10dp"
+        app:mlpb_progress_stoke_width="5dp"
+        app:mlpb_progress_text_visibility="visible"
+        app:mlpb_show_arrow="true" />
+
+    <com.rockgarden.myapp.widget.CircleProgressBar
+        android:id="@+id/progressWithoutBg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:mlpb_arrow_height="5dp"
+        app:mlpb_arrow_width="10dp"
+        app:mlpb_enable_circle_background="false"
+        app:mlpb_progress_stoke_width="5dp"
+        app:mlpb_progress_text_visibility="invisible"
+        app:mlpb_show_arrow="true" />
 
 </LinearLayout>

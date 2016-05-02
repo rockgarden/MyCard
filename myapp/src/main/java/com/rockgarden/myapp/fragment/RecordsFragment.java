@@ -2,6 +2,7 @@ package com.rockgarden.myapp.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,24 +16,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.litesuits.android.Log;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Record;
 import com.rockgarden.myapp.model.Record;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * Demo of EndlessRecyclerView
  * A fragment representing a list of Records.
  */
 public class RecordsFragment extends Fragment {
     private static final String TAG = RecordsFragment.class.getSimpleName();
 
     @Bind(R.id.swipeContainer)
-    SwipeRefreshLayout swipeContainer;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.rv_records)
     RecyclerView recyclerView;
     private List<Record> mRecords;
@@ -41,6 +43,11 @@ public class RecordsFragment extends Fragment {
     RecyclerViewAdapter_Record adapter;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
+
+    private int page = 1;
+    private int numberOfPage = 20;
+
+    public boolean isMoreLoading = false;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,19 +69,16 @@ public class RecordsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_records, container, false);
         mChildHelper = recyclerView;
+        mRecords = new ArrayList<>();
         ButterKnife.bind(this, rootView);
-        initSwipeContainer();
-        initData(); //准备数据
         initRecyclerView();
+        initSwipeContainer();
+        loadData(0); //获取准备
         return rootView;
     }
 
-    private void initData() {
-        mRecords = Record.createRecordList(20);
-    }
-
     private void initRecyclerView() {
-        adapter = new RecyclerViewAdapter_Record(mRecords, this.getActivity());
+        adapter = new RecyclerViewAdapter_Record(this.getActivity());
         if (recyclerView instanceof RecyclerView) {
             Context context = recyclerView.getContext();
             // TODO:自定义的ReMeasureLinearLayoutManager不可用
@@ -118,22 +122,24 @@ public class RecordsFragment extends Fragment {
                 }
             });
             // 监听Scroll
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    int visibleItemCount = layoutManager.getChildCount();
-                    int totalItemCount = layoutManager.getItemCount();
-                    int lastVisibleItemPos = layoutManager.findLastVisibleItemPosition();
-                    Log.i("getChildCount", String.valueOf(visibleItemCount));
-                    Log.i("getItemCount", String.valueOf(totalItemCount));
-                    Log.i("lastVisibleItemPos", String.valueOf(lastVisibleItemPos));
-                    // TODO:this right?!
-                    if ((visibleItemCount + lastVisibleItemPos) >= totalItemCount) {
-                        Log.i("LOG", "Last Item Reached!");
+            if (layoutManager instanceof LinearLayoutManager) {
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        int visibleThreshold = 0;
+                        //若取layoutManager的getChildCount
+                        int visibleItemCount = recyclerView.getChildCount();
+                        int childCountOfLayoutManager = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+                        if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                            loadMore(page);
+                            isMoreLoading = true;
+                        }
                     }
-                }
-            });
+                });
+            }
             // 监听Touch
             recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
                 @Override
@@ -153,45 +159,86 @@ public class RecordsFragment extends Fragment {
         }
     }
 
+    /**
+     * 配置SwipeRefreshLayout
+     */
     private void initSwipeContainer() {
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * fetchDataAsync
+             */
             @Override
             public void onRefresh() {
-                fetchDataAsync(1);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        loadData(1);
+
+                    }
+                }, 2000);
             }
         });
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
     }
 
-    public void fetchDataAsync(int page) {
-        // TODO:get data then refresh view
-        adapter.clear();
-        final List<Record> mRecords = Record.createRecordList(10);
+    /**
+     * 加载数据
+     *
+     * @param page
+     */
+    public void loadData(int page) {
+        mRecords.clear();
+        mRecords = Record.createRecordList(20);
         adapter.addAll(mRecords);
-        swipeContainer.setRefreshing(false);
-
         // TODO:refresh data example
         // Send the network request to fetch the updated data
-        // `client` here is an instance of Android Async HTTP
-//        client.getHomeTimeline(0, new JsonHttpResponseHandler() {
-//            public void onSuccess(JSONArray json) {
-//                // Remember to CLEAR OUT old items before appending in the new ones
-//                adapter.clear();
-//                // ...the data has come back, add new items to your adapter...
-//                adapter.addAll(...);
-//                // Now we call setRefreshing(false) to signal refresh has finished
-//                swipeContainer.setRefreshing(false);
-//            }
-//
-//            public void onFailure(Throwable e) {
-//                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
-//            }
-//        });
+        /*
+        client.getHomeTimeline(0, new JsonHttpResponseHandler() {
+            public void onSuccess(JSONArray json) {
+                // Remember to CLEAR OUT old items before appending in the new ones
+                adapter.clear();
+                // ...the data has come back, add new items to your adapter...
+                adapter.addAll(...);
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeRefreshLayout.setRefreshing(false);
+            }
 
+            public void onFailure(Throwable e) {
+                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+            }
+        });
+        */
     }
+
+    /**
+     * 加载更多数据
+     *
+     * @param position
+     * @return
+     */
+    public boolean loadMore(int position) {
+        adapter.setProgressMore(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRecords.clear();
+                adapter.setProgressMore(false);
+                int start = adapter.getItemCount();
+                int end = start + numberOfPage;
+                for (int i = start + 1; i <= end; i++) {
+                    mRecords.add(new Record("Records" + i, false));
+                }
+                adapter.addItemMore(mRecords);
+                isMoreLoading = false;
+            }
+        }, 2000);
+        return true;
+    }
+
 
     // 也可在adapter中实现
     public void updateItems() {

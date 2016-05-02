@@ -19,7 +19,7 @@
     <dimen name="user_profile_avatar_size">88dp</dimen>
     <dimen name="global_menu_avatar_size">64dp</dimen>
     <dimen name="publish_photo_thumbnail_size">96dp</dimen>
-    <dimen name="appbar_padding_top">4dp</dimen>
+    <dimen name="appbar_padding_top">2dp</dimen>
 
     <dimen name="elevation_toolbar">3dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>

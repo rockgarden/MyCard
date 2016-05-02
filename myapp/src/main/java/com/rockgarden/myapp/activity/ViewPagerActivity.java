@@ -60,7 +60,12 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
                 ViewPagerActivity.this));
     }
 
-    //setAdapter by FragmentPagerAdapter
+    /**
+     * 设定ViewPager
+     * setAdapter by FragmentPagerAdapter
+     *
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new RecordsFragment(), "Tab 1");
@@ -68,11 +73,19 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
         viewPager.setAdapter(adapter);
     }
 
+    /**
+     * 直接设定TabLayout
+     */
     private void initTabs() {
         recordTabs.addTab(recordTabs.newTab().setText("One"));
         recordTabs.addTab(recordTabs.newTab().setText("Two"));
     }
 
+    /**
+     * 实现FloatingActionButton的点击事件
+     *
+     * @param view
+     */
     @OnClick(R.id.recordFab)
     public void clickRecordFab(View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -94,6 +107,9 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
+    /**
+     * FragmentPagerAdapter
+     */
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
         private final List<String> mFragmentTitles = new ArrayList<>();
@@ -123,18 +139,21 @@ public class ViewPagerActivity extends BaseLayoutDrawerActivity {
         }
     }
 
+    /**
+     * FragmentStatePagerAdapter
+     */
     static class PagerAdapter_Fragment extends FragmentStatePagerAdapter {
 
         CharSequence Titles[];
-        private String tabTitles[] = new String[]{"Tab1", "Tab2", "Tab3"};
+        private String tabTitles[] = new String[]{"Fragment", "Refresh RecyclerView", "Normal RecyclerView"};
         int PAGE_COUNT = 3;
         private Context context;
 
         public PagerAdapter_Fragment(FragmentManager fm, CharSequence mTitles[],
-                                     int mNumbOfTabsumb) {
+                                     int i) {
             super(fm);
             this.Titles = mTitles;
-            this.PAGE_COUNT = mNumbOfTabsumb;
+            this.PAGE_COUNT = i;
         }
 
         public PagerAdapter_Fragment(FragmentManager fm, Context context) {

@@ -30,8 +30,10 @@ public class Record {
         List<Record> records = new ArrayList<Record>();
 
         for (int i = 1; i <= numRecords; i++) {
-            records.add(new Record("Record " + ++lastRecordsId, i <= numRecords / 2));
+            records.add(new Record("Record " + i++, i <= numRecords / 2));
+            //records.add(new Record("Record " + ++lastRecordsId, i <= numRecords / 2));
         }
         return records;
     }
+
 }

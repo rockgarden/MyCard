@@ -9,11 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Complex;
 import com.rockgarden.myapp.model.Item;
 import com.rockgarden.myapp.uitl.EndlessScrollListener_RecyclerView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A fragment representing a list of Items.
@@ -22,8 +26,12 @@ import com.rockgarden.myapp.uitl.EndlessScrollListener_RecyclerView;
  * interface.
  */
 public class ItemFragment extends Fragment {
-
+    @Bind(R.id.section_label)
+    TextView textView;
+    @Bind(R.id.Empty_label)
+    TextView tvEmptyView;
     // TODO: Customize parameter argument names
+    private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
@@ -60,12 +68,14 @@ public class ItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_item, container, false);
+        ButterKnife.bind(this, rootView);
+        textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         adapter = new RecyclerViewAdapter_Complex(Item.ITEMS, fragmentInteractionListener, imageItemListener);
-        // FIXME:滑动不流畅?
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        // RecyclerView若嵌在多个NestedScrollingParent中会引起滑动不流畅
+        if (rootView instanceof RecyclerView) {
+            Context context = rootView.getContext();
+            RecyclerView recyclerView = (RecyclerView) rootView;
             if (mColumnCount <= 1) {
                 final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -107,8 +117,18 @@ public class ItemFragment extends Fragment {
 
             }
             recyclerView.setAdapter(adapter);
+
+            if (Item.ITEMS.isEmpty()) {
+                recyclerView.setVisibility(View.GONE);
+                tvEmptyView.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                recyclerView.setVisibility(View.VISIBLE);
+                tvEmptyView.setVisibility(View.GONE);
+                textView.setVisibility(View.GONE);
+            }
         }
-        return view;
+        return rootView;
     }
 
     // Append more data into the adapter
