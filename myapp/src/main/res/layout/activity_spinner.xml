@@ -22,32 +22,29 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/green_light"
                 app:elevation="@dimen/default_elevation"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
                 <!--android:titleTextColor="@color/white"-->
                 <!--android:background="@color/green_light"-->
-                <!--app:layout_scrollFlags="scroll|enterAlways"-->
-
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
             </android.support.v7.widget.Toolbar>
-
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/appbar" />
+            android:layout_below="@+id/appbar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </RelativeLayout>
-    <!--NestedScrollView不要多层嵌套,会引起recyclerView滑动缓慢与不显示的异常!!!-->
-    <!--NestedScrollView+SwipeRefreshLayout+recyclerView等于二层嵌套!!!-->
-    <!--behavior另有bottom_sheet_behavior模式-->
-
+    <!--NestedScrollView不要多层(>3)嵌套,会引起recyclerView滑动缓慢与不显示的异常!!!-->
+    <!--CoordinatorLayout+NestedScrollView+SwipeRefreshLayout+recyclerView等于三层嵌套!!!-->
+    <!--behavior一般由容器父窗口定义,另有bottom_sheet_behavior模式-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

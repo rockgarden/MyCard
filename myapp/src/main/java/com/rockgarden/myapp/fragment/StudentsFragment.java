@@ -168,7 +168,7 @@ public class StudentsFragment extends Fragment {
             for (int i = 0; i < menuItemCount; i++) menu.getItem(i).setVisible(false);
             getActivity().invalidateOptionsMenu();
         }
-        inflater.inflate(R.menu.menu_student_fragment, menu);
+        inflater.inflate(R.menu.menu_fragment_student, menu);
     }
 
     @Override

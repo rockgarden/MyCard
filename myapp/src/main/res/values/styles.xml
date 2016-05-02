@@ -39,7 +39,7 @@
         <item name="android:colorForeground">@color/white</item>
     </style>
 
-    <!--定义toolbar上弹出menu的样式定义-->
+    <!--定义toolbar上弹出optionMenu的样式定义-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <!--Bug:下一句引起APP Crash:invalid drawable tag shape,且无效-->
         <!--<item name="android:colorBackground">@drawable/side_nav_bar</item>-->
