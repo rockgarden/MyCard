@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="RippleView">
         <attr name="rv_alpha" format="integer" />
         <attr name="rv_framerate" format="integer" />
@@ -17,13 +18,58 @@
         <attr name="rv_zoomScale" format="float" />
     </declare-styleable>
 
+
     <declare-styleable name="GifView">
         <attr name="src" format="reference" />
         <!--<attr name="gif" format="reference" />-->
         <attr name="auto_play" format="boolean"></attr>
         <attr name="paused" format="boolean" />
     </declare-styleable>
+
+
     <declare-styleable name="CustomTheme">
         <attr name="gifViewStyle" format="reference" />
     </declare-styleable>
+
+
+    <!--app:ripple_color="#ffffff"-->
+    <!--app:color_unpressed="#8aacee"-->
+    <!--app:ripple_duration="500"-->
+    <!--app:shape_type="rectangle"-->
+    <declare-styleable name="UIButton">
+        <attr name="color_pressed" format="color" />
+        <attr name="color_unpressed" format="color" />
+        <attr name="ripple_color" format="color" />
+        <attr name="ripple_alpha" format="integer" />
+        <attr name="ripple_duration" format="integer" />
+        <attr name="alpha_pressed" format="integer" />
+        <attr name="radius" format="dimension" />
+        <attr name="shape_type" format="enum">
+            <enum name="round" value="0" />
+            <enum name="rectangle" value="1" />
+        </attr>
+    </declare-styleable>
+
+
+    <!--android:autoLink="web"-->
+    <!--app:leftText="LeftText -&gt; "-->
+    <!--app:topText="Top: http://drakeet.me"-->
+    <!--app:rightText=" &lt;- RightText"-->
+    <!--app:bottomText="BottomText"-->
+    <!--app:leftTextAppearance="@style/LeftTextStyle"-->
+    <!--app:topTextAppearance="@style/TopTextStyle"-->
+    <!--app:rightTextAppearance="@style/RightTextStyle"-->
+    <!--app:bottomTextAppearance="@style/BottomTextStyle"/>-->
+    <declare-styleable name="LabelView">
+        <attr name="leftText" format="string" />
+        <attr name="rightText" format="string" />
+        <attr name="topText" format="string" />
+        <attr name="bottomText" format="string" />
+        <attr name="leftTextAppearance" format="reference" />
+        <attr name="rightTextAppearance" format="reference" />
+        <attr name="topTextAppearance" format="reference" />
+        <attr name="bottomTextAppearance" format="reference" />
+        <attr name="android:gravity" />
+    </declare-styleable>
+
 </resources>
