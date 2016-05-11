@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -360,25 +360,25 @@ public class RecyclerViewAdapter_Photo extends RecyclerView.Adapter<RecyclerView
     }
 
     public static class PhotoItemViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.ivFeedCenter)
+        @BindView(R.id.ivFeedCenter)
         ImageView ivFeedCenter;
-        @Bind(R.id.ivFeedBottom)
+        @BindView(R.id.ivFeedBottom)
         TextView ivFeedBottom;
-        @Bind(R.id.btnComments)
+        @BindView(R.id.btnComments)
         ImageButton btnComments;
-        @Bind(R.id.btnLike)
+        @BindView(R.id.btnLike)
         ImageButton btnLike;
-        @Bind(R.id.btnMore)
+        @BindView(R.id.btnMore)
         ImageButton btnMore;
-        @Bind(R.id.vBgLike)
+        @BindView(R.id.vBgLike)
         View vBgLike;
-        @Bind(R.id.ivLike)
+        @BindView(R.id.ivLike)
         ImageView ivLike;
-        @Bind(R.id.tsLikesCounter)
+        @BindView(R.id.tsLikesCounter)
         TextSwitcher tsLikesCounter;
-        @Bind(R.id.ivUserProfile)
+        @BindView(R.id.ivUserProfile)
         ImageView ivUserProfile;
-        @Bind(R.id.vImageRoot)
+        @BindView(R.id.vImageRoot)
         FrameLayout vImageRoot;
 
         SendingProgressView vSendingProgress;

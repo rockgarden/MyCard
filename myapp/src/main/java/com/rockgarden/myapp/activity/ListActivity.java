@@ -12,7 +12,7 @@ import com.rockgarden.myapp.uitl.EndlessScrollListener_AbsListView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
@@ -23,7 +23,7 @@ public class ListActivity extends Activity {
 
     public static final String ARG_REVEAL_START_LOCATION = "reveal_start_location";
 
-    @Bind(R.id.lv)
+    @BindView(R.id.lv)
     ListView lv;
     private BaseAdapter_List adapter;
     private ArrayList<String> list;

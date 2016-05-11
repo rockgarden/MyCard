@@ -16,7 +16,7 @@ import com.rockgarden.myapp.R;
 import java.io.IOException;
 import java.io.InputStream;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,7 +28,7 @@ public class MainFragment extends Fragment {
 
     private static final String STATE_SELECTED_MAIN_CONTENT_VIEW = "selected_MainContentView";
     private int currentSelectedMainView = 0;
-    @Bind(R.id.test_GifView)
+    @BindView(R.id.test_GifView)
     GifView testGifViw;
 
     public static MainFragment newInstance(int selectedMainContentView) {

@@ -16,7 +16,7 @@ import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Complex;
 import com.rockgarden.myapp.model.Item;
 import com.rockgarden.myapp.uitl.EndlessScrollListener_RecyclerView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
  * interface.
  */
 public class ItemFragment extends Fragment {
-    @Bind(R.id.section_label)
+    @BindView(R.id.section_label)
     TextView textView;
-    @Bind(R.id.Empty_label)
+    @BindView(R.id.Empty_label)
     TextView tvEmptyView;
     // TODO: Customize parameter argument names
     private static final String ARG_SECTION_NUMBER = "section_number";

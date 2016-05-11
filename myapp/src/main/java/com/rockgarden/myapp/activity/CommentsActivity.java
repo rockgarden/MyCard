@@ -20,7 +20,7 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Comment;
 import com.rockgarden.myapp.widget.SendCommentButton;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by rockgarden on 15/11/19.
@@ -28,15 +28,15 @@ import butterknife.Bind;
 public class CommentsActivity extends BaseLayoutActivity implements SendCommentButton.OnSendClickListener {
     public static final String ARG_DRAWING_START_LOCATION = "arg_drawing_start_location";
 
-    @Bind(R.id.comments_content)
+    @BindView(R.id.comments_content)
     LinearLayout contentComments;
-    @Bind(R.id.comment_list)
+    @BindView(R.id.comment_list)
     RecyclerView commentList;
-    @Bind(R.id.add_comment)
+    @BindView(R.id.add_comment)
     LinearLayout addComment;
-    @Bind(R.id.et_comment)
+    @BindView(R.id.et_comment)
     EditText etComment;
-    @Bind(R.id.btn_send_comment)
+    @BindView(R.id.btn_send_comment)
     SendCommentButton btnSendComment;
 
     private RecyclerViewAdapter_Comment recyclerViewAdapterComment;

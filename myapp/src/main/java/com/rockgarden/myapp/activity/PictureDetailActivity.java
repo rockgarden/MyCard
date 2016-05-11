@@ -30,14 +30,14 @@ import com.litesuits.common.utils.AndroidUtil;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.model.Picture;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class PictureDetailActivity extends BaseLayoutActivity {
     public static final String TAG = PictureDetailActivity.class.getName();
 
-    @Bind(R.id.picture_detail_NestedScrollView)
+    @BindView(R.id.picture_detail_NestedScrollView)
     NestedScrollView picture_detail_NestedScrollView;
-    @Bind(R.id.collapse_toolbar_layout)
+    @BindView(R.id.collapse_toolbar_layout)
     CollapsingToolbarLayout collapsingToolbar;
 
     public static final String EXTRA_NAME = "picture_name";

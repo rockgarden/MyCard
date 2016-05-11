@@ -21,7 +21,7 @@ import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Photo;
 import com.rockgarden.myapp.uitl.FeedContextMenu;
 import com.rockgarden.myapp.uitl.FeedContextMenuManager;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerViewAdapter_Photo.OnFeedItemClickListener, FeedContextMenu.OnFeedContextMenuItemClickListener {
@@ -33,11 +33,11 @@ public class PhotoActivity extends BaseLayoutDrawerActivity implements RecyclerV
 
     private RecyclerViewAdapter_Photo recyclerViewAdapterPhoto;
 
-    @Bind(R.id.rvFeed)
+    @BindView(R.id.rvFeed)
     RecyclerView rvFeed;
-    @Bind(R.id.btnCreate)
+    @BindView(R.id.btnCreate)
     FloatingActionButton fabCreate;
-    @Bind(R.id.content)
+    @BindView(R.id.content)
     CoordinatorLayout clContent;
     private ImageView imageTitle;
 

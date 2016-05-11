@@ -21,19 +21,19 @@ import com.rockgarden.myapp.fragment.RecordsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ViewPagerActivity extends BaseLayoutDrawerActivity {
     public static final String TAG = ViewPagerActivity.class.getName();
 
-    @Bind(R.id.collapse_toolbar_layout)
+    @BindView(R.id.collapse_toolbar_layout)
     CollapsingToolbarLayout toolbar_layout;
-    @Bind(R.id.record_tabLayout)
+    @BindView(R.id.record_tabLayout)
     TabLayout recordTabs;
-    @Bind(R.id.recordFab)
+    @BindView(R.id.recordFab)
     FloatingActionButton recordFab;
-    @Bind(R.id.record_viewpager)
+    @BindView(R.id.record_viewpager)
     ViewPager viewPager;
 
     @Override

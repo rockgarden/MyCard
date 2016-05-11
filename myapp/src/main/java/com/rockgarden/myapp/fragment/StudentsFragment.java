@@ -23,7 +23,7 @@ import com.rockgarden.recyclerviewlib.RecyclerViewWithFooter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,9 +31,9 @@ import butterknife.ButterKnife;
  */
 public class StudentsFragment extends Fragment {
 
-    @Bind(R.id.my_recycler_view)
+    @BindView(R.id.my_recycler_view)
     RecyclerViewWithFooter mRecyclerView;
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerViewAdapter_Student mAdapter;

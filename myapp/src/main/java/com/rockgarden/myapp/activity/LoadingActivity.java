@@ -16,7 +16,7 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.fragment.AdvertFragment;
 import com.rockgarden.myapp.fragment.GuideFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -31,9 +31,9 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
 
     private FragmentManager fragmentManager;
     private AdvertFragment advertFragment;
-    @Bind(R.id.fullscreen_content)
+    @BindView(R.id.fullscreen_content)
     View mContentView;
-    @Bind(R.id.fullscreen_content_controls)
+    @BindView(R.id.fullscreen_content_controls)
     View mControlsView;
 
     private static final int UI_ANIMATION_DELAY = 300;

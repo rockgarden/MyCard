@@ -23,7 +23,7 @@ import com.rockgarden.myapp.model.Record;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,9 +33,9 @@ import butterknife.ButterKnife;
 public class RecordsFragment extends Fragment {
     private static final String TAG = RecordsFragment.class.getSimpleName();
 
-    @Bind(R.id.swipeContainer)
+    @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeRefreshLayout;
-    @Bind(R.id.rv_records)
+    @BindView(R.id.rv_records)
     RecyclerView recyclerView;
     private List<Record> mRecords;
     NestedScrollingChild mChildHelper;

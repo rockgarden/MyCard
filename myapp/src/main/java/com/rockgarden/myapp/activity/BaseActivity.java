@@ -15,6 +15,8 @@ import com.rockgarden.myapp.R;
 
 import java.lang.reflect.Field;
 
+import butterknife.ButterKnife;
+
 /**
  * 加载全局通用方法的基类
  * Created by rockgarden on 15/11/20.
@@ -35,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setOverflowShowingAlways();
         setTranslucentStatusBar(this.getWindow());
+        ButterKnife.setDebug(true);
     }
 
     public void FullScreen_SDK16() {

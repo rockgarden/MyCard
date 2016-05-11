@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.observer.SmsObserver;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
@@ -19,9 +19,9 @@ import cn.jpush.android.api.JPushInterface;
 public class LoginActivity extends BaseActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    @Bind(R.id.editText_Alias)
+    @BindView(R.id.editText_Alias)
     EditText inputAlias;
-    @Bind(R.id.button_sendAlias)
+    @BindView(R.id.button_sendAlias)
     Button sendAlias;
 
     public static final int MSG_RECEIVED_CODE = 1; //message的标签

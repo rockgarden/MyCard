@@ -19,14 +19,14 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.fragment.ItemFragment;
 import com.rockgarden.myapp.fragment.StudentsFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SpinnerActivity extends BaseLayoutDrawerActivity implements ItemFragment.FragmentInteractionListener {
     public static final String TAG = SpinnerActivity.class.getName();
 
-    @Bind(R.id.spinner)
+    @BindView(R.id.spinner)
     Spinner spinner;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
 
     @Override

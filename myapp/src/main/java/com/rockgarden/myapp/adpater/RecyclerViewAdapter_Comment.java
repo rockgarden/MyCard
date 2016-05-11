@@ -15,7 +15,7 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.anim.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -112,9 +112,9 @@ public class RecyclerViewAdapter_Comment extends RecyclerView.Adapter<RecyclerVi
     }
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.ivUserAvatar)
+        @BindView(R.id.ivUserAvatar)
         ImageView ivUserAvatar;
-        @Bind(R.id.tvComment)
+        @BindView(R.id.tvComment)
         TextView tvComment;
 
         public CommentViewHolder(View view) {

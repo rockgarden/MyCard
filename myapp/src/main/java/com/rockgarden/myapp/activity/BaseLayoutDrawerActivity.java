@@ -3,6 +3,7 @@ package com.rockgarden.myapp.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
@@ -18,7 +19,7 @@ import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.demo.BaseMapDemo;
 import com.rockgarden.myapp.demo.WebViewDemo;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 加载通用布局的视图控制基类
@@ -27,9 +28,9 @@ import butterknife.Bind;
 public class BaseLayoutDrawerActivity extends BaseLayoutActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
 
@@ -77,6 +78,7 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
      * @param v bug:NavigationView can't use ButterKnife,this is bug for Design 23
      */
     //@OnClick(R.id.drawerLayoutNavHeader)
+    @Nullable
     public void navHeaderClick(final View v) {
         ViewGroup navHeader = (ViewGroup) findViewById(R.id.drawerLayoutNavHeader);
         navHeader.setOnClickListener(new View.OnClickListener() {

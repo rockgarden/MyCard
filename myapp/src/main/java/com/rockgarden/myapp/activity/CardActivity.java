@@ -12,12 +12,12 @@ import android.view.View;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.adpater.RecyclerViewAdapter_Card;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CardActivity extends BaseLayoutDrawerActivity {
     public static final String TAG = CardActivity.class.getName();
     public static final String ACTION=".activity.CardActivity";
-    @Bind(R.id.collapse_toolbar_layout)
+    @BindView(R.id.collapse_toolbar_layout)
     CollapsingToolbarLayout collapseToolbarLayout;
 
     @Override

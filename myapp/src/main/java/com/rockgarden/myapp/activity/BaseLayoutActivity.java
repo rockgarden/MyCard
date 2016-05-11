@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import com.rockgarden.StatusBarUtil;
 import com.rockgarden.myapp.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 public class BaseLayoutActivity extends BaseActivity {
     public static final String TAG = BaseLayoutActivity.class.getName();
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     View toolbarTitleView;

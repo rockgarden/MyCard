@@ -13,7 +13,7 @@ import com.rockgarden.myapp.R;
 
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -25,17 +25,17 @@ public class SettingActivity extends BaseLayoutDrawerActivity {
 
     public static final String EXTRA_IS_TRANSPARENT = "is_transparent";
 
-    @Bind(R.id.root_layout)
+    @BindView(R.id.root_layout)
     RelativeLayout mRootLayout;
-    @Bind(R.id.tv_status_alpha)
+    @BindView(R.id.tv_status_alpha)
     TextView mTvStatusAlpha;
-    @Bind(R.id.btn_change_color)
+    @BindView(R.id.btn_change_color)
     Button mBtnChangeColor;
-    @Bind(R.id.btn_change_background)
+    @BindView(R.id.btn_change_background)
     Button mBtnChangeBackground;
-    @Bind(R.id.sb_change_alpha)
+    @BindView(R.id.sb_change_alpha)
     SeekBar mSbChangeAlpha;
-    @Bind(R.id.chb_translucent)
+    @BindView(R.id.chb_translucent)
     CheckBox mChbTranslucent;
 
     private boolean isBgChanged;

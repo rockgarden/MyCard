@@ -13,7 +13,7 @@ import com.rockgarden.myapp.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -84,9 +84,9 @@ public class BaseAdapter_List extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tv_card_record_time)
+        @BindView(R.id.tv_card_record_time)
         TextView tv_text;
-        @Bind(R.id.btn_card_record_result)
+        @BindView(R.id.btn_card_record_result)
         Button btn;
         private Context mContext;
 
