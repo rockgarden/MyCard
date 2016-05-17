@@ -1,5 +1,6 @@
 package com.rockgarden.myapp.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -128,6 +129,11 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
             this.startActivity(intent);
         }
         return true;
+    }
+
+    // 利用泛型<? extends Activity>传递Activity的子类
+    private void launch(Class<? extends Activity> aClass) {
+        startActivity(new Intent(this,aClass));
     }
 
     @Override

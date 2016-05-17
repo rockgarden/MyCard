@@ -2,19 +2,25 @@ package com.litesuits.android.async;
 
 import android.os.Handler;
 import android.os.Looper;
+
 import com.litesuits.android.Log;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 /**
  * 异步执行
- *
+ * TODO:说明实现
  * @author MaTianyu
  */
 public class AsyncExecutor {
     private static final String TAG = AsyncExecutor.class.getSimpleName();
-    private static ExecutorService threadPool;
     public static Handler handler = new Handler(Looper.getMainLooper());
+    private static ExecutorService threadPool;
 
     public AsyncExecutor() {
         this(null);
@@ -38,17 +44,21 @@ public class AsyncExecutor {
 
     /**
      * 将任务投入线程池执行
-     *
+     * 泛型方法
      * @param worker
      * @return
+     *
+     * T 表示一般意义上的数据类型;
      */
     public <T> FutureTask<T> execute(final Worker<T> worker) {
+        // 实例化泛型接口 T = object the result type of method
         Callable<T> call = new Callable<T>() {
             @Override
             public T call() throws Exception {
                 return postResult(worker, worker.doInBackground());
             }
         };
+        // 实例化泛型类 T = object the callable task
         FutureTask<T> task = new FutureTask<T>(call) {
             @Override
             protected void done() {
@@ -113,13 +123,25 @@ public class AsyncExecutor {
         return task;
     }
 
+    // 泛型抽象类
     public static abstract class Worker<T> {
+        /**
+         * T 类型参数
+         * @return
+         */
         protected abstract T doInBackground();
 
-        protected void onPostExecute(T data) {}
+        /**
+         * @param data
+         * data 传值参数
+         */
+        protected void onPostExecute(T data) {
+        }
 
-        protected void onCanceled() {}
+        protected void onCanceled() {
+        }
 
-        protected void abort() {}
+        protected void abort() {
+        }
     }
 }

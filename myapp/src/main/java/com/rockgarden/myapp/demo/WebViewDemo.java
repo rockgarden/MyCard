@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +28,26 @@ public class WebViewDemo extends AppCompatActivity implements AdvancedWebView.Li
     private ProgressDialog progressDialog;
     private ImageView webImage;
     private static final String TAG_PAGE_URL = "https://github.com/";
+
+    /**
+     * @return
+     */
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +155,7 @@ public class WebViewDemo extends AppCompatActivity implements AdvancedWebView.Li
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
         Toast.makeText(context, "onPageError(errorCode = " + errorCode + ",  description = " + description + ",  failingUrl = " + failingUrl + ")", Toast.LENGTH_SHORT).show();
+        mWebView.loadUrl("file:///android_asset/error.html");
     }
 
     @Override

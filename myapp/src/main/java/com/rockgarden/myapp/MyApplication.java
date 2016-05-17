@@ -3,6 +3,7 @@ package com.rockgarden.myapp;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.nfc.tech.IsoDep;
@@ -26,6 +27,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,28 +45,15 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyApplication extends Application {
     private static final String TAG = MyApplication.class.getSimpleName();
-
-    private static MyApplication instance;
-    SharedPreferencesDataKeeper spDataKeeper;
-    public String now_verName;
-    public String old_verName;
-
-    private String textData = "default";
-
-    //public static LinkedList<ActivityBase> activityList = new LinkedList<ActivityBase>();
-
-    public static String AID = "A00000059807560001"; // 给个默认的AID用作非接圈存时候用
-    public static String READAID = "4144442E41505032";
-
-    private IsoDep isoDep;
-    private String testValue;
-
+    /*Application ID = AID
+    可以让NFC读写器识别出设备需要读哪一张模拟卡-在processCommandApdu()方法中需要得到一个响应
+    Android设备要想作为NFC读写器,必须注册一个AID*/
+    public static String AID = "A00000059807560001"; //给个默认的AID用作非接圈存时候用
+    public static String ReadAID = "4144442E41505032";
     public static boolean channelOnUse = true;
-
     // 正在进行请求标志位
     public static boolean isRequestOnWay = false;
 
-    // @date 2015-08-20
     // 处理进度框显示
     public static Handler progressHandler = new Handler() {
         @Override
@@ -72,6 +61,35 @@ public class MyApplication extends Application {
             //ProgressFragment.showMsg((String) msg.obj);
         }
     };
+
+    //public static LinkedList<ActivityBase> activityList = new LinkedList<ActivityBase>();
+
+    /* 静态变量引用了this,就会造成内存泄漏==全局单例?
+    用volatile修饰的变量,线程在每次使用变量的时候,都会读取变量修改后的最的值*/
+    private volatile static MyApplication instance = null;
+
+    public String now_verName;
+    public String old_verName;
+    SharedPreferencesDataKeeper spDataKeeper;
+    private String textData = "default";
+    private IsoDep isoDep;
+    private String testValue;
+
+    public static MyApplication getInstance() {
+        return instance;
+    }
+
+    // 单例获取MyApplication实例
+    public static MyApplication singletonApp() {
+        if (null == instance) {
+            synchronized (MyApplication.class) {
+                if (instance == null) {
+                    instance = new MyApplication();
+                }
+            }
+        }
+        return instance;
+    }
 
     public String getTestValue() {
         return testValue;
@@ -93,22 +111,28 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
         /*JPush init*/
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         String JPushRegistrationID = JPushInterface.getRegistrationID(instance); //only getApplicationContext()
         Log.i(TAG, JPushRegistrationID);
+
         //Thread.setDefaultUncaughtExceptionHandler((Thread.UncaughtExceptionHandler) this);
         //startService(new Intent(this, AppService.class));
+
         configUniversalImageLoader();
+
         spDataKeeper = new SharedPreferencesDataKeeper(this, "com.rockgarden.myapp");
 
-        // BaiduMAP:在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        /* BaiduMAP:在使用 SDK 各组间之前初始化 context 信息，传入ApplicationContext*/
         SDKInitializer.initialize(this);
-    }
+        /* LeakCanary:内存泄漏分析工具初始化*/
+        LeakCanary.install(this);
 
-    public static MyApplication getInstance() {
-        return instance;
+        // 判断是否具有基于主机的卡仿真HCE功能
+        PackageManager pm = this.getPackageManager();
+        boolean hasNfcHce = pm.hasSystemFeature(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION);
     }
 
     public Boolean isShowGuide() {
@@ -227,7 +251,6 @@ public class MyApplication extends Application {
                 super.onCancelled();
             }
         }.execute(url);
-
     }
 
 //    public static void exit() {
@@ -251,12 +274,12 @@ public class MyApplication extends Application {
 //        System.exit(0);
 //    }
 
-    public void setTextData(String textData) {
-        this.textData = textData;
-    }
-
     public String getTextData() {
         return textData;
+    }
+
+    public void setTextData(String textData) {
+        this.textData = textData;
     }
 
     @Override

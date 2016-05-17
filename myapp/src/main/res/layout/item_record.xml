@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
-    android:descendantFocusability="blocksDescendants"
+    android:descendantFocusability="afterDescendants"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/item_spacing"
     android:paddingLeft="@dimen/normal_spacing"
     android:paddingRight="@dimen/normal_spacing"
     android:paddingTop="@dimen/item_spacing">
-
+    <!--Item布局的根布局上使用android:descendantFocusability=
+    afterDescendants:viewGroup只有当其子类控件不需要获取焦点时才获取焦点
+    blocksDescendants:viewGroup会覆盖子类控件而直接获得焦点
+    beforeDescendants:viewGroup会优先其子类控件而获取到焦点-->
     <TextView
         android:id="@+id/tv_record_time"
         android:layout_width="0dp"
