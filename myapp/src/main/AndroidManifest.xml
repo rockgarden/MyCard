@@ -248,6 +248,7 @@
             android:value="b860e1b636bfc8901b9ed504" /> <!-- </>值来自开发者平台取得的AppKey -->
 
         <activity android:name=".demo.WebViewDemo"></activity>
+        <activity android:name=".demo.JSWebViewDemo"></activity>
     </application>
 
 </manifest>

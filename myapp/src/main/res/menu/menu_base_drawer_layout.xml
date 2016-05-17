@@ -25,7 +25,11 @@
         <item
             android:id="@+id/show_webView"
             android:icon="@drawable/ic_vector_menu_card"
-            android:title="@string/title_activity_webwiew" />
+            android:title="@string/title_activity_webView" />
+        <item
+            android:id="@+id/show_js_webView"
+            android:icon="@drawable/ic_vector_menu_card"
+            android:title="@string/title_activity_JS_webView" />
     </group>
 
     <item android:title="Communicate">

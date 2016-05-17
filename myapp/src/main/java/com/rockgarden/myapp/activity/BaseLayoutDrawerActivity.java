@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.demo.BaseMapDemo;
+import com.rockgarden.myapp.demo.JSWebViewDemo;
 import com.rockgarden.myapp.demo.WebViewDemo;
 
 import butterknife.BindView;
@@ -119,6 +120,8 @@ public class BaseLayoutDrawerActivity extends BaseLayoutActivity
             intent = new Intent(this, BaseMapDemo.class);
         } else if (id == R.id.show_webView) {
             intent = new Intent(this, WebViewDemo.class);
+        } else if (id == R.id.show_js_webView) {
+            intent = new Intent(this, JSWebViewDemo.class);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
