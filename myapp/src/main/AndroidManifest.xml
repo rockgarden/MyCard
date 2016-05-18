@@ -27,7 +27,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.Light">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TDQzm2V5fHqsBHKNl2QRAOT61fsm3yNk" />
@@ -57,15 +57,13 @@
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_setting"
             android:parentActivityName=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rockgarden.myapp.activity.MainActivity" />
@@ -96,8 +94,7 @@
         <activity
             android:name=".activity.ViewPagerActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme">
+            android:parentActivityName=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.PayToCardActivity" />
 
@@ -111,12 +108,10 @@
         <activity
             android:name=".activity.CardActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.PictureDetailActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
@@ -126,8 +121,7 @@
             android:name=".deprecated.ActionBarTabsActivity"
             android:label="@string/title_activity_action_bar_tabs"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
@@ -135,22 +129,22 @@
         <activity
             android:name=".activity.SpinnerActivity"
             android:label="@string/title_activity_tab"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rockgarden.myapp.activity.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
             android:name=".demo.BaseMapDemo"
             android:label="@string/title_activity_baidu"
             android:parentActivityName=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rockgarden.myapp.activity.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
+
+
         <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"

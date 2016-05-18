@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".demo.JSWebViewDemo"
+    tools:ignore="MergeRootFrame">
 
-    <!-- button 演示Java调用web -->
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:text="Java调用Web"
-        android:layout_height="48dp"
-        />
+    <!--tools:ignore="MergeRootFrame"
+    告知lint检查的时候忽略掉提示你使用merge标签来替换FrameLayout-->
 
-    <!-- webview 演示web调用Java -->
-    <com.rockgarden.WebViewJavaScriptBridge.JSWebView
-        android:id="@+id/webView"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </com.rockgarden.WebViewJavaScriptBridge.JSWebView>
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        app:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:elevation="@dimen/default_elevation"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/title_activity_JS_webView">
+            <!--android:titleTextColor="@color/white"-->
+            <!--android:background="@color/green_light"-->
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </LinearLayout>

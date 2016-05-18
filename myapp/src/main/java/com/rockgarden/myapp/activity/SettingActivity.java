@@ -2,14 +2,18 @@ package com.rockgarden.myapp.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.rockgarden.StatusBarUtil;
+import com.rockgarden.myapp.MyApplication;
 import com.rockgarden.myapp.R;
+import com.rockgarden.myapp.uitl.Utils;
 
 import java.util.Random;
 
@@ -37,6 +41,8 @@ public class SettingActivity extends BaseLayoutDrawerActivity {
     SeekBar mSbChangeAlpha;
     @BindView(R.id.chb_translucent)
     CheckBox mChbTranslucent;
+    @BindView(R.id.spThemes)
+    Spinner spThemes;
 
     private boolean isBgChanged;
     private boolean isTransparent;
@@ -47,8 +53,13 @@ public class SettingActivity extends BaseLayoutDrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         isTransparent = getIntent().getBooleanExtra(EXTRA_IS_TRANSPARENT, false);
         super.onCreate(savedInstanceState);
+        // MUST BE SET BEFORE setContentView
+        Utils.onActivityCreateSetTheme(this);
+        // AFTER SETTING THEME
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+
+        setupSpinnerItemSelection();
 
         if (!isTransparent) {
             mSbChangeAlpha.setVisibility(View.VISIBLE);
@@ -56,6 +67,25 @@ public class SettingActivity extends BaseLayoutDrawerActivity {
         } else {
             mSbChangeAlpha.setVisibility(View.GONE);
         }
+    }
+
+    private void setupSpinnerItemSelection() {
+        spThemes.setSelection(MyApplication.currentPosition);
+        MyApplication.currentPosition = spThemes.getSelectedItemPosition();
+        spThemes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                if (MyApplication.currentPosition != position) {
+                    Utils.changeToTheme(SettingActivity.this, position);
+                }
+                MyApplication.currentPosition = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     @OnClick(R.id.btn_change_background)

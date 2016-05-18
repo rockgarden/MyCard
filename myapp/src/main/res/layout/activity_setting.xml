@@ -4,61 +4,178 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/guide1"
-    android:orientation="vertical"
     tools:context=".activity.SettingActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/view_main_toolbar" />
 
-    <Button
-        android:id="@+id/btn_change_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="16dp"
-        android:text="Change Background" />
-
-    <SeekBar
-        android:id="@+id/sb_change_alpha"
+    <RelativeLayout
+        style="?pageBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btn_change_background"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
-    <TextView
-        android:id="@+id/tv_status_alpha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/sb_change_alpha"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
-        android:textSize="36sp" />
+        <TextView
+            android:id="@+id/tvSelectTheme"
+            style="?textLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_text_select_theme" />
 
-    <CheckBox
-        android:id="@+id/chb_translucent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/tv_status_alpha"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="8dp"
-        android:text="Translucent" />
+        <Spinner
+            android:id="@+id/spThemes"
+            style="?spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvSelectTheme"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/spinner_margin_left"
+            android:layout_toRightOf="@+id/tvSelectTheme"
+            android:entries="@array/theme_array"
+            android:spinnerMode="dropdown" />
 
-    <Button
-        android:id="@+id/btn_change_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/chb_translucent"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
-        android:padding="16dp"
-        android:text="Change StatusBar Color" />
+        <RelativeLayout
+            android:id="@+id/rlCredentials"
+            style="?whiteBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spThemes">
+
+            <TextView
+                android:id="@+id/tvCredentials"
+                style="?textSubHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_text_credentials" />
+
+            <EditText
+                android:id="@+id/tvUsername"
+                style="?textRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCredentials"
+                android:hint="@string/settings_text_username_hint"
+                android:inputType="text"
+                android:lines="1" />
+
+            <EditText
+                android:id="@+id/tvpassword"
+                style="?textRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUsername"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:hint="@string/settings_text_password_hint"
+                android:inputType="textPassword"
+                android:lines="1" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvSync"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlCredentials"
+            android:text="@string/settings_text_sync_automatically"
+            android:textSize="17sp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_sync_automatically"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvSync"
+            android:layout_alignParentRight="true"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSync"
+            android:layout_marginTop="@dimen/view_margin"
+            android:text="@string/settings_text_location"
+            android:textSize="17sp" />
+
+        <Switch
+            android:id="@+id/toggle_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvLocation"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tvLocation"
+            android:switchTextAppearance="@style/switch_text_appearance"
+            android:textOff="@string/settings_text_state_off"
+            android:textOn="@string/settings_text_state_on" />
+
+        <Button
+            android:id="@+id/btnClearData"
+            style="?button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLocation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/view_margin"
+            android:text="@string/settings_text_clear_data" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnClearData"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_change_color"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Change StatusBar Color" />
+
+                <Button
+                    android:id="@+id/btn_change_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Change Background" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/sb_change_alpha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_status_alpha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="36sp" />
+
+                <CheckBox
+                    android:id="@+id/chb_translucent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:text="Translucent" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
 
-<!--layout_above="@id/chb_translucent"这是有顺序的,id的对象必须在前-->
+    <!--注意:layout_above="@id/chb_translucent"这是有顺序的,id的对象必须在前-->

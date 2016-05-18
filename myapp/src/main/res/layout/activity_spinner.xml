@@ -22,16 +22,15 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:theme="?toolBarStyle"
                 app:elevation="@dimen/default_elevation"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                app:layout_scrollFlags="scroll|enterAlways">
                 <!--android:titleTextColor="@color/white"-->
                 <!--android:background="@color/green_light"-->
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    android:layout_height="wrap_content" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

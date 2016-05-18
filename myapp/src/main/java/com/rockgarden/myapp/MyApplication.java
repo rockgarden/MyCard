@@ -53,6 +53,8 @@ public class MyApplication extends Application {
     public static boolean channelOnUse = true;
     // 正在进行请求标志位
     public static boolean isRequestOnWay = false;
+    // App level variable to retain selected theme spinner value
+    public static int currentPosition;
 
     // 处理进度框显示
     public static Handler progressHandler = new Handler() {

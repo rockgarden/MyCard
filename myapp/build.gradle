@@ -8,7 +8,7 @@ android {
     //set path for *.so
     sourceSets {
         //main {
-          //  jniLibs.srcDirs = ['libs']
+        //  jniLibs.srcDirs = ['libs']
         //}
         // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
@@ -125,12 +125,7 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile "com.android.support:percent:${supportLibVersion}"
     compile "com.android.support:support-annotations:${supportLibVersion}"
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.jakewharton:butterknife:8.0.1'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'de.hdodenhof:circleimageview:2.0.0'
     compile files('libs/baidumapapi_base_v3_7_3.jar')
     compile files('libs/baidumapapi_map_v3_7_3.jar')
     compile files('libs/baidumapapi_util_v3_7_3.jar')
@@ -142,5 +137,11 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.android.support:support-v4:23.3.0'
 }

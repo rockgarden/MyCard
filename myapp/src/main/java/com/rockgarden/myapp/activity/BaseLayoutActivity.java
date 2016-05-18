@@ -85,6 +85,7 @@ public class BaseLayoutActivity extends BaseActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
             //getSupportActionBar().setCustomView(R.layout.view_toolbar_title);
+            //getSupportActionBar().setBackgroundDrawable();
         }
     }
 

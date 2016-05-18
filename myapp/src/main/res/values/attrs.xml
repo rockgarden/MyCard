@@ -1,9 +1,14 @@
 <resources>
 
+    <!-- <attr> element has two XML attributes name and format.
+         name lets you title the attribute and this is how you refer to each in code,
+         e.g., R.attr.my_attribute.-->
+
     <!-- Declare custom theme attributes that allow changing which styles are
          used for button bars depending on the API level.
          ?android:attr/buttonBarStyle is new as of API 11 so this is
          necessary to support previous API levels. -->
+
     <declare-styleable name="ButtonBarContainerTheme">
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
@@ -37,5 +42,16 @@
         <attr name="indeterminateDuration" format="integer" />
 
     </declare-styleable>
+
+    <!-- This is declaring the XML attributes that can be set within a theme. -->
+    <!-- Check the "res/values/themes.xml" file for examples of these attributes being set.  -->
+    <attr name="pageBackground" format="reference" />
+    <attr name="textSubHeader" format="reference" />
+    <attr name="textLarge" format="reference" />
+    <attr name="textRegular" format="reference" />
+    <attr name="whiteBackground" format="reference" />
+    <attr name="button" format="reference" />
+    <attr name="spinner" format="reference" />
+    <attr name="toolBarStyle" format="reference" />
 
 </resources>

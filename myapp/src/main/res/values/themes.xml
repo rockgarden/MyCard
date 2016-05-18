@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Check the "res/values/attrs.xml" file for where these style names are first defined.  -->
+    <style name="Theme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="pageBackground">@style/page_background_wh</item>
+        <item name="textSubHeader">@style/text_sub_header_wh</item>
+        <item name="textLarge">@style/text_large_wh</item>
+        <item name="textRegular">@style/text_regular_wh</item>
+        <item name="whiteBackground">@style/white_background_wh</item>
+        <item name="button">@style/button_wh</item>
+        <item name="spinner">@style/spinner_wh</item>
+        <item name="actionBarStyle">@style/action_bar_wh</item>
+        <item name="toolBarStyle">@style/toolBarStyle_wh</item>
+    </style>
+
+    <style name="Theme.DayNight" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="toolBarStyle">@style/toolBarStyle_wk</item>
+    </style>
+
+</resources>

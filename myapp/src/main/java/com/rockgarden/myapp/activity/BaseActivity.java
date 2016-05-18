@@ -84,6 +84,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 设置透明效果的StatusBar
+     * @param window
+     */
     public static void setTranslucentStatusBar(Window window) {
         if (window == null) return;
         int sdkInt = Build.VERSION.SDK_INT;
@@ -99,7 +103,7 @@ public class BaseActivity extends AppCompatActivity {
         window.setStatusBarColor(
                 window.getContext()
                         .getResources()
-                        .getColor(R.color.blue_light));
+                        .getColor(R.color.transparent));
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
