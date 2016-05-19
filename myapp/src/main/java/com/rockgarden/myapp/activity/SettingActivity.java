@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.rockgarden.StatusBarUtil;
 import com.rockgarden.myapp.MyApplication;
 import com.rockgarden.myapp.R;
-import com.rockgarden.myapp.uitl.Utils;
+import com.rockgarden.myapp.uitl.ThemeUtil;
 
 import java.util.Random;
 
@@ -53,9 +53,6 @@ public class SettingActivity extends BaseLayoutDrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         isTransparent = getIntent().getBooleanExtra(EXTRA_IS_TRANSPARENT, false);
         super.onCreate(savedInstanceState);
-        // MUST BE SET BEFORE setContentView
-        Utils.onActivityCreateSetTheme(this);
-        // AFTER SETTING THEME
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
 
@@ -70,16 +67,16 @@ public class SettingActivity extends BaseLayoutDrawerActivity {
     }
 
     private void setupSpinnerItemSelection() {
-        spThemes.setSelection(MyApplication.currentPosition);
-        MyApplication.currentPosition = spThemes.getSelectedItemPosition();
+        spThemes.setSelection(MyApplication.currentThemePosition);
+        MyApplication.currentThemePosition = spThemes.getSelectedItemPosition();
         spThemes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                if (MyApplication.currentPosition != position) {
-                    Utils.changeToTheme(SettingActivity.this, position);
+                if (MyApplication.currentThemePosition != position) {
+                    ThemeUtil.changeToTheme(SettingActivity.this, position);
                 }
-                MyApplication.currentPosition = position;
+                MyApplication.currentThemePosition = position;
             }
 
             @Override

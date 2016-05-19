@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.litesuits.android.Log;
 import com.rockgarden.myapp.R;
+import com.rockgarden.myapp.uitl.ThemeUtil;
 
 import java.lang.reflect.Field;
 
@@ -35,6 +36,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        ThemeUtil.onCreateSetTheme(this); //设置主题
         setOverflowShowingAlways();
         setTranslucentStatusBar(this.getWindow());
         ButterKnife.setDebug(true);

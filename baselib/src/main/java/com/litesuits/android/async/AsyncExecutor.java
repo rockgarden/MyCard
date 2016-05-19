@@ -14,6 +14,7 @@ import java.util.concurrent.FutureTask;
 
 /**
  * 异步执行
+ * 示例泛型
  * TODO:说明实现
  * @author MaTianyu
  */

@@ -1,1 +1,1 @@
-include ':myapp', ':baselib', ':recyclerviewlib'
+include ':myapp', ':baselib', ':recyclerviewlib', ':JniBitmapOperationsLibrary'

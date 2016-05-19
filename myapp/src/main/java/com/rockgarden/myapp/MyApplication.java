@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.rockgarden.myapp.uitl.ThemeUtil;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.io.BufferedReader;
@@ -54,7 +55,7 @@ public class MyApplication extends Application {
     // 正在进行请求标志位
     public static boolean isRequestOnWay = false;
     // App level variable to retain selected theme spinner value
-    public static int currentPosition;
+    public static int currentThemePosition;
 
     // 处理进度框显示
     public static Handler progressHandler = new Handler() {
@@ -113,6 +114,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        // TODO:确认设置全局的Theme的效果
+        ThemeUtil.onCreateSetTheme(this);
 
         /*JPush init*/
         JPushInterface.setDebugMode(true);

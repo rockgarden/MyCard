@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/JniBitmapOperationsLibrary" />
             <option value="$PROJECT_DIR$/baselib" />
             <option value="$PROJECT_DIR$/myapp" />
             <option value="$PROJECT_DIR$/recyclerviewlib" />
@@ -17,6 +18,7 @@
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/JniBitmapOperationsLibrary" />
             <option value="$PROJECT_DIR$/baselib" />
             <option value="$PROJECT_DIR$/myapp" />
             <option value="$PROJECT_DIR$/recyclerviewlib" />
