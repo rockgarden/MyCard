@@ -118,6 +118,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':baselib')
     compile project(':recyclerviewlib')
+    compile project(':JniBitmapOperationsLibrary')
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:support-v4:${supportLibVersion}"

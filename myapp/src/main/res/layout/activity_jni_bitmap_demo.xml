@@ -1,0 +1,140 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".demo.JniBitmapDemo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- original -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="original"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewOriginal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- rotated 90 degrees CCW -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rotated 90 degrees CCW"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewRotated90degreesCcw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- rotated 90 degrees CW -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rotated 90 degrees CW"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewRotated90degreesCw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- rotated 180 degrees -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rotated 180 degrees"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewRotated180degrees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- cropped -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cropped"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewCropped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- flipped horizontally -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="flipped horizontally"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewFlippedHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- flipped vertically -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="flipped vertically"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewFlippedVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- scaled using nearest neighbour -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scaled using &apos;Nearest Neighbour&apos; algorithm"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewScaledUsingNearestNeighbour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+        <!-- scaled using bilinear interpolation -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scaled using &apos;Bilinear Interpolation&apos; algorithm"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageViewScaledUsingBilinearInterpolation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+</ScrollView>
