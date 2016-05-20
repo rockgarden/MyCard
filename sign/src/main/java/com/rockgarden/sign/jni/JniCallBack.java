@@ -1,4 +1,4 @@
-package com.eastcom.sign.jni;
+package com.rockgarden.sign.jni;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -17,6 +17,6 @@ public class JniCallBack {
 	}
 
 	public static String GetPrefsName() {
-		return "com.eastcom.sign";
+		return "com.rockgarden.sign";
 	}
 }

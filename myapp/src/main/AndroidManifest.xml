@@ -57,7 +57,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -108,7 +108,7 @@
         <activity
             android:name=".activity.CardActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.PictureDetailActivity"
             android:parentActivityName=".activity.MainActivity">
@@ -143,7 +143,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
-
 
         <!-- Required SDK核心功能 -->
         <activity
@@ -241,8 +240,15 @@
             android:name="JPUSH_APPKEY"
             android:value="b860e1b636bfc8901b9ed504" /> <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name=".demo.WebViewDemo"></activity>
-        <activity android:name=".demo.JSWebViewDemo"></activity>
+        <activity android:name=".demo.WebViewDemo" />
+        <activity android:name=".demo.JSWebViewDemo" />
+        <activity android:name=".demo.JniDemo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

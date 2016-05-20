@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <jni.h>
-#include <string.h>
-#include "sign_jni_Jni.h"
 #include <android/log.h>
-#include <malloc.h>
 #include "md5c.h"
 
 #define LOG_TAG "System.out.c"
@@ -77,7 +74,7 @@ jstring strToJstring(JNIEnv *env, const char *pStr) {
 }
 
 
-JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_getInfoMD5(
+JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_getInfoMD5(
         JNIEnv *env, jobject thiz, jstring jInfo) {
     char *jstr = Jstring2CStr(env, jInfo);
 
@@ -119,11 +116,12 @@ jstring AddString(JNIEnv *env, jstring a,
     return jstr_result; //返回ab字符串连接之后的结果
 }
 
-
-JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_GetPackageName(JNIEnv *env, jobject thiz,
+// 测试C中对JAVA函数的静态回调
+JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_GetPackageName(JNIEnv *env,
+                                                                       jobject thiz,
                                                                        jobject ctx) {
-    jstring str;
     jclass cls = (*env)->FindClass(env, "com/eastcom/sign/jni/JniCallBack");
+    LOGI("%s", cls);
     if (cls != NULL) {
         jmethodID id = (*env)->GetStaticMethodID(env, cls,
                                                  "GetPackageName",
@@ -134,8 +132,23 @@ JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_GetPackageName(JNIEnv *e
     }
 }
 
+JNIEXPORT jint JNICALL Java_com_rockgarden_sign_jni_Jni_jniStaticShowMessage(JNIEnv *env,
+                                                                                  jobject thiz,
+                                                                                  jobject ctx,
+                                                                                  jstring strTitle,
+                                                                                  jstring strMessage) {
+    jclass cls = (*env)->GetObjectClass(env, thiz);
+    if (cls != NULL) {
+        jmethodID id = (*env)->GetStaticMethodID(env, cls, "staticShowMessage",
+                                                 "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I");
+        if (id != NULL) {
+            return (*env)->CallStaticIntMethod(env, cls, id, ctx, strTitle, strMessage);
+        }
+    }
+    return 1;
+}
 
-JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_GetPrefsName(JNIEnv *env, jobject thiz) {
+JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_GetPrefsName(JNIEnv *env, jobject thiz) {
     jstring str;
     jclass cls = (*env)->FindClass(env, "com/eastcom/sign/jni/JniCallBack");
     if (cls != NULL) {
@@ -154,13 +167,14 @@ JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_GetPrefsName(JNIEnv *env
     return str;
 }
 
-//被调用的方法要放在前面，否则报错:conflicting types for "方法名"
-JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_getCustomInfoMD5(
+// JNIEnv *env, jobject thiz 默认传入
+// 被调用的方法要放在前面，否则报错:conflicting types for "方法名"
+JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_getCustomInfoMD5(
         JNIEnv *env, jobject thiz, jobject ctx, jstring jInfo) {
 
-    jstring pkg_name = Java_com_eastcom_sign_jni_Jni_GetPackageName(env, thiz, ctx);
+    jstring pkg_name = Java_com_rockgarden_sign_jni_Jni_GetPackageName(env, thiz, ctx);
     char *c1 = Jstring2CStr(env, pkg_name);
-    char *c2 = "com.eastcom.sign";
+    char *c2 = "com.eastcom.mobile112";
     int result = strcmp(c1, c2);
 
     if (result == 0) {
@@ -168,7 +182,7 @@ JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_getCustomInfoMD5(
         jstring js = (*env)->NewStringUTF(env, str);
         //(*env)->ReleaseStringUTFChars(env, js, str);
         jstring newjs = AddString(env, jInfo, js);
-        return Java_com_eastcom_sign_jni_Jni_getInfoMD5(env, thiz, newjs);
+        return Java_com_rockgarden_sign_jni_Jni_getInfoMD5(env, thiz, newjs);
     }
     else {
         char *c = "";
@@ -178,3 +192,50 @@ JNIEXPORT jstring JNICALL Java_com_eastcom_sign_jni_Jni_getCustomInfoMD5(
     }
 }
 
+
+JNIEXPORT jint JNICALL Java_com_rockgarden_sign_jni_Jni_getSignHashCode(
+        JNIEnv *env, jobject context) {
+    //Context的类
+    jclass context_clazz = (*env)->GetObjectClass(env, context);
+    // 得到 getPackageManager 方法的 ID
+    jmethodID methodID_getPackageManager = (*env)->GetMethodID(env, context_clazz,
+                                                               "getPackageManager",
+                                                               "()Landroid/content/pm/PackageManager;");
+
+    // 获得PackageManager对象
+    jobject packageManager = (*env)->CallObjectMethod(env, context,
+                                                      methodID_getPackageManager);
+    // 获得 PackageManager 类
+    jclass pm_clazz = (*env)->GetObjectClass(env, packageManager);
+    // 得到 getPackageInfo 方法的 ID
+    jmethodID methodID_pm = (*env)->GetMethodID(env, pm_clazz, "getPackageInfo",
+                                                "(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;");
+    // 得到 getPackageName 方法的 ID
+    jmethodID methodID_pack = (*env)->GetMethodID(env, context_clazz,
+                                                  "getPackageName", "()Ljava/lang/String;");
+    // 获得当前应用的包名
+    jstring application_package = (*env)->CallObjectMethod(env, context,
+                                                           methodID_pack);
+    const char *str = (*env)->GetStringUTFChars(env, application_package, 0);
+    LOGI("packageName: %s\n", str);
+    // 获得PackageInfo
+    jobject packageInfo = (*env)->CallObjectMethod(env, packageManager,
+                                                   methodID_pm, application_package, 64);
+
+    jclass packageinfo_clazz = (*env)->GetObjectClass(env, packageInfo);
+    jfieldID fieldID_signatures = (*env)->GetFieldID(env, packageinfo_clazz,
+                                                     "signatures",
+                                                     "[Landroid/content/pm/Signature;");
+    jobjectArray signature_arr = (jobjectArray) (*env)->GetObjectField(env,
+                                                                       packageInfo,
+                                                                       fieldID_signatures);
+    //Signature数组中取出第一个元素
+    jobject signature = (*env)->GetObjectArrayElement(env, signature_arr, 0);
+    //读signature的hashcode
+    jclass signature_clazz = (*env)->GetObjectClass(env, signature);
+    jmethodID methodID_hashcode = (*env)->GetMethodID(env, signature_clazz,
+                                                      "hashCode", "()I");
+    jint hashCode = (*env)->CallIntMethod(env, signature, methodID_hashcode);
+    LOGI("hashcode: %d\n", hashCode);
+    return hashCode;
+}

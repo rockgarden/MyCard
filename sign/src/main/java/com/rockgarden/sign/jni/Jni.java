@@ -1,4 +1,4 @@
-package com.eastcom.sign.jni;
+package com.rockgarden.sign.jni;
 
 public class Jni {
 	static {
@@ -6,10 +6,9 @@ public class Jni {
 	}
 
 	/**
-	 * getInfoMD5: native方法，在C代码里实现
+	 * native方法
 	 */
 	public static native String getInfoMD5(String info);
-	
 	public static native String getCustomInfoMD5(String info);
 	
 }
