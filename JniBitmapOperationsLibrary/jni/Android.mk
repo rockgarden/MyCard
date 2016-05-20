@@ -6,6 +6,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := JniBitmapOperationsLibrary
 LOCAL_SRC_FILES := JniBitmapOperationsLibrary.cpp
 LOCAL_LDLIBS := -llog
+
+#链接第三方静态库的方法
 LOCAL_LDFLAGS += -ljnigraphics
 
 include $(BUILD_SHARED_LIBRARY)

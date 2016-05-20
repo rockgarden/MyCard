@@ -416,6 +416,13 @@ public class AdvancedWebView extends WebView {
                 }
             }
 
+            /**
+             * @param view
+             * @param url
+             * @return
+             * 默认返回:return super.shouldOverrideUrlLoading(view, url);
+             * 返回到上一个页面的时候onPageStarted会执行,但是shouldOverrideUrlLoading不执行
+             */
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (isHostnameAllowed(url)) {
@@ -423,15 +430,14 @@ public class AdvancedWebView extends WebView {
                         return mCustomWebViewClient.shouldOverrideUrlLoading(view, url);
                     }
                     else {
-                        return false;
+                        return false; //webView处理url是在webView内部执行
                     }
                 }
                 else {
                     if (mListener != null) {
                         mListener.onExternalPageRequest(url);
                     }
-
-                    return true;
+                    return true; //webView处理url是根据程序来执行的;
                 }
             }
 
