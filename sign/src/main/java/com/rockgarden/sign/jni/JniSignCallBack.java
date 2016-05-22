@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
-public class JniCallBack {
+public class JniSignCallBack {
 	public static String GetPackageName(Context context) {
 		String packageName = "";
 		try {
@@ -19,4 +19,5 @@ public class JniCallBack {
 	public static String GetPrefsName() {
 		return "com.rockgarden.sign";
 	}
+
 }

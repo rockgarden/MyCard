@@ -1,0 +1,9 @@
+在项目目录下运行ndk-build脚本,完成so编译.
+
+adb install *.apk
+adb logcat
+^c 中断log输出
+
+pwd //Linux打印工作目录命令
+ls -l
+cd *jni

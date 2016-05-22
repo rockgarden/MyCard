@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+//与java交互必须引入的头文件
 #include <jni.h>
 #include <android/log.h>
 #include "md5c.h"
@@ -74,7 +75,7 @@ jstring strToJstring(JNIEnv *env, const char *pStr) {
 }
 
 
-JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_getInfoMD5(
+JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_JniSignHolder_getInfoMD5(
         JNIEnv *env, jobject thiz, jstring jInfo) {
     char *jstr = Jstring2CStr(env, jInfo);
 
@@ -118,9 +119,9 @@ jstring AddString(JNIEnv *env, jstring a,
 
 // 测试C中对JAVA函数的静态回调
 JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_GetPackageName(JNIEnv *env,
-                                                                       jobject thiz,
-                                                                       jobject ctx) {
-    jclass cls = (*env)->FindClass(env, "com/eastcom/sign/jni/JniCallBack");
+                                                                          jobject thiz,
+                                                                          jobject ctx) {
+    jclass cls = (*env)->FindClass(env, "com/eastcom/sign/jni/JniSignCallBack");
     LOGI("%s", cls);
     if (cls != NULL) {
         jmethodID id = (*env)->GetStaticMethodID(env, cls,
@@ -133,10 +134,10 @@ JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_GetPackageName(JNIEnv
 }
 
 JNIEXPORT jint JNICALL Java_com_rockgarden_sign_jni_Jni_jniStaticShowMessage(JNIEnv *env,
-                                                                                  jobject thiz,
-                                                                                  jobject ctx,
-                                                                                  jstring strTitle,
-                                                                                  jstring strMessage) {
+                                                                             jobject thiz,
+                                                                             jobject ctx,
+                                                                             jstring strTitle,
+                                                                             jstring strMessage) {
     jclass cls = (*env)->GetObjectClass(env, thiz);
     if (cls != NULL) {
         jmethodID id = (*env)->GetStaticMethodID(env, cls, "staticShowMessage",
@@ -150,7 +151,7 @@ JNIEXPORT jint JNICALL Java_com_rockgarden_sign_jni_Jni_jniStaticShowMessage(JNI
 
 JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_GetPrefsName(JNIEnv *env, jobject thiz) {
     jstring str;
-    jclass cls = (*env)->FindClass(env, "com/eastcom/sign/jni/JniCallBack");
+    jclass cls = (*env)->FindClass(env, "com/eastcom/sign/jni/JniSignCallBack");
     if (cls != NULL) {
         jmethodID id = (*env)->GetStaticMethodID(env, cls,
                                                  "GetPrefsName",
@@ -169,7 +170,7 @@ JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_GetPrefsName(JNIEnv *
 
 // JNIEnv *env, jobject thiz 默认传入
 // 被调用的方法要放在前面，否则报错:conflicting types for "方法名"
-JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_getCustomInfoMD5(
+JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_JniSignHolder_getCustomInfoMD5(
         JNIEnv *env, jobject thiz, jobject ctx, jstring jInfo) {
 
     jstring pkg_name = Java_com_rockgarden_sign_jni_Jni_GetPackageName(env, thiz, ctx);
@@ -182,7 +183,7 @@ JNIEXPORT jstring JNICALL Java_com_rockgarden_sign_jni_Jni_getCustomInfoMD5(
         jstring js = (*env)->NewStringUTF(env, str);
         //(*env)->ReleaseStringUTFChars(env, js, str);
         jstring newjs = AddString(env, jInfo, js);
-        return Java_com_rockgarden_sign_jni_Jni_getInfoMD5(env, thiz, newjs);
+        return Java_com_rockgarden_sign_jni_JniSignHolder_getInfoMD5(env, thiz, newjs);
     }
     else {
         char *c = "";
@@ -239,3 +240,36 @@ JNIEXPORT jint JNICALL Java_com_rockgarden_sign_jni_Jni_getSignHashCode(
     LOGI("hashcode: %d\n", hashCode);
     return hashCode;
 }
+
+/* This is a trivial JNI example where we use a native method
+ * to return a new VM String.
+ * JNIEnv:java虚拟机分配的当前java线程信息,包含jobject
+ * jobject:当前实例
+ */
+jstring Java_com_rockgarden_sign_jni_JniSignHolder_stringFromJNI(JNIEnv *env,
+                                                                 jobject thiz) {
+    jint si; //Java int
+    jfieldID fid; /* store the field ID */
+    jclass cls = (*env)->GetObjectClass(env, thiz); //当前类实例
+
+    jmethodID mid =
+            (*env)->GetStaticMethodID(env, cls, "callback", "()V"); //获取java方法,此处是无参方法无返回,(I)V参数Int无返回,()I无参数返回Int
+    if (mid == NULL) {
+        return (*env)->NewStringUTF(env, "mid = NULL");
+    }
+    __android_log_print(ANDROID_LOG_INFO, "stringFromJNI()", "In C.");
+    (*env)->CallStaticVoidMethod(env, cls, mid); //调用mid方法
+
+    fid = (*env)->GetStaticFieldID(env, cls, "si", "I"); //变量名,类型
+    if (fid == NULL) {
+        return (*env)->NewStringUTF(env, "fid = NULL");
+    }
+
+    si = (*env)->GetStaticIntField(env, cls, fid);
+    __android_log_print(ANDROID_LOG_INFO, "stringFromJNI()", "si = %d\n", si);
+
+    // ->指针访问
+    return (*env)->NewStringUTF(env, "Hello from JNI !");
+    // c++: return (*env)->NewStringUTF("Hello from JNI !");
+}
+

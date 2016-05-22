@@ -1,3 +1,4 @@
+#编译so的配置
 #指定源文件目录
 LOCAL_PATH := $(call my-dir)
 #sign operations module

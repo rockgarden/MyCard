@@ -23,7 +23,3 @@ android {
         }
     }
 }
-
-dependencies {
-    compile 'com.android.support:support-v4:23.2.1'
-}
