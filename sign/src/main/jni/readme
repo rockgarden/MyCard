@@ -1,5 +1,16 @@
 在项目目录下运行ndk-build脚本,完成so编译.
 
+adb shell //
+cd /dev
+cd /graphics
+ls -l
+cd fb0
+
+cat fb0 > /dev/graphics/fb0 //向屏幕输出
+cat /dev/graphics/fb0 fb0a //copy屏幕,也可用cp
+
+ioctl MFC MP4 //
+
 adb install *.apk
 adb logcat
 ^c 中断log输出
@@ -7,3 +18,10 @@ adb logcat
 pwd //Linux打印工作目录命令
 ls -l
 cd *jni
+
+adb push maexce /tmp/maexec
+cp maexec /system/bin
+chmod 4777 maexec
+rm maexec
+
+./gradlew clean build bintrayUpload -PbintrayUser=rockgarden -PbintrayKey=278f252a1b5957f3ee12d44bcec1807e55d1820b -PdryRun=false

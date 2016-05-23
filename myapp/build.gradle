@@ -46,6 +46,12 @@ android {
         2.flavors的选项，里面的 signing config 选择你刚新加的 config
         3.build types的选项，里面的 debug 或 release， 都将 Signing Config 选择 true
         */
+        release {
+            keyAlias 'my app key'
+            keyPassword 'freestar'
+            storeFile file('/Users/wangkan/Documents/MyCard/myapp.jks')
+            storePassword 'freestar'
+        }
     }
 
     // 定义不同的打包方法
@@ -55,6 +61,7 @@ android {
             minifyEnabled true //代码混淆开关
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //proguard-rules.pro
+            signingConfig signingConfigs.release
         }
         dev {
             applicationIdSuffix ".dev" //通过设置此参数可生成不同的applicationId从而根据不同的需求构建不同版本的APK
@@ -84,6 +91,12 @@ android {
             manifestPlaceholders = [str: "devStr", package_name: "com.rockgarden.myapp.dev"]
             resValue("string", "strKey", "devStrValue")
         }
+        xiaomi{}
+        baidu{}
+    }
+
+    productFlavors.all{
+        flavor->flavor.manifestPlaceholders=[UMENG_CHANNEL_VELUE:name]
     }
 
     // 忽略错误检查

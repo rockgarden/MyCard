@@ -251,4 +251,6 @@
         </activity>
     </application>
 
+    <!-- UMeng 渠道配置-->
+    <meta-data android:value="${UMENG_CHANNEL_VELUE}" android:name ="UMENT_CHENNEL"/>
 </manifest>

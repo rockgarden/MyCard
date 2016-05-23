@@ -1,8 +1,22 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'rockgarden'
+    groupId = 'com.rockgarden'
+    artifactId = 'sign-lib'
+    publishVersion = '0.0.1'
+    desc = 'native sign?'
+    website = 'https://github.com/rockgarden/sign-lib'
+}
 
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
+
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         minSdkVersion 14

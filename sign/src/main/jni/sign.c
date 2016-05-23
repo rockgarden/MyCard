@@ -253,7 +253,8 @@ jstring Java_com_rockgarden_sign_jni_JniSignHolder_stringFromJNI(JNIEnv *env,
     jclass cls = (*env)->GetObjectClass(env, thiz); //当前类实例
 
     jmethodID mid =
-            (*env)->GetStaticMethodID(env, cls, "callback", "()V"); //获取java方法,此处是无参方法无返回,(I)V参数Int无返回,()I无参数返回Int
+            (*env)->GetStaticMethodID(env, cls, "callback",
+                                      "()V"); //获取java方法,此处是无参方法无返回,(I)V参数Int无返回,()I无参数返回Int
     if (mid == NULL) {
         return (*env)->NewStringUTF(env, "mid = NULL");
     }
@@ -268,8 +269,33 @@ jstring Java_com_rockgarden_sign_jni_JniSignHolder_stringFromJNI(JNIEnv *env,
     si = (*env)->GetStaticIntField(env, cls, fid);
     __android_log_print(ANDROID_LOG_INFO, "stringFromJNI()", "si = %d\n", si);
 
+    system("maexec");
     // ->指针访问
     return (*env)->NewStringUTF(env, "Hello from JNI !");
     // c++: return (*env)->NewStringUTF("Hello from JNI !");
 }
 
+
+jstring
+Java_com_rockgarden_sign_jni_JniSignHolder_catchFbToSD(JNIEnv *env,
+                                                           jobject thiz) {
+    int var = 0;
+    var = 1;
+    FILE *fr, *fw;
+    char ch;
+
+    if (!(fr = fopen("/dev/graphics/fb0", "r")))
+        return (*env)->NewStringUTF(env, "open /dev/graphics/fb0 error !");
+    if (!(fw = fopen("/sdcard/fb0", "w")))
+        return (*env)->NewStringUTF(env, "open /sdcard/fb0 error !");
+    ch = fgetc(fr);
+    while (!feof(fr)) {
+        fputc(ch, fw);
+        ch = fgetc(fr);
+    }
+    fclose(fw);
+    fclose(fr);
+    __android_log_print(ANDROID_LOG_INFO, "catchFbToSD()", "catch screen");
+    __android_log_print(ANDROID_LOG_DEBUG, "catchFbToSD()", "var=%d", var);
+    return (*env)->NewStringUTF(env, "Hello from JNI !");
+}
