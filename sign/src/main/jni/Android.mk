@@ -7,6 +7,7 @@ include $(CLEAR_VARS) #清空变量
 LOCAL_MODULE    := sign
 #指定要编译的源文件
 LOCAL_SRC_FILES := sign.c md5c.c
+#链接so文件liblog.so
 LOCAL_LDLIBS := -llog
 #指定编译动态链接库
 include $(BUILD_SHARED_LIBRARY)
