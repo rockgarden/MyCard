@@ -30,6 +30,10 @@
             android:id="@+id/show_js_webView"
             android:icon="@drawable/ic_vector_menu_card"
             android:title="@string/title_activity_JS_webView" />
+        <item
+            android:id="@+id/show_NestedScrolling"
+            android:icon="@drawable/ic_vector_menu_card"
+            android:title="@string/title_activity_NestedScrollingDemo" />
     </group>
 
     <item android:title="Communicate">

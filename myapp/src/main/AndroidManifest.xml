@@ -249,6 +249,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".demo.NestedScrollingDemo" />
     </application>
 
     <!-- UMeng 渠道配置-->

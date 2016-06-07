@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--滑动效果，必须做到如下三点:
+1. CoordinatorLayout作为布局的父布局容器.
+2. 被滑动的组件设置 app:layout_scrollFlags=”scroll|enterAlways” 属性.
+3. 实现滑动的组件(容器布局)设置app:layout_behavior属性-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,15 +12,30 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.ViewPagerActivity">
 
-    <!--容器布局AppBarLayout使CollapsingToolbarLayout响应滚动事件-->
+    <!--滑动组件-容器布局-AppBarLayout
+    不用设置app:layout_behavior属性,因为AppBarLayout有默认的behavior(基于HeaderBehavior)
+    使内部的View如CollapsingToolbarLayout响应滚动事件!!!-->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--app:layout_behavior="@string/NoScrollingBehavior"-->
+        <!--若重设app:layout_behavior如="@string/NoScrollingBehavior"将不响应CoordinatorLayout传入的Nested scrolling事件-->
 
+        <!--被滑动的组件设置app:layout_scrollFlags=”scroll|enterAlways” 属性-->
+        <!--CollapsingToolbarLayout 提供以下属性和方法
+        1. Collapsing title：ToolBar的标题，当CollapsingToolbarLayout全屏没有折叠时,title显示的是大字体,在折叠的过程中,title不断变小到一定大小的效果.
+                setTitle(CharSequence)方法设置title.
+        2. Content scrim：ToolBar被折叠到顶部固定时候的背景,你可以调用setContentScrim(Drawable)方法改变背景或者在属性中使用
+                app:contentScrim=”?attr/colorPrimary”来改变背景.
+        3. Status bar scrim：状态栏的背景,调用方法setStatusBarScrim(Drawable).
+        4. Parallax scrolling children：CollapsingToolbarLayout滑动时,子视图的视觉差
+                app:layout_collapseParallaxMultiplier=”0.6”改变,值de的范围[0.0,1.0],值越大效果越大。
+        5. CollapseMode：子视图的折叠模式,在子视图设置,有两种pin-固定模式,在折叠的时候最后固定在顶端; parallax-视差模式,在折叠的时候会有个视差折叠的效果
+                app:layout_collapseMode=?
+        6. layout_anchor 的属性,连同 layout_anchorGravity 一起,可以用来放置与其他视图关联在一起的悬浮视图, 可在FloatingActionButton上实现
+        -->
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapse_toolbar_layout"
             android:layout_width="match_parent"
@@ -27,8 +47,13 @@
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@style/WhiteTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <!--view只要设置了app:layout_scrollFlags属性,就可以在RecyclerView滚动事件发生的时候被触发
-            exitUntilCollapsed:这个flag时定义何时退出,当你定义了一个minHeight,这个view将在滚动到达这个最小高度的时候消失-->
+
+            <!--属性说明 app:layout_scrollFlags 就可以在NestedScrollingParent滚动事件发生的时候被触发(即父布局支持layout_behavior属性)
+            scroll: 所有想滚动出屏幕的view都需要设置这个flag,没有设置这个flag的view将被固定在屏幕顶部,例如:下面的TabLayout没有设置这个值,将会停留在屏幕顶部.
+            enterAlways: 任何向下的滚动都会导致该view变为可见,启用快速“返回模式”.
+            enterAlwaysCollapsed: 当你的视图已经设置minHeight属性,又使用此标志时,你的视图只能已最小高度进入,只有当滚动视图到达顶部时才扩大到完整高度.
+            exitUntilCollapsed: 滚动退出屏幕,最后折叠在顶端,效果:Toolbar停留在顶部-->
+
             <!--默认 app:collapsedTitleGravity="left"-->
             <!--默认 app:expandedTitleGravity="bottom|left"-->
 
@@ -40,7 +65,6 @@
                 android:src="@mipmap/ic_launcher"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
-            <!--layout_collapseMode=parallax实现视差滚动效果-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -84,7 +108,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
-            <!--默认 app:layout_scrollFlags="scroll|enterAlways"-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -96,11 +119,11 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabGravity="fill"
-            app:tabIndicatorHeight="4dp"
-            app:tabTextColor="@color/green_dark"
-            app:tabSelectedTextColor="@color/green_bright"
             app:tabIndicatorColor="@color/green_bright"
-            app:tabMode="fixed" />
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/green_bright"
+            app:tabTextColor="@color/green_dark" />
         <!--app:theme="@style/AppTabLayout"-->
 
     </android.support.design.widget.AppBarLayout>
@@ -109,8 +132,8 @@
     support library包含的特殊字符串资源appbar_scrolling_view_behavior
     它和AppBarLayout.ScrollingViewBehavior相匹配
     用来通知AppBarLayout何时发生了滚动事件
-    这个behavior需要设置在可触发嵌套滚动nested scrolling事件的view之上
-    如NestedScrollView/RecyclerView上-->
+    这个behavior需要设置在可触发嵌套滚动Nested scrolling事件的view之上
+    如NestedScrollView/RecyclerView/ViewPager上-->
     <android.support.v4.view.ViewPager
         android:id="@+id/record_viewpager"
         android:layout_width="match_parent"
@@ -128,5 +151,7 @@
         app:fabSize="mini"
         app:layout_behavior="@string/ScrollAwareFABBehavior"
         app:layout_scrollFlags="scroll|enterAlways" />
+    <!--app:layout_anchor="@id/app_bar"-->
+    <!--app:layout_anchorGravity="bottom|right|end"-->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -16,7 +16,9 @@ import android.widget.RelativeLayout;
 import com.rockgarden.myapp.R;
 import com.litesuits.android.Log;
 
-
+/**
+ * 重写FloatingActionButton.Behavior
+ */
 public class ScrollingFABBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
 
     private int toolbarHeight;
@@ -66,8 +68,6 @@ public class ScrollingFABBehavior extends CoordinatorLayout.Behavior<FloatingAct
             Log.i("FAB: result          =" + String.valueOf(-distanceToScroll * ratio));
             Log.i("FAB: up?             =" + String.valueOf((-distanceToScroll * ratio) > 0));
             Log.i("FAB: ---     " );
-
-
             fab.setTranslationY(-distanceToScroll * ratio);
         }
         return true;
@@ -104,7 +104,6 @@ public class ScrollingFABBehavior extends CoordinatorLayout.Behavior<FloatingAct
                 .getTheme().obtainStyledAttributes(new int[]{R.attr.actionBarSize});
         int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
         styledAttributes.recycle();
-
         return toolbarHeight;
     }
 

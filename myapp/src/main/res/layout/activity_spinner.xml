@@ -7,43 +7,49 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.SpinnerActivity">
 
-    <RelativeLayout
+    <!--CoordinatorLayout作为“super-powered FrameLayout”
+    使用新的思路通过协调调度子布局的形式实现触摸影响布局的形式产生动画效果.
+    CoordinatorLayout通过设置子View的Behaviors来调度子View.
+    系统（Support V7）提供了AppBarLayout.Behavior, AppBarLayout.ScrollingViewBehavior,
+     FloatingActionButton.Behavior, SwipeDismissBehavior<V extends View>等.-->
+
+    <!--AppBarLayout若要获得CoordinatorLayout的Nested scrolling事件则不能嵌在别的不支持NestedScrolling的布局内;
+    NestedScrollingParent不能向下透传, 而NestedScrollingChild则可向上透传???-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/appbar_padding_top"
-            app:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            app:elevation="@dimen/default_elevation"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:theme="?toolBarStyle">
+            <!--android:titleTextColor="@color/white"-->
+            <!--android:background="@color/green_light"-->
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:theme="?toolBarStyle"
-                app:elevation="@dimen/default_elevation"
-                app:layout_scrollFlags="scroll|enterAlways">
-                <!--android:titleTextColor="@color/white"-->
-                <!--android:background="@color/green_light"-->
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/appbar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </RelativeLayout>
     <!--NestedScrollView不要多层(>3)嵌套,会引起recyclerView滑动缓慢与不显示的异常!!!-->
     <!--CoordinatorLayout+NestedScrollView+SwipeRefreshLayout+recyclerView等于三层嵌套!!!-->
     <!--behavior一般由容器父窗口定义,另有bottom_sheet_behavior模式-->
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

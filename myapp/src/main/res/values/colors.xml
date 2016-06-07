@@ -68,4 +68,8 @@
 
     <color name="backgroundColor">@color/background_material_dark</color>
     <color name="backgroundColorPress">@color/accent_material_dark</color>
+
+    <color name="primary">#785447</color>
+    <color name="primaryDark">#5B3F36</color>
+
 </resources>
