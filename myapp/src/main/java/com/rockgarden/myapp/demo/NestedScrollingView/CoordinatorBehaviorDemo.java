@@ -30,7 +30,7 @@ public class CoordinatorBehaviorDemo extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_CoordinatorBehavior);
+        setContentView(R.layout.activity_coordinator_behavior);
 
         bindActivity();
 

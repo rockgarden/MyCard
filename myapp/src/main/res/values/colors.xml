@@ -69,7 +69,7 @@
     <color name="backgroundColor">@color/background_material_dark</color>
     <color name="backgroundColorPress">@color/accent_material_dark</color>
 
-    <color name="primary">#785447</color>
-    <color name="primaryDark">#5B3F36</color>
+    <color name="transparent_grey">#AA666666</color>
+    <color name="action_bar">#3ca7b5</color>
 
 </resources>

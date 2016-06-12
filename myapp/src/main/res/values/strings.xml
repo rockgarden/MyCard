@@ -13,6 +13,12 @@
     <string name="title_activity_tab">Tab Demo</string>
     <string name="title_activity_setting">Setting Demo</string>
     <string name="title_activity_spinner">Spinner Demo</string>
+    <string name="title_activity_baidu">Baidu Map Demo</string>
+    <string name="title_activity_webView">WebVeiw Demo</string>
+    <string name="title_activity_JS_webView">WebVeiw JS Demo</string>
+    <string name="title_activity_NestedScrollingDemo">NestedScrolling Demo</string>
+    <string name="title_activity_BlurDialogDemo">BlurDialog Demo</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -35,10 +41,7 @@
     <string name="action_share">share</string>
     <string name="title_activity_action_bar_tabs">ActionBarTabsActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_baidu">Baidu Map Demo</string>
-    <string name="title_activity_webView">WebVeiw Demo</string>
-    <string name="title_activity_JS_webView">WebVeiw JS Demo</string>
-    <string name="title_activity_NestedScrollingDemo">NestedScrolling Demo</string>
+
 
     <!--Theme Switcher-->
     <string name="settings_text_select_theme">Select Theme:</string>
@@ -68,4 +71,16 @@ Maecenas mattis, erat et viverra euismod, neque diam porttitor tellus, in fringi
 
 Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent vitae blandit sapien. Curabitur est sapien, lobortis sit amet facilisis vel, faucibus eu quam. Nam tempus libero at tellus tempor laoreet. Pellentesque quam lorem, tincidunt in molestie eget, dictum vel risus. Nunc gravida convallis mattis.
     </string>
+
+    <string name="actions_fullscreen">Full Screen</string>
+    <string name="blur_button">Blur Dialog</string>
+    <string name="blur_title">Blur Sample</string>
+    <string name="dialog_fragment_title">Blur Dialog Fragment\n\nhttps://github.com/tvbarthel/BlurDialogFragment</string>
+    <string name="activity_sample_blur_radius">Blur radius : </string>
+    <string name="activity_sample_down_scale_factor">Down Scale Factor : </string>
+    <string name="activity_sample_blur_debug">Debug enable</string>
+    <string name="activity_sample_blur_dimming">Dimming enable</string>
+    <string name="activity_sample_actionbar_blurred">Apply blur effect on action bar</string>
+    <string name="activity_sample_blur_userendercript">Use RenderScript if possible</string>
+
 </resources>

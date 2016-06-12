@@ -1,4 +1,4 @@
-package com.rockgarden.myapp.behavior;
+package com.rockgarden.myapp.behavior.MyGoogleBehvior;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

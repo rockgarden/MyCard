@@ -64,7 +64,7 @@ public class GifView extends View {
      * @see #GifView(Context, AttributeSet, int)
      */
     public GifView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.styleable.CustomTheme_gifViewStyle);
+        this(context, attrs, R.styleable.GifView_gifViewStyle);
     }
 
     /**

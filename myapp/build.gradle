@@ -30,6 +30,7 @@ android {
         release.setRoot('build-types/release')
     }
 
+
     defaultConfig {
         applicationId "com.rockgarden.myapp"
         minSdkVersion 14
@@ -37,12 +38,17 @@ android {
         versionCode 1
         versionName "1.2"
         signingConfig signingConfigs.debug
+
+        // 所有Module的renderscript参数,且必须一致,不然引起java.lang.VerifyError
+        renderscriptTargetApi 22
+        renderscriptSupportModeEnabled true
     }
+
 
     signingConfigs {
         // your debug keystore
         debug {
-            storeFile file('/Users/rockgarden/Documents/workProject/myapp.jks')
+            storeFile file('/Users/wangkan/Documents/MyCard/myapp.jks')
             keyAlias 'my app key'
             keyPassword 'freestar'
             storePassword 'freestar'
@@ -60,6 +66,7 @@ android {
             storePassword 'freestar'
         }
     }
+
 
     // 定义不同的打包方法
     buildTypes {
@@ -82,6 +89,7 @@ android {
         }
     }
 
+
     // 这里是为了不同过的版本设置一些特殊的参数，并不直接和buildType关联。
     // 例如：使用 buildType 中的 dev 版本，也可以使用 flavors_release 里面设置的自定义参数。这需要自己按照需求制定。
     productFlavors {
@@ -102,15 +110,18 @@ android {
         baidu{}
     }
 
+
     productFlavors.all{
         flavor->flavor.manifestPlaceholders=[UMENG_CHANNEL_VELUE:name]
     }
+
 
     // 忽略错误检查
     lintOptions {
         checkReleaseBuilds false
         abortOnError true
     }
+
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -123,12 +134,14 @@ android {
         exclude 'META-INF/ASL2.0'
     }
 
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
 }
+
 
 ext {
     supportLibVersion = '23.2.1' //variable that can be referenced to keep support libs consistent

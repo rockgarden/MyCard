@@ -1,4 +1,4 @@
-package com.rockgarden.myapp.behavior;
+package com.rockgarden.myapp.behavior.MyGoogleBehvior;
 
 import android.os.Build;
 import android.support.v4.view.ViewCompat;

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- =============================================================== -->
+    <!-- RippleView styleable -->
+    <!-- =============================================================== -->
     <declare-styleable name="RippleView">
         <attr name="rv_alpha" format="integer" />
         <attr name="rv_framerate" format="integer" />
@@ -19,19 +22,21 @@
     </declare-styleable>
 
 
+    <!-- =============================================================== -->
+    <!-- GifView styleable -->
+    <!-- =============================================================== -->
     <declare-styleable name="GifView">
         <attr name="src" format="reference" />
         <!--<attr name="gif" format="reference" />-->
         <attr name="auto_play" format="boolean"></attr>
         <attr name="paused" format="boolean" />
-    </declare-styleable>
-
-
-    <declare-styleable name="CustomTheme">
         <attr name="gifViewStyle" format="reference" />
     </declare-styleable>
 
 
+    <!-- =============================================================== -->
+    <!-- UIButton styleable -->
+    <!-- =============================================================== -->
     <!--app:ripple_color="#ffffff"-->
     <!--app:color_unpressed="#8aacee"-->
     <!--app:ripple_duration="500"-->
@@ -51,6 +56,9 @@
     </declare-styleable>
 
 
+    <!-- =============================================================== -->
+    <!-- LabelView styleable -->
+    <!-- =============================================================== -->
     <!--android:autoLink="web"-->
     <!--app:leftText="LeftText -&gt; "-->
     <!--app:topText="Top: http://drakeet.me"-->

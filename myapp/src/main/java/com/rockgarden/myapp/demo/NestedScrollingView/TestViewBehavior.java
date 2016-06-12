@@ -28,6 +28,28 @@ public class TestViewBehavior extends CoordinatorLayout.Behavior<TestView> {
         super(context, attrs);
     }
 
+    /**
+     * Determine whether the supplied child view has another specific sibling view as a
+     * layout dependency.
+     *
+     * <p>This method will be called at least once in response to a layout request. If it
+     * returns true for a given child and dependency view pair, the parent CoordinatorLayout
+     * will:</p>
+     * <ol>
+     *     <li>Always lay out this child after the dependent child is laid out, regardless
+     *     of child order.</li>
+     *     <li>Call {@link #onDependentViewChanged} when the dependency view's layout or
+     *     position changes.</li>
+     * </ol>
+     *
+     * @param parent the parent view of the given child
+     * @param child the child view to test
+     * @param dependency the proposed dependency of child
+     * @return true if child's layout depends on the proposed dependency's layout,
+     *         false otherwise
+     *
+     * @see #onDependentViewChanged(CoordinatorLayout, android.view.View, android.view.View)
+     */
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, TestView child, View dependency) {
         return dependency instanceof NestedScrollView;

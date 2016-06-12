@@ -1,4 +1,4 @@
-package com.rockgarden.myapp.behavior;
+package com.rockgarden.myapp.behavior.MyGoogleBehvior;
 
 /**
  * Created by rockgarden on 16/6/7.

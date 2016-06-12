@@ -1,11 +1,19 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
 
+    <!-- =============================================================== -->
+    <!-- Cold Start style -->
+    <!-- =============================================================== -->
     <!-- 通过添加与主界面相似(第一个Activity)的图片来优化冷启动的效果.
-    并且在相应的Activity中的super.onCreate()前加入setTheme()方法.-->
+         并且在相应的Activity中的super.onCreate()前加入setTheme()方法.-->
     <style name="AppTheme.OptimizationColdStart">
         <item name="android:windowBackground">@drawable/heart</item>
     </style>
 
+
+    <!-- =============================================================== -->
+    <!-- Base application theme -->
+    <!-- =============================================================== -->
     <!-- Base application theme.
     说明:必须使用NoActionBar,因为将用Toolbar代替ActionBar
     Base application theme, dependent on API level. This theme is replaced
@@ -24,14 +32,16 @@
         <item name="colorPrimary">@color/colorPrimaryText</item>
     </style>
 
-    <style name="AppTheme" parent="AppBaseTheme">
-    </style>
+    <style name="AppTheme" parent="AppBaseTheme"></style>
 
     <style name="switch_text_appearance" parent="@android:style/TextAppearance.Holo.Small">
         <item name="android:textColor">#FFF</item>
     </style>
 
 
+    <!-- =============================================================== -->
+    <!-- Customize view Styles -->
+    <!-- =============================================================== -->
     <!--用于loading,launch等全屏显示的Activity-->
     <style name="FullscreenTheme" parent="AppTheme">
         <!--已经是NoActionBar所以
@@ -46,8 +56,17 @@
     </style>
 
     <!--<style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">-->
-        <!--<item name="android:background">@color/black_overlay</item>-->
+    <!--<item name="android:background">@color/black_overlay</item>-->
     <!--</style>-->
+
+    <style name="ActionBarScreen" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/action_bar</item>
+    </style>
+
+    <style name="FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
     <!--FIXME:定义toolbar样式定义无效,因为Toolbar当ActionBar用?!-->
     <style name="App.Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -124,10 +143,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- =============================================================== -->
-    <!-- Material-Light styles -->
-    <!-- =============================================================== -->
 
+    <!-- =============================================================== -->
+    <!-- Light styles -->
+    <!-- =============================================================== -->
     <style name="page_background_wh">
         <item name="android:background">@drawable/white_gray_gradient_background</item>
         <item name="android:paddingLeft">@dimen/activity_horizontal_padding</item>
@@ -184,10 +203,14 @@
         <item name="background">@color/actionbar_bg_wh</item>
     </style>
 
+
     <!-- =============================================================== -->
     <!-- Customize YOUR_CUSTOM_THEME Styles -->
     <!-- Define your own styles below. -->
     <!-- =============================================================== -->
-
+    <style name="toolBarStyle_wk">
+        <item name="titleTextAppearance">@style/Title.Black</item>
+        <item name="android:background">@color/green_bright</item>
+    </style>
 
 </resources>

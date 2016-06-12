@@ -1,14 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--在21上默认起作用的style!!!-->
+<?xml version="1.0" encoding="utf-8"?><!--在21上默认起作用的style!!!-->
 
 <resources>
 
+    <!-- =============================================================== -->
+    <!-- Cold Start style -->
+    <!-- =============================================================== -->
     <!-- 通过添加与主界面相似(第一个Activity)的图片来优化冷启动的效果.
          并且在相应的Activity中的super.onCreate()前加入setTheme()方法.-->
     <style name="AppTheme.OptimizationColdStart">
         <item name="android:windowBackground">@drawable/heart</item>
     </style>
 
+
+    <!-- =============================================================== -->
+    <!-- Base application theme -->
+    <!-- =============================================================== -->
     <!-- Base application theme.
     说明:必须使用NoActionBar,因为将用Toolbar代替ActionBar
     Base application theme, dependent on API level. This theme is replaced
@@ -36,7 +42,6 @@
 
     <!-- =============================================================== -->
     <!-- Customize view Styles -->
-    <!--  -->
     <!-- =============================================================== -->
 
     <!--用于loading,launch等全屏显示的Activity-->
@@ -56,6 +61,15 @@
     <!--<item name="android:background">@color/black_overlay</item>-->
     <!--</style>-->
 
+    <style name="ActionBarScreen" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/action_bar</item>
+    </style>
+
+    <style name="FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="switch_text_appearance" parent="@android:style/TextAppearance.Holo.Small">
         <item name="android:textColor">#FFF</item>
     </style>
@@ -71,9 +85,11 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Title.White">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="Title.Black">
         <item name="android:textColor">@android:color/black</item>
     </style>
@@ -147,10 +163,11 @@
     <style name="LargeBlueFont" parent="@style/LargeFont">
         <item name="android:textColor">#00007f</item>
     </style>
-    <!-- =============================================================== -->
-    <!-- Material-Light styles -->
-    <!-- =============================================================== -->
 
+
+    <!-- =============================================================== -->
+    <!-- Light styles -->
+    <!-- =============================================================== -->
     <style name="page_background_wh">
         <item name="android:background">@drawable/white_gray_gradient_background</item>
         <item name="android:paddingLeft">@dimen/activity_horizontal_padding</item>
@@ -209,6 +226,7 @@
 
     <!--系统的Theme太难控制-->
     <style name="App.Toolbar" parent="Widget.AppCompat.Toolbar"></style>
+
     <style name="toolBarStyle_wh">
         <item name="titleTextAppearance">@style/Title.White</item>
         <item name="android:background">@color/green_normal</item>
@@ -227,11 +245,11 @@
         <!--<item name="android:colorForeground">@color/green_dark</item>-->
     </style>
 
+
     <!-- =============================================================== -->
     <!-- Customize YOUR_CUSTOM_THEME Styles -->
     <!-- Define your own styles below. -->
     <!-- =============================================================== -->
-
     <style name="toolBarStyle_wk">
         <item name="titleTextAppearance">@style/Title.Black</item>
         <item name="android:background">@color/green_bright</item>

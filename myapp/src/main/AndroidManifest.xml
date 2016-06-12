@@ -240,18 +240,20 @@
             android:name="JPUSH_APPKEY"
             android:value="b860e1b636bfc8901b9ed504" /> <!-- </>值来自开发者平台取得的AppKey -->
 
+
         <activity android:name=".demo.WebViewDemo" />
         <activity android:name=".demo.JSWebViewDemo" />
         <activity android:name=".demo.JniDemo">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".demo.NestedScrollingDemo" />
+        <activity android:name=".demo.SampleActionBarActivity"
+            android:theme="@style/ActionBarScreen"/>
+        <activity android:name=".demo.SampleFullScreenActivity" />
+
     </application>
 
     <!-- UMeng 渠道配置-->
-    <meta-data android:value="${UMENG_CHANNEL_VELUE}" android:name ="UMENT_CHENNEL"/>
+    <meta-data
+        android:name="UMENT_CHENNEL"
+        android:value="${UMENG_CHANNEL_VELUE}" />
 </manifest>

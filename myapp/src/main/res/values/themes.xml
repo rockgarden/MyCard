@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <!-- Check the "res/values/attrs.xml" file for where these style names are first defined.  -->
     <style name="Theme.Light" parent="Theme.AppCompat.Light.NoActionBar">

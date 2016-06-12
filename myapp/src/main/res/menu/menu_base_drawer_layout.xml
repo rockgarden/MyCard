@@ -34,6 +34,10 @@
             android:id="@+id/show_NestedScrolling"
             android:icon="@drawable/ic_vector_menu_card"
             android:title="@string/title_activity_NestedScrollingDemo" />
+        <item
+            android:id="@+id/show_BlurDialog"
+            android:icon="@drawable/ic_vector_menu_card"
+            android:title="@string/title_activity_BlurDialogDemo" />
     </group>
 
     <item android:title="Communicate">
