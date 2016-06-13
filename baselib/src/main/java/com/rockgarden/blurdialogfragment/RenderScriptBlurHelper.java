@@ -1,4 +1,4 @@
-package com.rockgarden.blurdialogfragment;
+package com.rockgarden.BlurDialogFragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,13 +10,18 @@ import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 
 /**
+ * 可以不用 android.support.v8.renderscript
+ */
+//import android.renderscript.Allocation;
+//import android.renderscript.Element;
+//import android.renderscript.RenderScript;
+//import android.renderscript.ScriptIntrinsicBlur;
+
+
+/**
  * Simple helper used to blur a bitmap thanks to render script.
  */
 final class RenderScriptBlurHelper {
-
-    /**
-     * Log cat
-     */
     private static final String TAG = RenderScriptBlurHelper.class.getSimpleName();
 
     /**
@@ -28,6 +33,7 @@ final class RenderScriptBlurHelper {
 
     /**
      * blur a given bitmap
+     * Build.VERSION.SDK_INT > 16
      *
      * @param sentBitmap       bitmap to blur
      * @param radius           blur radius
@@ -54,7 +60,7 @@ final class RenderScriptBlurHelper {
         try {
             final RenderScript rs = RenderScript.create(context);
             final Allocation input = Allocation.createFromBitmap(rs, bitmap, Allocation.MipmapControl.MIPMAP_NONE,
-                Allocation.USAGE_SCRIPT);
+                    Allocation.USAGE_SCRIPT);
             final Allocation output = Allocation.createTyped(rs, input.getType());
             final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
             script.setRadius(radius);
@@ -64,9 +70,8 @@ final class RenderScriptBlurHelper {
             return bitmap;
         } catch (RSRuntimeException e) {
             Log.e(TAG, "RenderScript known error : https://code.google.com/p/android/issues/detail?id=71347 "
-                + "continue with the FastBlur approach.");
+                    + "continue with the FastBlur approach.");
         }
-
         return null;
     }
 

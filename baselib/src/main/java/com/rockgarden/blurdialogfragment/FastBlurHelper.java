@@ -1,7 +1,13 @@
-package com.rockgarden.blurdialogfragment;
+package com.rockgarden.BlurDialogFragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
+import android.util.Log;
 
 /**
  * Helper used to apply Fast blur algorithm on bitmap.
@@ -259,9 +265,45 @@ final class FastBlurHelper {
                 yi += w;
             }
         }
-
+        Log.e("pix", w + " " + h + " " + pix.length);
         bitmap.setPixels(pix, 0, w, 0, 0, w, h);
-
         return (bitmap);
+    }
+
+    /**
+     * blur a given bitmap by
+     * Build.VERSION.SDK_INT > 16
+     *
+     * @param context
+     * @param sentBitmap
+     * @param radius
+     * @return blurred bitmap
+     */
+    @SuppressLint("NewApi")
+    public static Bitmap fastblur(Context context, Bitmap sentBitmap, int radius, boolean canReuseInBitmap) {
+
+        if (radius < 1) {
+            return (null);
+        }
+
+        Bitmap bitmap;
+        if (canReuseInBitmap || (sentBitmap.getConfig() == Bitmap.Config.RGB_565)) {
+            // if RenderScript is used and bitmap is in RGB_565, it will
+            // necessarily be copied when converting to ARGB_8888
+            bitmap = sentBitmap;
+        } else {
+            bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+        }
+
+        final RenderScript rs = RenderScript.create(context);
+        final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        final Allocation output = Allocation.createTyped(rs, input.getType());
+        final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+        script.setRadius(radius /* e.g. 3.f */);
+        script.setInput(input);
+        script.forEach(output);
+        output.copyTo(bitmap);
+        return bitmap;
     }
 }

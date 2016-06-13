@@ -1,4 +1,4 @@
-package com.rockgarden.encrypt;
+package com.rockgarden.Encrypt;
 
 /**
  * Created by rockgarden on 16/5/24.

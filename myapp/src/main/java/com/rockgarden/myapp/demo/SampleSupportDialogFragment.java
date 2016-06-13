@@ -10,7 +10,7 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
 
-import com.rockgarden.blurdialogfragment.SupportBlurDialogFragment;
+import com.rockgarden.BlurDialogFragment.SupportBlurDialogFragment;
 import com.rockgarden.myapp.R;
 
 

@@ -1,4 +1,4 @@
-package com.rockgarden.blurdialogfragment;
+package com.rockgarden.BlurDialogFragment;
 
 import android.app.Activity;
 import android.app.Dialog;

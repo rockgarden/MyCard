@@ -1,4 +1,4 @@
-package com.rockgarden.encrypt;
+package com.rockgarden.Encrypt;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

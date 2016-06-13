@@ -1,4 +1,4 @@
-package com.rockgarden.blurdialogfragment;
+package com.rockgarden.BlurDialogFragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -410,7 +410,7 @@ public class BlurDialogEngine {
         canvas.drawBitmap(bkg, srcRect, destRect, paint);
 
         //apply fast blur on overlay
-        if (mUseRenderScript) {
+        if (mUseRenderScript && Build.VERSION.SDK_INT > 16) {
             overlay = RenderScriptBlurHelper.doBlur(overlay, mBlurRadius, true, mHoldingActivity);
         } else {
             overlay = FastBlurHelper.doBlur(overlay, mBlurRadius, true);

@@ -1,4 +1,4 @@
-package com.rockgarden.encrypt;
+package com.rockgarden.Encrypt;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

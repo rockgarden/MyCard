@@ -1,5 +1,7 @@
 package com.litesuits.common.utils;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -16,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 手机信息 & MAC地址 & 开机时间 & 屏幕信息
+ * 手机信息 & MAC地址 & 开机时间 & 屏幕信息 & 单位转换dp2px & 否是LOLLIPOP
  *
  * @author MaTianyu
  * @date 2014-09-25
@@ -32,6 +34,8 @@ public class AndroidUtil {
     /**
      * 获取 MAC 地址
      * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+     *
+     * @return String Mac Address
      */
     public static String getMacAddress(Context context) {
         //wifi mac地址
@@ -45,7 +49,9 @@ public class AndroidUtil {
     }
 
     /**
-     * 获取 开机时间
+     * 获取开机时间
+     *
+     * @return String Boot Time
      */
     public static String getBootTimeString() {
         long ut = SystemClock.elapsedRealtime() / 1000;
@@ -57,7 +63,102 @@ public class AndroidUtil {
         return h + ":" + m;
     }
 
-    public static String printSystemInfo() {
+    /**
+     * 单位转换dp to px
+     *
+     * @param dp
+     * @return
+     */
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    /**
+     * Get the screen height.
+     *
+     * @param context
+     * @return the screen height
+     */
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    public static int getScreenHeight(Activity context) {
+        Display display = context.getWindowManager().getDefaultDisplay();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            Point size = new Point();
+            display.getSize(size);
+            return size.y;
+        }
+        return display.getHeight();
+    }
+
+    /**
+     * 获取屏幕高度
+     *
+     * @param context
+     * @return the screen height
+     */
+    public static int getScreenHeight(Context context) {
+        if (screenHeight == 0) {
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenHeight = size.y;
+        }
+        return screenHeight;
+    }
+
+
+    /**
+     * Get the screen width.
+     *
+     * @param context
+     * @return the screen width
+     */
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    public static int getScreenWidth(Activity context) {
+        Display display = context.getWindowManager().getDefaultDisplay();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            Point size = new Point();
+            display.getSize(size);
+            return size.x;
+        }
+        return display.getWidth();
+    }
+
+    /**
+     * 获取屏幕宽度
+     *
+     * @param context
+     * @return the screen width
+     */
+    public static int getScreenWidth(Context context) {
+        if (screenWidth == 0) {
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenWidth = size.x;
+        }
+        return screenWidth;
+    }
+
+    /**
+     * 判断是否是LOLLIPOP 21以上的SDK
+     *
+     * @return boolean
+     */
+    public static boolean isAndroid5() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    /**
+     * 打印系统信息到String
+     *
+     * @return String 系统信息
+     */
+    public static String printSystemInfoToString() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = dateFormat.format(date);
@@ -103,53 +204,5 @@ public class AndroidUtil {
         }
         Log.i(TAG, sb.toString());
         return sb.toString();
-    }
-
-    /**
-     * 单位转换dp to px
-     * @param dp
-     * @return
-     */
-    public static int dpToPx(int dp) {
-        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
-    }
-
-    /**
-     * 获取屏幕高度
-     * @param c
-     * @return
-     */
-    public static int getScreenHeight(Context c) {
-        if (screenHeight == 0) {
-            WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            screenHeight = size.y;
-        }
-
-        return screenHeight;
-    }
-
-    /**
-     * 获取屏幕宽度
-     *
-     * @param c
-     * @return
-     */
-    public static int getScreenWidth(Context c) {
-        if (screenWidth == 0) {
-            WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            screenWidth = size.x;
-        }
-
-        return screenWidth;
-    }
-
-    public static boolean isAndroid5() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 }

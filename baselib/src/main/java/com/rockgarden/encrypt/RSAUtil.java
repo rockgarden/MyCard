@@ -1,4 +1,4 @@
-package com.rockgarden.encrypt;
+package com.rockgarden.Encrypt;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
