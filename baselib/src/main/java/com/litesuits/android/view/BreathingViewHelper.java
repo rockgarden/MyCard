@@ -31,8 +31,14 @@ import android.view.View;
 import java.util.Date;
 
 /**
+ * 给View增加呼吸效果
  * https://github.com/drakeet/BreathingViewHelper
- * BreathingViewHelper.setBreathingBackgroundColor(mTextView, Color.parseColor("#f36c60"));
+ * 用法:
+ * // start
+ * BreathingViewHelper.setBreathingBackgroundColor(findViewById(R.id.any_view),getResources().getColor(R.color.md_red_200));
+ * // stop
+ * BreathingViewHelper.stopBreathingBackgroundColor(findViewById(R.id.any_view));
+ *
  * Created by drakeet on 6/12/15.
  */
 public class BreathingViewHelper {

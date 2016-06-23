@@ -1,6 +1,7 @@
 package com.rockgarden.myapp.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,8 +10,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.litesuits.android.view.BreathingViewHelper;
 import com.rockgarden.myapp.MyApplication;
 import com.rockgarden.myapp.R;
 import com.rockgarden.myapp.fragment.AdvertFragment;
@@ -35,6 +38,8 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
     View mContentView;
     @BindView(R.id.fullscreen_content_controls)
     View mControlsView;
+    @BindView(R.id.skip_button)
+    Button mSkipButton;
 
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mShowHandler = new Handler();
@@ -94,6 +99,7 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         delayedShow(2000);
+        BreathingViewHelper.setBreathingBackgroundColor(mSkipButton, Color.parseColor("#77f36c60"));
     }
 
     /**
@@ -112,6 +118,7 @@ public class LoadingActivity extends BaseActivity implements AdvertFragment.OnFr
      */
     @OnClick(R.id.skip_button)
     public void skip() {
+        BreathingViewHelper.stopBreathingBackgroundColor(mSkipButton);
         if (MyApplication.getInstance().isShowGuide()) {
             showGuide();
         } else {

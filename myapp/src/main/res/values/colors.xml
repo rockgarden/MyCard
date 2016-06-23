@@ -12,7 +12,7 @@
     <color name="white">#ffffff</color>
     <color name="Transparent">#00000000</color>
 
-    <color name="primary_blue">#53777A</color>
+    <color name="blue_primary">#53777A</color>
     <color name="blue_light">#0099cc</color>
 
     <color name="green_normal">#4CAF50</color>
@@ -21,7 +21,8 @@
     <color name="green_bright">#5be5ad</color>
 
     <color name="red_bright">#EEfe0000</color>
-    <color name="red_light">#77fe0000</color>
+    <color name="red_dark">#77fe0000</color>
+    <color name="red_light">#77f36c60</color>
 
     <color name="style_color_primary">#2d5d82</color>
     <color name="style_color_primary_dark">#21425d</color>

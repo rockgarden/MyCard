@@ -1,40 +1,47 @@
 在项目目录下运行ndk-build脚本,完成so编译.
 
+
 adb shell //
 cd /dev
 cd /graphics
 ls -l
 cd fb0
 
+
 cat fb0 > /dev/graphics/fb0 //向屏幕输出
 cat /dev/graphics/fb0 fb0a //copy屏幕,也可用cp
 
+
 ioctl MFC MP4 //
+
 
 adb install *.apk
 adb logcat
 ^c 中断log输出
 
+
 pwd //Linux打印工作目录命令
 ls -l
 cd *jni
+
 
 adb push maexce /tmp/maexec
 cp maexec /system/bin
 chmod 4777 maexec
 rm maexec
 
+
+要获取Android设备的IP地址，必须先保证:
+1.你的Android设备已经连接到无线网络（此处的无线网络包括WiFi和WAPI，不包括3G或2G的移动网络）。
+2.已连接到你的Android设备，即adb devices可以发现设备
+先执行命令：adb shell netcfg
+再执行命令：adb shell ifconfig xxx
+
+
 ./gradlew clean build bintrayUpload -PbintrayUser=rockgarden -PbintrayKey=278f252a1b5957f3ee12d44bcec1807e55d1820b -PdryRun=false
-
 1、获得root权限：adb root
-
 2、设置/system为可读写：adb remount
-
 3、将hosts文件复制到PC：adb pull /system/etc/hosts <PC机上文件名>
-
 4、修改PC机上文件
-
 5、将PC机上文件复制到手机：adb push <PC机上文件名> /system/etc/hosts
-
 如果要查看是否修改成功，可以在PC上执行adb shell，运行cat /system/etc/hosts；或者在手机上运行cat /system/etc/hosts。
-v

@@ -80,4 +80,29 @@
         <attr name="android:gravity" />
     </declare-styleable>
 
+
+    <!-- =============================================================== -->
+    <!-- VerticalProgress -->
+    <!-- =============================================================== -->
+    <declare-styleable name="VerticalProgress">
+        <!--选中时圆的颜色，默认继承自colorPrimary-->
+        <attr name="psv_activeColor" format="color"/>
+        <!--未选中时圆的颜色/连接线的颜色，默认Color.LTGRAY-->
+        <attr name="psv_inactiveColor" format="color"/>
+        <!--圆的大小占控件最小边长的比例，0~1f，默认0.5f-->
+        <attr name="psv_circleRatio" format="dimension"/>
+        <!--连接线的宽度，默认1dp-->
+        <attr name="psv_lineWidth" format="dimension"/>
+        <!--选中文字的颜色-->
+        <attr name="psv_activeTextColor" format="color"/>
+        <!--未选中文字的颜色-->
+        <attr name="psv_inactiveTextColor" format="color"/>
+        <!--选中文字的尺寸-->
+        <attr name="psv_activeTextSize" format="dimension"/>
+        <!--未选中文字的尺寸-->
+        <attr name="psv_inactiveTextSize" format="dimension"/>
+        <!--文字与标签之间距离-->
+        <attr name="psc_betweenCircleText" format="dimension"/>
+    </declare-styleable>
+
 </resources>

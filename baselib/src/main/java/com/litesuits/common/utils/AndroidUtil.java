@@ -9,6 +9,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -25,11 +26,14 @@ import java.util.Date;
  * @modify Wang Kan
  * @date 2015-11-18
  */
-
-public class AndroidUtil {
+public final class AndroidUtil {
     private static final String TAG = AndroidUtil.class.getSimpleName();
     private static int screenWidth = 0;
     private static int screenHeight = 0;
+
+    private AndroidUtil() {
+        throw new AssertionError();
+    }
 
     /**
      * 获取 MAC 地址
@@ -74,6 +78,24 @@ public class AndroidUtil {
     }
 
     /**
+     * Converts from device independent pixels (dp or dip) to
+     * device dependent pixels. This method returns the input
+     * multiplied by the display's density. The result is not
+     * rounded nor clamped.
+     * <p/>
+     * The value returned by this method is well suited for
+     * drawing with the Canvas API but should not be used to
+     * set layout dimensions.
+     *
+     * @param dp        The value in dp to convert to pixels
+     * @param resources An instances of Resources
+     */
+    public static float dpToPixel(float dp, Resources resources) {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return metrics.density * dp;
+    }
+
+    /**
      * Get the screen height.
      *
      * @param context
@@ -107,7 +129,6 @@ public class AndroidUtil {
         }
         return screenHeight;
     }
-
 
     /**
      * Get the screen width.
@@ -205,4 +226,5 @@ public class AndroidUtil {
         Log.i(TAG, sb.toString());
         return sb.toString();
     }
+
 }
