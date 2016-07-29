@@ -7,10 +7,10 @@ repositories {
     }
 }
 
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
 
     sourceSets {
         //main {
@@ -30,7 +30,6 @@ android {
         release.setRoot('build-types/release')
     }
 
-
     defaultConfig {
         applicationId "com.rockgarden.myapp"
         minSdkVersion 14
@@ -43,7 +42,6 @@ android {
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
     }
-
 
     signingConfigs {
         // your debug keystore
@@ -67,34 +65,50 @@ android {
         }
     }
 
-
     // 定义不同的打包方法
     buildTypes {
         // 打包方式的命名，不要求大小写
         release {
-            minifyEnabled true //代码混淆开关
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            // 代码混淆-开
+            minifyEnabled true //
+            // 加载默认混淆配置文件 progudard-android.txt在sdk目录里面
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //proguard-rules.pro
+            // 加载自定义的混淆配置文件 proguard.cfg是我们自己配<span></span>的混淆文件
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            // proguard-rules.pro
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             signingConfig signingConfigs.release
         }
         dev {
             applicationIdSuffix ".dev" //通过设置此参数可生成不同的applicationId从而根据不同的需求构建不同版本的APK
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources false
             signingConfig signingConfigs.debug
         }
         debug {
+            versionNameSuffix ".debug"
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
             signingConfig signingConfigs.debug
         }
     }
 
-
     // 这里是为了不同过的版本设置一些特殊的参数，并不直接和buildType关联。
     // 例如：使用 buildType 中的 dev 版本，也可以使用 flavors_release 里面设置的自定义参数。这需要自己按照需求制定。
+    flavorDimensions "releaseType", "market"
     productFlavors {
         //自定义名字不过不能和上面buildType中相同，不然Gradle编译会不通过。在这里使用了『flavors_』前缀以便区分。
         flavors_release {
+            dimension "releaseType"
             // manifestPlaceholders中写到的『str』，『package_name』不支持用大写，否则Gradle编译会不通过。
             // 这里所设置的变量可以直接使用在『AndroidManifest.xml』中，使用方式为：${package_name}
             // android:label="${package_name}"
@@ -103,25 +117,41 @@ android {
             resValue("string", "strKey", "releaseStrValue")
         }
         flavors_dev {
+            dimension "releaseType"
             manifestPlaceholders = [str: "devStr", package_name: "com.rockgarden.myapp.dev"]
             resValue("string", "strKey", "devStrValue")
         }
-        xiaomi{}
-        baidu{}
+        //不同的 flavor 需要不同的applicationId／versionCode／versionName
+        xiaomi{
+            dimension "market"
+            applicationId "com.rockgarden.myapp.xiaomi"
+            versionName "1.0-xiaomi"
+        }
+        baidu{
+            dimension "market"
+        }
     }
-
 
     productFlavors.all{
         flavor->flavor.manifestPlaceholders=[UMENG_CHANNEL_VELUE:name]
     }
 
+    //???
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 
-    // 忽略错误检查
+    // 执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉 - 忽略错误检查
     lintOptions {
         checkReleaseBuilds false
         abortOnError true
     }
-
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -134,18 +164,17 @@ android {
         exclude 'META-INF/ASL2.0'
     }
 
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
-
 }
 
 
 ext {
     supportLibVersion = '23.2.1' //variable that can be referenced to keep support libs consistent
 }
+
 
 dependencies {
     testCompile 'junit:junit:4.12'

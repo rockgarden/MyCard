@@ -38,7 +38,7 @@ public class ThemeUtil {
      */
     public static void onCreateSetTheme(Context context) {
         switch (sTheme) {
-            default:
+            default: context.setTheme(R.style.Theme_Light);
             case THEME_LIGHT:
                 context.setTheme(R.style.Theme_Light);
                 break;
